@@ -1,0 +1,24 @@
+name: android_security_detector
+description: Android安全检测插件，用于检测Root、代理、VPN、USB调试、模拟位置等安全状态
+version: 1.0.0
+homepage: https://github.com/example/android_security_detector
+
+environment:
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.android_security_detector
+        pluginClass: AndroidSecurityDetectorPlugin
