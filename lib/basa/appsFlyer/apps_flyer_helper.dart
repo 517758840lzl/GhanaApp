@@ -68,7 +68,7 @@ class AppsFlyerHelper {
                 mediaSourceStr == "organic" ||
                 mediaSourceStr == "") {
               String mediaSourceRm = removeDiacritics(mediaSource);
-              prefs.setString('mediaSource', mediaSource);
+              prefs.setString('mediaSource', mediaSourceRm);
             }
           }
         } catch (e) {
