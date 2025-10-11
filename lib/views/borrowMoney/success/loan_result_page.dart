@@ -82,7 +82,7 @@ class _LoanResultPageState extends State<LoanResultPage>
                         borderRadius: BorderRadius.circular(25),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.white.withOpacity(0.1),
                             blurRadius: 10,
                             offset: const Offset(0, 2),
                           ),
@@ -150,7 +150,7 @@ class _LoanResultPageState extends State<LoanResultPage>
                         ),
                       ),
                       const SizedBox(height: 40),
-                      // 炫丽成功图片区域
+                      // 成功图片区域
                       Container(
                         width: 220,
                         height: 220,
@@ -193,7 +193,7 @@ class _LoanResultPageState extends State<LoanResultPage>
                         ),
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 15),
 
                       // 炫丽按钮组
                       Padding(

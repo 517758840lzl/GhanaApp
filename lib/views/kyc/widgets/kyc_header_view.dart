@@ -29,7 +29,7 @@ class KycHeaderView extends StatelessWidget {
         return Container(
           width: Get.width,
           child: Image.asset(
-            'assets/images/banner_kyc_completion.webp',
+            'assets/images/banner_kyc_completion.png',
             fit: BoxFit.cover,
           ),
         );

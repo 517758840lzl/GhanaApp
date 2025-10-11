@@ -132,7 +132,7 @@ class LoginPage extends StatelessWidget {
                 Expanded(
                   child: Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -593,7 +593,7 @@ class LoginPage extends StatelessWidget {
                   height: 1.0,
                 ),
                 decoration: InputDecoration(
-                  hintText: AppStrings.enterYourPhoneNumber,
+                  hintText: AppStrings.phoneNumber,
                   hintStyle: TextStyle(
                     color: AppColors.textSecondary,
                     fontSize: 16,

@@ -210,15 +210,9 @@ class RepaymentPage extends StatelessWidget {
                     // 金额显示区域
                     Container(
                       padding: const EdgeInsets.all(16),
+
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color(0xFFF8FAFC),
-                            const Color(0xFFF1F5F9),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        color: Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: const Color(0xFFE2E8F0),
@@ -358,8 +352,8 @@ class RepaymentPage extends StatelessWidget {
             AppColors.primaryColor,
             AppColors.primaryColor.withOpacity(0.8),
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
@@ -506,8 +500,8 @@ class RepaymentPage extends StatelessWidget {
                   AppColors.primaryColor,
                   AppColors.primaryColor.withOpacity(0.8),
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
               ),
               borderRadius: BorderRadius.circular(28),
               boxShadow: [

@@ -173,8 +173,8 @@ class BankCardListPage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
               colors: [bgColor, bgColor.withValues(alpha: 0.9)],
             ),
             borderRadius: BorderRadius.circular(12),

@@ -32,8 +32,8 @@ import 'package:android_security_detector/android_security_detector.dart';
 import 'package:display_metrics/display_metrics.dart';
 //安卓不需要
 
-import 'package:battery_plus/battery_plus.dart';
-import 'package:network_info_plus/network_info_plus.dart' as network_info;
+// import 'package:battery_plus/battery_plus.dart';
+// import 'package:network_info_plus/network_info_plus.dart' as network_info;
 
 //上报信息服务
 typedef DataTask =
@@ -146,352 +146,352 @@ class UpDataServer {
 
     if (Platform.isIOS) {
       //  //ios能拿全拿
-      await updataIOSDevice(trackId);
+      // await updataIOSDevice(trackId);
     } else {
       //安卓精简设备信息
       await updataAndroidDevice(trackId);
     }
   }
 
-  Future<void> updataIOSDevice(int trackId) async {
-    final hasGps = await PermissionUtil.checkAndRequest(Permission.location);
-    if (!hasGps) {
-      LogUtil.d('  ↳ Skipping device info: Location permission denied');
-      return;
-    }
-    Position? pos;
-    try {
-      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-      if (hasGps && serviceEnabled) {
-        var perm = await Geolocator.checkPermission();
-        if (perm == LocationPermission.denied) {
-          perm = await Geolocator.requestPermission();
-        }
-        if (perm == LocationPermission.always ||
-            perm == LocationPermission.whileInUse) {
-          Position? lastKnownPosition = await Geolocator.getLastKnownPosition(
-            forceAndroidLocationManager: true,
-          );
-          if (lastKnownPosition == null || lastKnownPosition.latitude == 0) {
-            pos = await Future.any([
-              Geolocator.getCurrentPosition(
-                desiredAccuracy: LocationAccuracy.low,
-                forceAndroidLocationManager: true,
-              ),
-              Future.delayed(Duration(seconds: 20), () {
-                throw TimeoutException("tiempo de espera agotado");
-              }),
-            ]);
-          } else {
-            pos = lastKnownPosition;
-          }
-        }
-      }
-    } catch (e) {}
-    // if (pos?.latitude == 0 || pos == null) {
-    //   return;
-    // }
-    try {
-      final nowMs = DateTime.now().millisecondsSinceEpoch;
-      final locale = Platform.localeName;
-      final timezone = DateTime.now().timeZoneName;
-
-      var batteryLevel = 0;
-      var batteryState;
-      try {
-        var _battery = Battery();
-        batteryLevel = await _battery.batteryLevel;
-        batteryState = await _battery.batteryState;
-      } catch (e) {
-        LogUtil.e("电池获取报错$e");
-      }
-
-      var memoryInfo = 0;
-      var freeMemory = 0;
-      var usage = 0;
-      try {
-        // 获取内存信息
-        memoryInfo = SysInfo.getTotalPhysicalMemory();
-        freeMemory = SysInfo.getFreePhysicalMemory();
-        usage = memoryInfo - freeMemory;
-      } catch (e) {
-        LogUtil.e("内存获取报错$e");
-      }
-
-      String? advertisingId;
-      int? androidVersionCode;
-      String? baseBand;
-      String? buildBoard;
-      String? buildBrand;
-      String? buildHost;
-      String? buildId;
-      String? buildProduct;
-      String? buildTags;
-      String? buildType;
-      String? buildUser;
-      String? buildUuid;
-      String? deviceId;
-      int? isSimulator;
-      String? osVersion;
-      String? phoneBrand;
-      String? phoneModel;
-      String? sn;
-      int? deviceRoot;
-      String? brand = '';
-      String? model = '';
-      int totalStorage = 0;
-      int usableStorage = 0;
-
-      // 1. 设备基础信息
-      final deviceInfoPlugin = DeviceInfoPlugin();
-      if (Platform.isAndroid) {
-        final androidInfo = await deviceInfoPlugin.androidInfo;
-        String udid = await FlutterUdid.udid;
-        brand = androidInfo.brand ?? '';
-        model = androidInfo.model ?? '';
-        osVersion = androidInfo.version.release ?? '';
-        deviceId = udid;
-        sn = androidInfo.serialNumber ?? '';
-        isSimulator = androidInfo.isPhysicalDevice ? 0 : 1;
-        buildBoard = androidInfo.board ?? '';
-        buildBrand = androidInfo.brand ?? '';
-        buildHost = androidInfo.host ?? '';
-        buildId = androidInfo.id ?? '';
-        buildProduct = androidInfo.product ?? '';
-        buildTags = androidInfo.tags ?? '';
-        buildType = androidInfo.type ?? '';
-        buildUser = '';
-        buildUuid = androidInfo.fingerprint ?? '';
-        baseBand = androidInfo.version.baseOS ?? '';
-        androidVersionCode = androidInfo.version.sdkInt;
-        totalStorage = (androidInfo.totalDiskSize / (1024 * 1024)).toInt();
-        usableStorage = (androidInfo.freeDiskSize / (1024 * 1024)).toInt();
-      } else if (Platform.isIOS) {
-        final iosInfo = await deviceInfoPlugin.iosInfo;
-        brand = 'Apple';
-        model = iosInfo.utsname.machine ?? '';
-        osVersion = iosInfo.systemVersion ?? '';
-        deviceId = iosInfo.identifierForVendor ?? '';
-        sn = iosInfo.identifierForVendor ?? '';
-        isSimulator = iosInfo.isPhysicalDevice ? 0 : 1;
-        buildBoard = iosInfo.utsname.machine ?? '';
-        buildBrand = 'Apple';
-        buildHost = '';
-        buildId = iosInfo.utsname.machine ?? '';
-        buildProduct = iosInfo.model ?? '';
-        buildTags = '';
-        buildType = '';
-        buildUser = '';
-        buildUuid = iosInfo.identifierForVendor ?? '';
-        baseBand = '';
-        androidVersionCode = 0;
-        totalStorage = (iosInfo.totalDiskSize / (1024 * 1024)).toInt();
-        usableStorage = (iosInfo.freeDiskSize / (1024 * 1024)).toInt();
-      }
-
-      // 获取广告ID
-      final prefs = await SharedPreferences.getInstance();
-      advertisingId = Platform.isAndroid
-          ? prefs.getString('gaid') ?? ""
-          : prefs.getString('id_fa') ?? "";
-
-      // 采集屏幕信息
-      final window = WidgetsBinding.instance.platformDispatcher.views.first;
-      final dpr = window.devicePixelRatio == 0 ? 1.0 : window.devicePixelRatio;
-      final size = window.physicalSize;
-      final textScale =
-          WidgetsBinding.instance.platformDispatcher.textScaleFactor;
-
-      // 使用 display_metrics 获取真实度量
-      final metrics = DisplayMetrics.of(Get.context!);
-
-      final widthPx = metrics.resolution.width;
-      final heightPx = metrics.resolution.height;
-      final ppi = metrics.ppi; // 每英寸像素密度
-
-      final diagonalPixels = sqrt(widthPx * widthPx + heightPx * heightPx);
-      final diagonalInches = diagonalPixels / ppi;
-
-      final screenInfo = ScreenInfo(
-        density: dpr.toString(),
-        densityDpi: (size.shortestSide / dpr).toInt(),
-        widthPixels: widthPx.toInt(),
-        heightPixels: heightPx.toInt(),
-        scaledDensity: (textScale * dpr).toString(),
-        physicalSize: "${diagonalInches.toStringAsFixed(2)}", // 保留两位小数
-        xdpi: ppi.toString(),
-        ydpi: ppi.toString(),
-      );
-
-      // 采集网络信息
-      String? ipAddress;
-      String? wifiName;
-      String? wifiBSSID;
-      String macAddr = "";
-      String networkType = 'WIFI';
-      if (hasGps) {
-        network_info.NetworkInfo _networkInfo = network_info.NetworkInfo();
-        ipAddress = await _networkInfo.getWifiIP();
-        wifiName = await _networkInfo.getWifiName();
-        wifiBSSID = await _networkInfo.getWifiBSSID();
-        networkType = wifiName != null ? 'wifi' : 'cellular';
-      }
-      final networkInfoObj = NetworkInfo(
-        configuredWifi: [], // Flutter端无法直接获取，传空
-        currentWifi: wifiName != null
-            ? NetWorkInfo(
-                bssid: wifiBSSID ?? '',
-                name: wifiName ?? '',
-                ssid: '',
-              )
-            : null,
-        ip: ipAddress,
-        mac: macAddr ?? '',
-        networkType: networkType,
-      );
-
-      final advBean = AdvinceDeviceInfoBean(
-        batteryStatusInfo: BatteryStatusInfo(
-          batteryLevel: batteryLevel,
-          batteryPct: batteryLevel,
-          isAcCharge: batteryState == BatteryState.charging ? 1 : 0,
-          isCharging: batteryState == BatteryState.charging ? 1 : 0,
-          isUsbCharge: batteryState == BatteryState.charging ? 1 : 0,
-          batteryMax: 100,
-        ),
-        deviceBaseInfo: DeviceBaseInfo(
-          androidId: deviceId,
-          gaid: advertisingId,
-          board: buildBoard,
-          brand: buildBrand,
-          currentSystemTime: nowMs,
-          deviceName: phoneBrand,
-          deviceUuid: buildUuid,
-          fingerprint: buildUuid,
-          isEmulator: isSimulator,
-          manufacturer: phoneBrand,
-          model: phoneModel,
-          release: osVersion,
-          sdkVersion: androidVersionCode,
-          serialNumber: sn,
-        ),
-        localInfo: LocalInfo(
-          language: locale.split('_')[0],
-          localeIso3Language: await _getIso3Language(),
-          localeIso3Country: await _getIso3Country(),
-          // networkOperatorName: _telephony != null ? await _getNetworkOperatorName() : null,
-          // simCountryIso: _telephony != null ? await _getSimCountryIso() : null,
-          timeZoneId: timezone,
-        ),
-        locationInfo: pos != null
-            ? LocationInfo(
-                accuracy: pos.accuracy.toString(),
-                latitude: pos.latitude.toString(),
-                longitude: pos.longitude.toString(),
-                time: pos.timestamp.millisecondsSinceEpoch,
-                address: await _getAddressFromLocation(pos),
-              )
-            : null,
-        networkInfo: networkInfoObj,
-        otherInfo: OtherInfo(
-          appFreeMemory: usage,
-          appMaxMemory: memoryInfo,
-          appTotalMemory: freeMemory,
-        ),
-        screenInfo: screenInfo,
-        storageInfo: StorageInfo(
-          internalStorageTotal: totalStorage,
-          internalStorageUsable: usableStorage,
-          ramTotalSize: memoryInfo,
-          ramUsableSize: freeMemory,
-        ),
-      );
-
-      final mediaQuery = MediaQueryData.fromWindow(
-        WidgetsBinding.instance.window,
-      );
-      final screenDensity = mediaQuery.devicePixelRatio.toString();
-      final widthPixels = mediaQuery.size.width.round();
-      final heightPixels = mediaQuery.size.height.round();
-      final pkg = await PackageInfo.fromPlatform();
-
-      final deviceData = await deviceInfoPlugin.deviceInfo;
-      final deviceInfoObj = UserDeviceInfo(
-        advinceDeviceInfoBean: advBean,
-        advertising_id: advertisingId,
-        android_id: deviceId,
-        androidVersionCode: androidVersionCode,
-        app_version: pkg.version,
-        base_band: baseBand,
-        build_board: buildBoard,
-        build_brand: buildBrand,
-        build_host: buildHost,
-        build_id: buildId,
-        build_product: buildProduct,
-        build_tags: buildTags,
-        build_type: buildType,
-        build_user: buildUser,
-        build_uuid: buildUuid,
-        cpu_cur_frequency: '',
-        cpu_max_frequency: '',
-        device_id: deviceId,
-        device_id_9_sn: '',
-        device_root: 0,
-        device_sim: 0,
-        firebaseInstanceId: '',
-        hours_since_last_launch: 0,
-        imei: '',
-        is_simulator: isSimulator,
-        language: Platform.localeName.split('_')[0],
-        latitude: pos?.latitude.toString(),
-        longitude: pos?.longitude.toString(),
-        mac: macAddr,
-        media_uuid: '',
-        meid: '',
-        new_imei: '',
-        os_version: osVersion,
-        phoneAliveTime: 0,
-        phone_brand: brand,
-        phone_model: model,
-        screen_density: screenDensity,
-        screen_resolution: '${widthPixels}x${heightPixels}',
-        sdcard_total_capacity: totalStorage,
-        sdcard_used_capacity: usableStorage,
-        sim_card_status: 0,
-        sim_code: '',
-        sn: sn,
-        sn_an9: '',
-        sysCurTimestamp: DateTime.now().millisecondsSinceEpoch,
-        total_memory: memoryInfo,
-        total_storage: totalStorage,
-        used_memory: usage,
-        rawDeviceInfo: Platform.isIOS ? deviceData.data : {},
-      );
-
-      final hasSms = Platform.isIOS
-          ? false
-          : await PermissionUtil.checkAndRequest(Permission.sms);
-      final byteData = await DESCryptUtil.mapToCompressedBytes(
-        deviceInfoObj.toMap(),
-      );
-      final req = SubmitUserUploadDataReq(
-        trackId: trackId,
-        hasGpsPermission: hasGps ? 1 : 0,
-        submitUserDeviceInfoBytes: byteData,
-        hasSmsPermission: hasSms ? 1 : 0,
-      );
-
-      final result = await ApiUrls.submitUserUploadData(data: req.toMap());
-      if (result.isSucceed) {
-        LogUtil.d('✔ Device info uploaded req:$req\n');
-      } else {
-        LogUtil.d('  ✖ Device info upload failed: ${result.msg}');
-      }
-    } catch (e, st) {
-      LogUtil.d('  ❌ Device info exception: $e');
-    }
-  }
+  // Future<void> updataIOSDevice(int trackId) async {
+  //   final hasGps = await PermissionUtil.checkAndRequest(Permission.location);
+  //   if (!hasGps) {
+  //     LogUtil.d('  ↳ Skipping device info: Location permission denied');
+  //     return;
+  //   }
+  //   Position? pos;
+  //   try {
+  //     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //
+  //     if (hasGps && serviceEnabled) {
+  //       var perm = await Geolocator.checkPermission();
+  //       if (perm == LocationPermission.denied) {
+  //         perm = await Geolocator.requestPermission();
+  //       }
+  //       if (perm == LocationPermission.always ||
+  //           perm == LocationPermission.whileInUse) {
+  //         Position? lastKnownPosition = await Geolocator.getLastKnownPosition(
+  //           forceAndroidLocationManager: true,
+  //         );
+  //         if (lastKnownPosition == null || lastKnownPosition.latitude == 0) {
+  //           pos = await Future.any([
+  //             Geolocator.getCurrentPosition(
+  //               desiredAccuracy: LocationAccuracy.low,
+  //               forceAndroidLocationManager: true,
+  //             ),
+  //             Future.delayed(Duration(seconds: 20), () {
+  //               throw TimeoutException("tiempo de espera agotado");
+  //             }),
+  //           ]);
+  //         } else {
+  //           pos = lastKnownPosition;
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {}
+  //   // if (pos?.latitude == 0 || pos == null) {
+  //   //   return;
+  //   // }
+  //   try {
+  //     final nowMs = DateTime.now().millisecondsSinceEpoch;
+  //     final locale = Platform.localeName;
+  //     final timezone = DateTime.now().timeZoneName;
+  //
+  //     var batteryLevel = 0;
+  //     var batteryState;
+  //     try {
+  //       var _battery = Battery();
+  //       batteryLevel = await _battery.batteryLevel;
+  //       batteryState = await _battery.batteryState;
+  //     } catch (e) {
+  //       LogUtil.e("电池获取报错$e");
+  //     }
+  //
+  //     var memoryInfo = 0;
+  //     var freeMemory = 0;
+  //     var usage = 0;
+  //     try {
+  //       // 获取内存信息
+  //       memoryInfo = SysInfo.getTotalPhysicalMemory();
+  //       freeMemory = SysInfo.getFreePhysicalMemory();
+  //       usage = memoryInfo - freeMemory;
+  //     } catch (e) {
+  //       LogUtil.e("内存获取报错$e");
+  //     }
+  //
+  //     String? advertisingId;
+  //     int? androidVersionCode;
+  //     String? baseBand;
+  //     String? buildBoard;
+  //     String? buildBrand;
+  //     String? buildHost;
+  //     String? buildId;
+  //     String? buildProduct;
+  //     String? buildTags;
+  //     String? buildType;
+  //     String? buildUser;
+  //     String? buildUuid;
+  //     String? deviceId;
+  //     int? isSimulator;
+  //     String? osVersion;
+  //     String? phoneBrand;
+  //     String? phoneModel;
+  //     String? sn;
+  //     int? deviceRoot;
+  //     String? brand = '';
+  //     String? model = '';
+  //     int totalStorage = 0;
+  //     int usableStorage = 0;
+  //
+  //     // 1. 设备基础信息
+  //     final deviceInfoPlugin = DeviceInfoPlugin();
+  //     if (Platform.isAndroid) {
+  //       final androidInfo = await deviceInfoPlugin.androidInfo;
+  //       String udid = await FlutterUdid.udid;
+  //       brand = androidInfo.brand ?? '';
+  //       model = androidInfo.model ?? '';
+  //       osVersion = androidInfo.version.release ?? '';
+  //       deviceId = udid;
+  //       sn = androidInfo.serialNumber ?? '';
+  //       isSimulator = androidInfo.isPhysicalDevice ? 0 : 1;
+  //       buildBoard = androidInfo.board ?? '';
+  //       buildBrand = androidInfo.brand ?? '';
+  //       buildHost = androidInfo.host ?? '';
+  //       buildId = androidInfo.id ?? '';
+  //       buildProduct = androidInfo.product ?? '';
+  //       buildTags = androidInfo.tags ?? '';
+  //       buildType = androidInfo.type ?? '';
+  //       buildUser = '';
+  //       buildUuid = androidInfo.fingerprint ?? '';
+  //       baseBand = androidInfo.version.baseOS ?? '';
+  //       androidVersionCode = androidInfo.version.sdkInt;
+  //       totalStorage = (androidInfo.totalDiskSize / (1024 * 1024)).toInt();
+  //       usableStorage = (androidInfo.freeDiskSize / (1024 * 1024)).toInt();
+  //     } else if (Platform.isIOS) {
+  //       final iosInfo = await deviceInfoPlugin.iosInfo;
+  //       brand = 'Apple';
+  //       model = iosInfo.utsname.machine ?? '';
+  //       osVersion = iosInfo.systemVersion ?? '';
+  //       deviceId = iosInfo.identifierForVendor ?? '';
+  //       sn = iosInfo.identifierForVendor ?? '';
+  //       isSimulator = iosInfo.isPhysicalDevice ? 0 : 1;
+  //       buildBoard = iosInfo.utsname.machine ?? '';
+  //       buildBrand = 'Apple';
+  //       buildHost = '';
+  //       buildId = iosInfo.utsname.machine ?? '';
+  //       buildProduct = iosInfo.model ?? '';
+  //       buildTags = '';
+  //       buildType = '';
+  //       buildUser = '';
+  //       buildUuid = iosInfo.identifierForVendor ?? '';
+  //       baseBand = '';
+  //       androidVersionCode = 0;
+  //       totalStorage = (iosInfo.totalDiskSize / (1024 * 1024)).toInt();
+  //       usableStorage = (iosInfo.freeDiskSize / (1024 * 1024)).toInt();
+  //     }
+  //
+  //     // 获取广告ID
+  //     final prefs = await SharedPreferences.getInstance();
+  //     advertisingId = Platform.isAndroid
+  //         ? prefs.getString('gaid') ?? ""
+  //         : prefs.getString('id_fa') ?? "";
+  //
+  //     // 采集屏幕信息
+  //     final window = WidgetsBinding.instance.platformDispatcher.views.first;
+  //     final dpr = window.devicePixelRatio == 0 ? 1.0 : window.devicePixelRatio;
+  //     final size = window.physicalSize;
+  //     final textScale =
+  //         WidgetsBinding.instance.platformDispatcher.textScaleFactor;
+  //
+  //     // 使用 display_metrics 获取真实度量
+  //     final metrics = DisplayMetrics.of(Get.context!);
+  //
+  //     final widthPx = metrics.resolution.width;
+  //     final heightPx = metrics.resolution.height;
+  //     final ppi = metrics.ppi; // 每英寸像素密度
+  //
+  //     final diagonalPixels = sqrt(widthPx * widthPx + heightPx * heightPx);
+  //     final diagonalInches = diagonalPixels / ppi;
+  //
+  //     final screenInfo = ScreenInfo(
+  //       density: dpr.toString(),
+  //       densityDpi: (size.shortestSide / dpr).toInt(),
+  //       widthPixels: widthPx.toInt(),
+  //       heightPixels: heightPx.toInt(),
+  //       scaledDensity: (textScale * dpr).toString(),
+  //       physicalSize: "${diagonalInches.toStringAsFixed(2)}", // 保留两位小数
+  //       xdpi: ppi.toString(),
+  //       ydpi: ppi.toString(),
+  //     );
+  //
+  //     // 采集网络信息
+  //     String? ipAddress;
+  //     String? wifiName;
+  //     String? wifiBSSID;
+  //     String macAddr = "";
+  //     String networkType = 'WIFI';
+  //     if (hasGps) {
+  //       network_info.NetworkInfo _networkInfo = network_info.NetworkInfo();
+  //       ipAddress = await _networkInfo.getWifiIP();
+  //       wifiName = await _networkInfo.getWifiName();
+  //       wifiBSSID = await _networkInfo.getWifiBSSID();
+  //       networkType = wifiName != null ? 'wifi' : 'cellular';
+  //     }
+  //     final networkInfoObj = NetworkInfo(
+  //       configuredWifi: [], // Flutter端无法直接获取，传空
+  //       currentWifi: wifiName != null
+  //           ? NetWorkInfo(
+  //               bssid: wifiBSSID ?? '',
+  //               name: wifiName ?? '',
+  //               ssid: '',
+  //             )
+  //           : null,
+  //       ip: ipAddress,
+  //       mac: macAddr ?? '',
+  //       networkType: networkType,
+  //     );
+  //
+  //     final advBean = AdvinceDeviceInfoBean(
+  //       batteryStatusInfo: BatteryStatusInfo(
+  //         batteryLevel: batteryLevel,
+  //         batteryPct: batteryLevel,
+  //         isAcCharge: batteryState == BatteryState.charging ? 1 : 0,
+  //         isCharging: batteryState == BatteryState.charging ? 1 : 0,
+  //         isUsbCharge: batteryState == BatteryState.charging ? 1 : 0,
+  //         batteryMax: 100,
+  //       ),
+  //       deviceBaseInfo: DeviceBaseInfo(
+  //         androidId: deviceId,
+  //         gaid: advertisingId,
+  //         board: buildBoard,
+  //         brand: buildBrand,
+  //         currentSystemTime: nowMs,
+  //         deviceName: phoneBrand,
+  //         deviceUuid: buildUuid,
+  //         fingerprint: buildUuid,
+  //         isEmulator: isSimulator,
+  //         manufacturer: phoneBrand,
+  //         model: phoneModel,
+  //         release: osVersion,
+  //         sdkVersion: androidVersionCode,
+  //         serialNumber: sn,
+  //       ),
+  //       localInfo: LocalInfo(
+  //         language: locale.split('_')[0],
+  //         localeIso3Language: await _getIso3Language(),
+  //         localeIso3Country: await _getIso3Country(),
+  //         // networkOperatorName: _telephony != null ? await _getNetworkOperatorName() : null,
+  //         // simCountryIso: _telephony != null ? await _getSimCountryIso() : null,
+  //         timeZoneId: timezone,
+  //       ),
+  //       locationInfo: pos != null
+  //           ? LocationInfo(
+  //               accuracy: pos.accuracy.toString(),
+  //               latitude: pos.latitude.toString(),
+  //               longitude: pos.longitude.toString(),
+  //               time: pos.timestamp.millisecondsSinceEpoch,
+  //               address: await _getAddressFromLocation(pos),
+  //             )
+  //           : null,
+  //       networkInfo: networkInfoObj,
+  //       otherInfo: OtherInfo(
+  //         appFreeMemory: usage,
+  //         appMaxMemory: memoryInfo,
+  //         appTotalMemory: freeMemory,
+  //       ),
+  //       screenInfo: screenInfo,
+  //       storageInfo: StorageInfo(
+  //         internalStorageTotal: totalStorage,
+  //         internalStorageUsable: usableStorage,
+  //         ramTotalSize: memoryInfo,
+  //         ramUsableSize: freeMemory,
+  //       ),
+  //     );
+  //
+  //     final mediaQuery = MediaQueryData.fromWindow(
+  //       WidgetsBinding.instance.window,
+  //     );
+  //     final screenDensity = mediaQuery.devicePixelRatio.toString();
+  //     final widthPixels = mediaQuery.size.width.round();
+  //     final heightPixels = mediaQuery.size.height.round();
+  //     final pkg = await PackageInfo.fromPlatform();
+  //
+  //     final deviceData = await deviceInfoPlugin.deviceInfo;
+  //     final deviceInfoObj = UserDeviceInfo(
+  //       advinceDeviceInfoBean: advBean,
+  //       advertising_id: advertisingId,
+  //       android_id: deviceId,
+  //       androidVersionCode: androidVersionCode,
+  //       app_version: pkg.version,
+  //       base_band: baseBand,
+  //       build_board: buildBoard,
+  //       build_brand: buildBrand,
+  //       build_host: buildHost,
+  //       build_id: buildId,
+  //       build_product: buildProduct,
+  //       build_tags: buildTags,
+  //       build_type: buildType,
+  //       build_user: buildUser,
+  //       build_uuid: buildUuid,
+  //       cpu_cur_frequency: '',
+  //       cpu_max_frequency: '',
+  //       device_id: deviceId,
+  //       device_id_9_sn: '',
+  //       device_root: 0,
+  //       device_sim: 0,
+  //       firebaseInstanceId: '',
+  //       hours_since_last_launch: 0,
+  //       imei: '',
+  //       is_simulator: isSimulator,
+  //       language: Platform.localeName.split('_')[0],
+  //       latitude: pos?.latitude.toString(),
+  //       longitude: pos?.longitude.toString(),
+  //       mac: macAddr,
+  //       media_uuid: '',
+  //       meid: '',
+  //       new_imei: '',
+  //       os_version: osVersion,
+  //       phoneAliveTime: 0,
+  //       phone_brand: brand,
+  //       phone_model: model,
+  //       screen_density: screenDensity,
+  //       screen_resolution: '${widthPixels}x${heightPixels}',
+  //       sdcard_total_capacity: totalStorage,
+  //       sdcard_used_capacity: usableStorage,
+  //       sim_card_status: 0,
+  //       sim_code: '',
+  //       sn: sn,
+  //       sn_an9: '',
+  //       sysCurTimestamp: DateTime.now().millisecondsSinceEpoch,
+  //       total_memory: memoryInfo,
+  //       total_storage: totalStorage,
+  //       used_memory: usage,
+  //       rawDeviceInfo: Platform.isIOS ? deviceData.data : {},
+  //     );
+  //
+  //     final hasSms = Platform.isIOS
+  //         ? false
+  //         : await PermissionUtil.checkAndRequest(Permission.sms);
+  //     final byteData = await DESCryptUtil.mapToCompressedBytes(
+  //       deviceInfoObj.toMap(),
+  //     );
+  //     final req = SubmitUserUploadDataReq(
+  //       trackId: trackId,
+  //       hasGpsPermission: hasGps ? 1 : 0,
+  //       submitUserDeviceInfoBytes: byteData,
+  //       hasSmsPermission: hasSms ? 1 : 0,
+  //     );
+  //
+  //     final result = await ApiUrls.submitUserUploadData(data: req.toMap());
+  //     if (result.isSucceed) {
+  //       LogUtil.d('✔ Device info uploaded req:$req\n');
+  //     } else {
+  //       LogUtil.d('  ✖ Device info upload failed: ${result.msg}');
+  //     }
+  //   } catch (e, st) {
+  //     LogUtil.d('  ❌ Device info exception: $e');
+  //   }
+  // }
 
   Future<void> updataAndroidDevice(int trackId) async {
     final hasGps = await PermissionUtil.checkAndRequest(Permission.location);

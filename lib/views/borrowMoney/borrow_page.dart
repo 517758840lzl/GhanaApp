@@ -159,7 +159,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  AppStrings.maintainGoodCreditTip,
+                  controller.cacheFlag.value==0?AppStrings.maintainGoodCreditTip:AppStrings.maintainingGoodCreditHistory,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.black54,
@@ -215,15 +215,16 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
     );
   }
 
-  /// 构建度小满风格顶部区域
+  /// 顶部区域
   Widget _buildMeituanStyleHeader(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
         decoration: BoxDecoration(
+          // color: AppColors.primaryColor
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [AppColors.primaryColor, AppColors.primaryDarkColor],
+            colors: [AppColors.primaryColor,AppColors.primaryDarkColor ],
           ),
         ),
         child: SafeArea(
@@ -234,6 +235,8 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
 
               // 倒计时提示
               _buildCountdownBanner(),
+
+              SizedBox(height: 10,)
             ],
           ),
         ),
@@ -244,10 +247,10 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
   /// 构建金额展示卡片
   Widget _buildAmountDisplayCard() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.3),
+         color: Colors.white.withOpacity(0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withOpacity(0.2)),
       ),
@@ -272,7 +275,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                   AppStrings.creditLimit,
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -307,8 +310,8 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                         AppStrings.TotalSelectloanPrincipal,
                         style: TextStyle(
                           fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -367,7 +370,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white.withOpacity(0.3)),
+                      border: Border.all(color: Colors.white.withOpacity(0.9)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -376,7 +379,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                           AppStrings.availableProducts,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.white,
+                            color: AppColors.textSecondary,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -386,7 +389,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -394,7 +397,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                           AppStrings.availableTotal,
                           style: TextStyle(
                             fontSize: 10,
-                            color: Colors.white.withOpacity(0.8),
+                            color: AppColors.textTertiary,
                           ),
                         ),
                       ],
@@ -416,15 +419,15 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
       if (!shouldShowCountdown) return const SizedBox.shrink();
 
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.orange.shade50, Colors.orange.shade100],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.orange.shade200, width: 1.5),
           boxShadow: [
             BoxShadow(
@@ -864,7 +867,8 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
       }
 
       return Container(
-        margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+        padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
+        color: Colors.transparent,
         child: GestureDetector(
           onTap: () {
             NonRepeatableClick.checkClick(

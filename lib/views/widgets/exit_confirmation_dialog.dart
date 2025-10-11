@@ -93,8 +93,8 @@ class _ExitConfirmationDialogState extends State<ExitConfirmationDialog>
                             const Color(0xFFFF6B6B).withOpacity(0.1),
                             const Color(0xFFFF3939).withOpacity(0.15),
                           ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                         ),
                         borderRadius: BorderRadius.circular(36),
                         border: Border.all(
@@ -182,8 +182,8 @@ class _ExitConfirmationDialogState extends State<ExitConfirmationDialog>
         gradient: isPrimary
             ? const LinearGradient(
                 colors: [AppColors.primaryColor, Color(0xFFE6A017)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
               )
             : null,
         color: isPrimary ? null : const Color(0xFFF8F9FA),

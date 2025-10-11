@@ -125,26 +125,6 @@ class LoanResultController extends GetxController {
               ),
             ),
 
-            // 评分显示
-            Obx(
-              () => rating.value > 0
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        '${rating.value.toInt()}/5',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
-
             const SizedBox(height: 32),
 
             // 按钮区域

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:advertising_id/advertising_id.dart';
 import 'package:android_play_install_referrer/android_play_install_referrer.dart';
-import 'package:flutter_contacts/diacritics.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter3APP/basa/analytics/app_event_tracker.dart';
 import '../../common/permission/permission_util.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
@@ -67,7 +67,7 @@ class AppsFlyerHelper {
             if (mediaSourceStr == "Organic" ||
                 mediaSourceStr == "organic" ||
                 mediaSourceStr == "") {
-              String mediaSourceRm = removeDiacritics(mediaSourceStr);
+              String mediaSourceRm = removeDiacritics(mediaSource);
               prefs.setString('mediaSource', mediaSource);
             }
           }
@@ -186,11 +186,11 @@ class AppsFlyerHelper {
           if (referrerUrl != "") {
             // 检查是否已经被URL编码，如果没有则进行编码
             String referrerRd = removeDiacritics(referrerUrl);
-            String acrStr =
-            _isUrlEncoded(referrerRd)
-                ? referrerRd
-                : Uri.encodeComponent(referrerRd);
-            await prefs.setString('referrer', acrStr);
+            // String acrStr =
+            // _isUrlEncoded(referrerRd)
+            //     ? referrerRd
+            //     : Uri.encodeComponent(referrerRd);
+            await prefs.setString('referrer', referrerRd);
           }
         }
       }

@@ -26,24 +26,24 @@ class Constant {
 //隐私协议
 
   static const String locationTitle = 'LOCATION DATA COLLECTION';
-  static const String locationDesc = 'We collect your approximate location to verify your stated place of residence and to ensure compliance with geographic eligibility requirements. This process helps prevent fraudulent activities and ensures that loans are only granted to qualified local residents.';
+  static const String locationDesc = 'Your approximate location information may be collected to confirm your declared residential area and verify eligibility under our geographic service coverage. This helps us maintain regulatory compliance, reduce identity fraud, and ensure that loan services are provided only to legitimate local users.';
 
   static const String cameraTitle = 'CAMERA DATA COLLECTION';
-  static const String cameraDesc = 'For identity verification and information security, please allow the app to access your camera to capture documents and photographs required for loan applications.';
+  static const String cameraDesc = 'To complete identity verification, the app requires permission to access your device camera for capturing your ID documents and facial images. This access is used exclusively for authentication and security verification during your loan application.';
 
   static const String smsTitle = 'SMS DATA COLLECTION';
-  static const String smsDesc = 'To evaluate your creditworthiness and repayment capacity, this app requires access to your SMS data (including transaction alerts, payment amounts, and other relevant financial details). We only collect finance-related information and do not read personal messages or unrelated sensitive content. All data is encrypted, used solely for fraud prevention and credit assessment, and will never be shared with unauthorized third parties. You may revoke this permission at any time via the app settings or by contacting customer support to request data deletion.';
+  static const String smsDesc = 'We may access your SMS inbox to analyze financial transaction messages—such as bank alerts and payment confirmations—for the purpose of evaluating credit risk and repayment ability. Personal or unrelated messages are never read or stored. All information is encrypted, processed strictly for credit assessment and fraud prevention, and never shared with unauthorized third parties. You may disable this access anytime in the app settings or contact our support team to request permanent data deletion.';
 
   static const String appListTitle = 'INSTALLED APP DATA COLLECTION';
-  static const String appListDesc = 'This app may request access to the list of apps installed on your device. We collect only app names, package identifiers, and update timestamps—strictly for risk evaluation and fraud prevention, never for marketing or advertising purposes. All data is transmitted securely via HTTPS and will not be disclosed to third parties. You may contact our customer support team to request data deletion, which will be processed within 7 business days.';
+  static const String appListDesc = 'To strengthen fraud detection and enhance credit risk modeling, we may collect limited metadata of installed apps (including app names, package identifiers, and version details). This data is not used for marketing purposes and is securely transmitted via HTTPS. If you wish to have this information deleted, please reach out to customer support—your request will be processed within 7 business days.';
 
-// Android only
+  // Android only
   static const String mobileTitle = 'PHONE DATA COLLECTION';
-  static const String mobileDesc = 'We collect certain device-specific information, such as the unique device identifier, to accurately identify each user and detect or prevent any unauthorized devices from acting on your behalf.';
+  static const String mobileDesc = 'We collect specific device information—such as unique identifiers and system attributes—to accurately distinguish user devices and prevent unauthorized or fraudulent access to your account.';
 
   static const String inAppTitle = 'IN-APP INTERACTION DATA COLLECTION';
-  static const String inAppDesc = 'We collect and share in-app user behavior data with our analytics partner, Appsflyer, to analyze how users engage with GhanaApp and to assess application performance.';
+  static const String inAppDesc = 'We collect anonymized in-app behavior data and share it with our analytics partner, AppsFlyer, to monitor usage trends, measure app performance, and improve the overall user experience.';
 
-  static const String licenseSummary = 'By clicking "Accept," you authorize us to collect and synchronize your location and device data. All information will be securely transmitted and stored using modern encryption (via HTTPS) by GhanaApp. This data will never be sold but may be shared with authorized credit rating institutions.';
+  static const String licenseSummary = 'By selecting "Accept," you consent to the collection and synchronization of your location, device, and usage data as described. All information is securely encrypted and transmitted via HTTPS by GhanaApp. Your data will never be sold, and may only be shared with authorized credit bureaus for lawful verification and risk assessment purposes.';
 
 }

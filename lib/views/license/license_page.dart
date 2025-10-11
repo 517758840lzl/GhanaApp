@@ -64,12 +64,8 @@ class LicensePage extends GetView<LicenseController> {
                 child: Container(
                   decoration: const BoxDecoration(
                     color: AppColors.whiteBgColor,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(15),
-                    ),
                   ),
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(dp20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -240,21 +236,9 @@ class LicensePage extends GetView<LicenseController> {
   }) {
     return Container(
       margin: EdgeInsets.only(bottom: isLast ? 0 : 5),
-      padding: const EdgeInsets.all(dp20),
+      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(dp16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-        border: Border.all(
-          color: AppColors.primaryColor.withOpacity(0.1),
-          width: 1,
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,35 +246,34 @@ class LicensePage extends GetView<LicenseController> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(dp12),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(dp12),
-                ),
+                padding: const EdgeInsets.all(5),
                 child: Icon(icon, color: AppColors.primaryColor, size: dp24),
               ),
-              const SizedBox(width: dp16),
+              const SizedBox(width: 5),
               Expanded(
                 child: Text(
                   title,
                   style: const TextStyle(
                     fontSize: sp16,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.textPrimary,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: dp16),
-          Text(
-            description,
-            style: const TextStyle(
-              fontSize: sp14,
-              color: AppColors.textSecondary,
-              height: 1.5,
+          const SizedBox(height: 12),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              description,
+              style: const TextStyle(
+                fontSize: sp14,
+                color: AppColors.textSecondary,
+                height: 1.5,
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

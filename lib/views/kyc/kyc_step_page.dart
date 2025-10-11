@@ -310,8 +310,8 @@ class KycStepPage extends StatelessWidget {
                     dismissable: true,
                     dateOrder: DatePickerDateOrder.dmy,
                     initialDateTime: DateTime(1990, 1, 1),
-                    maxDateTime: DateTime(2100),
-                    minDateTime: DateTime(1950),
+                    maxDateTime: DateTime(2030),
+                    minDateTime: DateTime(1960),
                     onSubmit: (pick) {
                       if (pick != null) {
                         final formatted = DateFormat('yyyy-MM-dd').format(pick);
@@ -602,8 +602,8 @@ class KycStepPage extends StatelessWidget {
                                               AppColors.primaryColor
                                                   .withOpacity(0.8),
                                             ],
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
                                           ),
                                           borderRadius: BorderRadius.circular(
                                             16,

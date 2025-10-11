@@ -155,8 +155,8 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
       // margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
           colors: [
             AppColors.primaryColor,
             AppColors.primaryColor.withOpacity(0.8),
@@ -178,8 +178,9 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
           const SizedBox(height: 12),
           _buildAmountInput(),
           const SizedBox(height: 12),
-          _buildAmountRange(),
+            _buildAmountRange(),
           const SizedBox(height: 16),
+
         ],
       ),
     );
@@ -350,24 +351,16 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                '${AppStrings.currencyUSD}${_formatAmount(couponResponse.newRepaymentAmount)}',
-                style: const TextStyle(
-                  color: AppColors.primaryColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+
             ],
           ),
           const SizedBox(height: 6),
           Text(
-            '${AppStrings.currencyUSD}${_formatAmount(couponResponse.repaymentAmount - couponResponse.newRepaymentAmount)} 已节省',
-            style: TextStyle(
-              color: Colors.green[600],
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+            '${AppStrings.currencyUSD}${_formatAmount(couponResponse.newRepaymentAmount)}',
+            style: const TextStyle(
+              color: AppColors.primaryColor,
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ],

@@ -936,7 +936,7 @@ class KycStepController extends GetxController {
     final nextField = getNextUnfilledSelectableField(currentCode);
     if (nextField != null) {
       // 延迟一点时间，让当前选择完成
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(Duration(milliseconds: 100));
 
       String code = nextField['code'] ?? '';
       String label =

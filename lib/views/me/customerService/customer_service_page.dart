@@ -364,8 +364,8 @@ class CustomerServicePage extends StatelessWidget {
                               primaryColor,
                               primaryColor.withOpacity(0.8),
                             ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
                           ),
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [

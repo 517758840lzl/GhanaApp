@@ -104,8 +104,8 @@ class AllRepaymentSubmitPage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
           colors: [
             AppColors.primaryColor,
             AppColors.primaryColor.withOpacity(0.8),

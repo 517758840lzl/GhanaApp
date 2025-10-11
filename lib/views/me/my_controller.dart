@@ -113,7 +113,7 @@ class MyController extends GetxController with WidgetsBindingObserver {
 
   String getAvatarAsset() {
     if (sex.value == 2) {
-      return 'assets/images/avatar_female.webp';
+      return 'assets/images/avatar_female.png';
     }
     return 'assets/images/avatar_male.webp';
   }

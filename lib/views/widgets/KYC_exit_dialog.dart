@@ -172,8 +172,8 @@ class _KYCExitDialogState extends State<KYCExitDialog>
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [AppColors.primaryColor, const Color(0xFFE6A017)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [

@@ -171,17 +171,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Spacer(),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.close,
-                                    color: Colors.white70,
-                                    size: 20,
-                                  ),
-                                  onPressed: controller.hideTips,
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                ),
+
                               ],
                             ),
                             const SizedBox(height: 8),

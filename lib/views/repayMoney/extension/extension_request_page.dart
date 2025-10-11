@@ -520,7 +520,7 @@ class ExtensionRequestPage extends StatelessWidget {
   // 风险提示卡片
   Widget _buildRiskWarningCard() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: const Color(0xFFFFF7E6),
@@ -539,7 +539,7 @@ class ExtensionRequestPage extends StatelessWidget {
             child: Text(
               AppStrings.extensionTip,
               style: TextStyle(
-                fontSize: 10,
+                fontSize: 11,
                 color: Color(0xFF8C4A00),
                 height: 1.3,
               ),
