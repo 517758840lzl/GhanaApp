@@ -35,6 +35,7 @@ class EmailInputField extends StatelessWidget {
         return controller.emailSuffixes.map((suffix) => '$input$suffix');
       },
       onSelected: (String selection) {
+        FocusScope.of(context).unfocus();
         controller.stepData[code] = selection;
       },
       optionsViewBuilder: (context, onSelected, options) {
