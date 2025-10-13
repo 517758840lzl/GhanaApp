@@ -505,7 +505,7 @@ class AppStrings {
   static const String exitConfirmationTitle = 'Exit Confirmation';
   static const String exitConfirmationMessage =
       'Are you sure you want to exit? Your progress will be lost.';
-  static const String cameraTipsTitle = 'Photo Tips';
+  static const String cameraTipsTitle = 'Tips';
   static const String cameraTipsMessage =
       'Please ensure that the document is fully captured and clearly visible within the frame.';
   static const String cameraLoadingMessage = 'Initializing camera...';

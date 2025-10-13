@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.smartfinancee.easyloan">
+    package="com.ceshi.easyloan">
     <application
         android:label="flutter3APP"
         android:name="${applicationName}"

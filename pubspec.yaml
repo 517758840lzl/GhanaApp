@@ -123,7 +123,7 @@ flutter_launcher_icons:
 flutter_native_splash:
   color: "#ffffff"
   #  background_image: assets/images/splash_background.png
-  image: assets/images/splash_background.png
+  image: assets/images/bg_splash.png
   android: true
   ios: true
   android_gravity: fill

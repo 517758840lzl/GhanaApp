@@ -61,11 +61,11 @@ class HistoryPage extends StatelessWidget {
                     children: [
                       // 使用主题色的分组标题
                       if (controller.historyData.isNotEmpty) ...[
-                        _buildSectionHeader(
-                          AppStrings.activeOrders,
-                          controller.historyData.length,
-                          AppColors.primaryColor,
-                        ),
+                        // _buildSectionHeader(
+                        //   AppStrings.activeOrders,
+                        //   controller.historyData.length,
+                        //   AppColors.primaryColor,
+                        // ),
                         const SizedBox(height: 8),
                         ListView.builder(
                           shrinkWrap: true,

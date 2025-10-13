@@ -159,7 +159,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                             Row(
                               children: [
                                 const Icon(
-                                  Icons.lightbulb_outline,
+                                  Icons.lightbulb_outline_rounded,
                                   color: Colors.amber,
                                   size: 20,
                                 ),
