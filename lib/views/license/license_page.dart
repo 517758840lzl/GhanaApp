@@ -32,7 +32,7 @@ class LicensePage extends GetView<LicenseController> {
         return await controller.showExitConfirmationDialog(context);
       },
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           title: Text(
@@ -137,17 +137,8 @@ class LicensePage extends GetView<LicenseController> {
 
               // Action Buttons
               Container(
-                padding: const EdgeInsets.all(dp20),
-                decoration: const BoxDecoration(
-                  color: AppColors.whiteBgColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 8,
-                      offset: Offset(0, -2),
-                    ),
-                  ],
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 15),
+              color: Colors.white,
                 child: Column(
                   children: [
                     // Agree Button
