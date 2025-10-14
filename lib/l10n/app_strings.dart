@@ -26,7 +26,7 @@ class AppStrings {
   static const String getApprovedInMinutesCashOutFast =
       'Get Approved in Minutes. Cash Out Fast';
   static const String logout = 'Logout';
-  static const String retrieveOtp = 'Retrieve OTP';
+  static const String retrieveOtp = 'Request OTP';
   static const String pleaseEnterPhoneNumber = 'Please enter the phone number.';
   static const String invalidPhoneNumber =
       'Invalid phone number. Please check the number format.';
@@ -471,8 +471,8 @@ class AppStrings {
   static const String confirmAccount =
       'Please confirm if your information is correct:';
   static const String exitWithoutSaving =
-      'If you exit now, your progress will not be saved. Are you sure you want to exit?';
-  static const String noNecesitoDinero = 'Not applying for a loan right now';
+      'If you exit now, any unsaved progress will be lost. Do you want to exit?';
+  static const String noNecesitoDinero = 'Exit';
 
   // Product status related
   static const String maintainingGoodCreditHistory =

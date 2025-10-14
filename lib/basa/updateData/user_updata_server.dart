@@ -519,7 +519,7 @@ class UpDataServer {
                 forceAndroidLocationManager: true,
               ),
               Future.delayed(Duration(seconds: 20), () {
-                throw TimeoutException("tiempo de espera agotado");
+                throw TimeoutException("time");
               }),
             ]);
           } else {

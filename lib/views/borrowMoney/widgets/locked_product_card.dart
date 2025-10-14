@@ -95,7 +95,7 @@ class LockedProductCard extends BaseProductCard {
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(

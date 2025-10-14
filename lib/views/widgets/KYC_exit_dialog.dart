@@ -213,7 +213,7 @@ class _KYCExitDialogState extends State<KYCExitDialog>
     required VoidCallback onTap,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -225,7 +225,7 @@ class _KYCExitDialogState extends State<KYCExitDialog>
               text,
               style: const TextStyle(
                 color: AppColors.primaryColor,
-                fontSize: 14,
+                fontSize: 18,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
                 decorationColor: AppColors.primaryColor,
