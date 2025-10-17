@@ -310,7 +310,7 @@ class AppStrings {
   // Order related
   static const String orderDetails = 'Order Details';
   static const String settledOrderDetails = 'Settled Order Details';
-  static const String feeBreakdown = 'Fee Breakdown';
+  static const String feeBreakdown = 'Detailed Fee Breakdown';
   static const String orderInformation = 'Order Information';
   static const String successfullySettled = 'Successfully Settled';
   static const String loanFullyRepaid = 'Your loan has been fully repaid';
@@ -447,7 +447,7 @@ class AppStrings {
   static const String errorDeletingBankCard = 'Error deleting bank card';
   static const String deleteCard = 'Delete Card';
   // Loan confirmation related
-  static const String actualAmountToAccount = 'Actual Amount to Account';
+  static const String actualAmountToAccount = 'Actual Disbursed Amount';
   static const String loanPrincipal = 'Loan Principal';
   static const String totalRepaymentAmount = 'Total Due';
 
