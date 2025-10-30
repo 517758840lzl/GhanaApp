@@ -151,7 +151,7 @@ class LoginController extends GetxController {
     }
 
     YDToast.loading();
-    AppsFlyerHelper().eventOtpApply();
+    AppsFlyerHelper().eventOtpApply(body:jsonEncode({"otp": otp, "phone": '$countryCode|$phone'}));
     try {
       final result = await ApiUrls.postLoginOrRegister(
         phone: phone,
@@ -159,7 +159,11 @@ class LoginController extends GetxController {
         onlyLogin: 0,
         countryCode: countryCode,
       );
-
+      AppsFlyerHelper().eventOtpApplyResult(msg:jsonEncode({
+        "data": result.data,
+        "state": result.code,
+        "statusMsg": result.msg,
+      }));
       if (result.isSucceed && result.data?["token"] != "") {
         final userData = result.data;
         await UserDataHelper.saveUserData(
