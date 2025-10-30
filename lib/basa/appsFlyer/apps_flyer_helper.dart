@@ -52,6 +52,7 @@ class AppsFlyerHelper {
         try {
           LogUtil.d("onInstallConversionData res: " + res.toString());
           checkInit=true;
+          firstClick();
           Map<String, dynamic> stringKeyMap = {};
           if (res is Map) {
             stringKeyMap = Map<String, dynamic>.from(res);
@@ -307,7 +308,13 @@ class AppsFlyerHelper {
     }
   }
 
-
+  void firstClick() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isFirstOpen = prefs.getBool("isFirstOpen")?? true;
+    if(isFirstOpen) {
+      eventFirstOpen();
+    }
+  }
 
   void eventFirstOpen() async {
     _logEvent("first_open");
