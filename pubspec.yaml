@@ -63,7 +63,8 @@ dependencies:
   # ios
   webview_flutter: 4.11.0
   device_info_plus: 11.5.0
-  flutter_contacts: 1.1.9+2
+  flutter_contacts:
+    path: plugins/flutter_contacts-1.1.9+2
   flutter_native_contact_picker: 0.0.10
   geolocator: 11.1.0
   flutter_native_splash: 2.4.6

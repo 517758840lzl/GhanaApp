@@ -382,14 +382,18 @@ class KycStepController extends GetxController {
       if (Platform.isIOS) {
         if (await FlutterContacts.requestPermission()) {
           final contact = await FlutterContacts.openExternalPick();
-          if (contact != null && contact.phones.isNotEmpty) {
+          if (contact != null&&contact.phones.isNotEmpty) {
             phoneNumber = contact.phones.first.number;
             name = contact.displayName;
           } else {
-            _showContactPermissionDeniedDialog();
+            if (contact != null) {
+              _showContactPermissionDeniedDialog();
+            }
+            return;
           }
         } else {
           _showContactPermissionDeniedDialog();
+          return;
         }
       } else {
         final FlutterNativeContactPicker contactPicker =
