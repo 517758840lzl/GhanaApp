@@ -72,7 +72,7 @@ class ImageUtil {
 
       return filePath;
     } catch (e) {
-      LogUtil.e('保存图片到沙盒失败: $e');
+      LogUtil.e(' $e');
       return '';
     }
   }

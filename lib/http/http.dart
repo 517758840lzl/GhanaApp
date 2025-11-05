@@ -80,11 +80,10 @@ class HttpUtil {
   }) async {
     final stopwatch1 = Stopwatch()..start();
     final encryptData = encryption && body != null ? DESCryptUtil.encryptECB(jsonEncode(body)) : body;
-    LogUtil.d('加密1处理总耗时: ${stopwatch1.elapsedMilliseconds} ms');
+    LogUtil.d('${stopwatch1.elapsedMilliseconds} ms');
     stopwatch1.stop();
     // final stopwatch2 = Stopwatch()..start();
     // final encryptData = encryption&&body!=null ?await NativeDes.encrypt(data:jsonEncode(body), key: Constant.DES_KEY) : body;
-    // LogUtil.d('加密2处理总耗时: ${stopwatch2.elapsedMilliseconds} ms');
     // stopwatch2.stop();
     if (cancelToken.isCancelled) {
       cancelToken = CancelToken();
@@ -113,7 +112,7 @@ class HttpUtil {
               if (model.code != 404) {
                 if (toastError) {}
               }
-              LogUtil.i("404不做弹窗提示，${model.msg}");
+              LogUtil.i("${model.msg}");
             }
             break;
         }
@@ -213,15 +212,14 @@ class HttpUtil {
         int startTime = response.requestOptions.extra["startTime"] ?? 0;
         int endTime = DateTime.now().millisecondsSinceEpoch;
         int requestTime = endTime - startTime;
-        LogUtil.i("${response.requestOptions.path}----请求成功--请求时间：${requestTime}");
+        LogUtil.i("${response.requestOptions.path}----${requestTime}");
         final responseJson = response;
         final stopwatch1 = Stopwatch()..start();
         final responseData = DESCryptUtil.decryptClick(response.data);
-        LogUtil.d('解密1处理总耗时: ${stopwatch1.elapsedMilliseconds} ms');
+        LogUtil.d('${stopwatch1.elapsedMilliseconds} ms');
         stopwatch1.stop();
         // final stopwatch2 = Stopwatch()..start();
         // final responseData = response.data!=null?await NativeDes.decrypt(data:response.data, key: Constant.DES_KEY):response.data;
-        // LogUtil.d('解密2处理总耗时: ${stopwatch2.elapsedMilliseconds} ms');
         // stopwatch2.stop();
 
         responseJson.data = responseData;

@@ -152,13 +152,13 @@ class DESCryptUtil {
       // 3. 使用GZIP压缩字节（压缩率高，适合文本类数据）
       List<int> compressedBytes = ZLibEncoder(level: 6).convert(jsonBytes);
 
-      LogUtil.i('压缩前大小: ${jsonBytes.length} 字节');
-      LogUtil.i('压缩后大小: ${compressedBytes.length} 字节');
-      LogUtil.i('压缩率: ${(compressedBytes.length / jsonBytes.length * 100).toStringAsFixed(2)}%');
+      LogUtil.i('${jsonBytes.length}');
+      LogUtil.i('${compressedBytes.length}');
+      LogUtil.i(' ${(compressedBytes.length / jsonBytes.length * 100).toStringAsFixed(2)}%');
 
       return compressedBytes;
     } catch (e) {
-      LogUtil.i('转换或压缩失败: $e');
+      LogUtil.i('$e');
       throw e; // 抛出异常让调用方处理
     }
   }
@@ -178,8 +178,8 @@ class DESCryptUtil {
 
       return Uint8List.fromList(compressedBytes);
     } catch (e) {
-      LogUtil.i('压缩失败: $e');
-      throw Exception('无法压缩列表数据');
+      LogUtil.i('$e');
+      throw Exception('');
     }
   }
 }

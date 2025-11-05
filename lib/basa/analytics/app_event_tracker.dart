@@ -227,14 +227,12 @@ class AppEventTracker {
       );
 
       if (up.isSucceed) {
-        LogUtil.d(
-          '✔ 埋点上报成功 step=$step, page=$pageTitle, events=${eventsList.length}',
-        );
+
       } else {
-        LogUtil.d('✖ 埋点上报失败: ${up.msg}');
+
       }
     } catch (e) {
-      LogUtil.d('❌ 埋点上报异常: $e');
+
     } finally {
       // 清理当前步骤的数据
       _stepEvents.remove(step);

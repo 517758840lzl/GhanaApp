@@ -39,7 +39,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 
 // class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //   CameraController? _controller;
-//
+//   bool _isPopping = false;
 //   FaceDetector? _faceDetector;
 //   bool _isDetecting = false;
 //   bool _isCameraInitialized = false;
@@ -220,7 +220,6 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //       try {
 //         await _processCameraImage(image);
 //       } catch (e) {
-//         LogUtil.d('处理图像错误: $e');
 //       } finally {
 //         _isDetecting = false;
 //       }
@@ -268,10 +267,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //       if (_isLive && !_currentActionCompleted) {
 //         _currentActionCompleted = true;
 //         _moveToNextAction();
-//         if (_allActionsCompleted&& _capturedImagePaths.length>0) {
-//           Navigator.pop(context, _capturedImagePaths);
-//         }
 //       }
+// if (_allActionsCompleted && _capturedImagePaths.isNotEmpty && !_isPopping) {
+// _isPopping = true; // 防止重复进入
+// Navigator.pop(context, _capturedImagePaths);
+// }
 //
 //
 //     }
@@ -404,7 +404,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //             faceCenterY <= frameBottom;
 //
 //     // 边界宽松判定：允许人脸稍微超出 10%
-//     final double margin = frameSize * 0.1;
+//     final double margin = frameSize * 0.2;
 //     final bool roughlyInside =
 //         faceRect.left >= frameLeft - margin &&
 //             faceRect.top >= frameTop - margin &&
@@ -415,7 +415,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //     final double faceArea = faceRect.width * faceRect.height;
 //     final double frameArea = frameSize * frameSize;
 //     final double faceRatio = faceArea / frameArea;
-//     final bool sizeAppropriate = faceRatio >= 0.2 && faceRatio <= 0.8;
+//     final bool sizeAppropriate = faceRatio >= 0.1 && faceRatio <= 0.8;
 //
 //     return centerInside && roughlyInside && sizeAppropriate;
 //   }

@@ -173,7 +173,7 @@ class LoginController extends GetxController {
           userData?['cacheData'],
         );
 
-        LogUtil.d("登录的用户信息----- ${userData}");
+        LogUtil.d("---- ${userData}");
         AppsFlyerHelper().setCustomerUserId(
           Md5.stringToMd5(' ${countryCode}|$phone'),
         );

@@ -88,7 +88,7 @@ class StringUtil {
       return DateFormat('yyyy-MM-dd').format(dateTime);
     } catch (e) {
       // 处理解析错误，返回原始字符串或空值
-      LogUtil.i('日期格式转换失败: $e');
+      LogUtil.i('$e');
       return dateString; // 或返回空字符串 ''，根据需求调整
     }
   }
