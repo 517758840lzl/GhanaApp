@@ -127,13 +127,11 @@ class AppsFlyerHelper {
         body: req,
       );
       if (up.isSucceed) {
-        LogUtil.d('✔ 上报AF数据 成功');
         LogUtil.d('req:$req\n');
       } else {
-        LogUtil.d('✖ 上报AF数据 failed: ${up.msg}');
       }
     } catch (e, st) {
-      LogUtil.d('❌ 上报AF数据: $e');
+      LogUtil.d(' $e');
     }
   }
 
@@ -164,7 +162,7 @@ class AppsFlyerHelper {
       return false; // 没有编码模式，未编码
     } catch (e) {
       // 如果解码失败，说明可能包含无效的编码字符，认为未编码
-      LogUtil.d("URL编码检查失败: $e");
+      LogUtil.d("$e");
       return false;
     }
   }
@@ -214,7 +212,7 @@ class AppsFlyerHelper {
           }
         }
       } catch (e) {
-        LogUtil.d("获取gaid失败：${e.toString()}");
+        LogUtil.d("${e.toString()}");
       }
     } else {
       try {
@@ -318,6 +316,8 @@ class AppsFlyerHelper {
 
   void eventFirstOpen() async {
     _logEvent("first_open");
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isFirstOpen", false);
   }
 
   Future<void> eventRegisterApply({String? body, String? heads}) async {

