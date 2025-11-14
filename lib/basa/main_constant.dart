@@ -1,6 +1,6 @@
 class Constant {
 
-  static const String BASE_URL = "https://www.sikaswift.pro";   //测试https://www.sikaswift.pro  本地测试:http://192.168.0.156:8091
+  static const String BASE_URL = "https://www.sikaswift.pro";   //测试https://www.sikaswift.pro  其他正式https://www.mobimeta.org
   static const bool APP_RELEASER= false;//上架发布开关
 
   static const bool APP_ENCRYPTION = true;//接口加密开关 false关 true开
@@ -12,8 +12,8 @@ class Constant {
 
 
   static const String APP_NAME = "GhanaApp";
-  static const String afDevKey = 'FYiVnBWPbxjw3HsyfqnUtL';//FYiVnBWPbxjw3HsyfqnUtL
-  static const String appId = '';
+  static const String afDevKey = 'iiJiNU43wLxmGrJappENbm';//iiJiNU43wLxmGrJappENbm
+  static const String appId = '6755167936';
   static const String DES_KEY = 'p4f8g7j1k2l9m6d0b3g7h8r5t6y2w4q';//des加密Key
   static const String URL_PRIVACY_POLICY="https://www.dophin.net/privacy-policy.html";
   static const String URL_TERM_SERVICE="https://www.maximerge.finance/static/terms-conditions/index.html";

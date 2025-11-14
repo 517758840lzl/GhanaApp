@@ -488,7 +488,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                                 ),
                               );
                           return Text(
-                            selectedCoupon.title,
+                            selectedCoupon.summary,
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.black,

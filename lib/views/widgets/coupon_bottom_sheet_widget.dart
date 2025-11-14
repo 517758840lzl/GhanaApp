@@ -166,7 +166,7 @@ class CouponBottomSheetWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        coupon.title,
+                        coupon.summary,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

@@ -305,7 +305,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                                 ),
                               );
                           return Text(
-                            selectedCoupon.title,
+                            selectedCoupon.summary,
                             style: TextStyle(
                               fontSize: 14,
                               color: AppColors.primaryColor,

@@ -12,7 +12,7 @@ echo "打包完成..."
 
 cd build/ios/ipa/
 
-FILE=flutter3APP.ipa
+FILE=GhanaApp.ipa
 
 if [ ! -f $FILE ]; then
   echo "文件不存在, 打包失败..."

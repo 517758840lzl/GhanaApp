@@ -10,9 +10,9 @@ import UIKit
     GeneratedPluginRegistrant.register(with: self)
       if let registrar = self.registrar(forPlugin: "FaceLivenessPlugin") {
         FaceLivenessPlugin.register(with: registrar)
-        print("✅ FaceLivenessPlugin manually registered.")
+        print(" registered.")
       } else {
-        print("❌ Failed to get registrar for FaceLivenessPlugin")
+        print("FaceLivenessPlugin")
       }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
