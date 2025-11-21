@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../utils/string/string_util.dart';
 
 /// 基础产品卡片组件
@@ -36,14 +36,14 @@ abstract class BaseProductCard extends StatelessWidget {
       child: Column(
         children: [
           if (onlyShowAmountAndDueDate) ...[
-            buildDetailRow(AppStrings.loanAmount, formatLoanAmount(product)),
-            buildDetailRow(AppStrings.termsLabel, formatTerms(product)),
-            buildDetailRow(AppStrings.dueDate, formatDueDate(product)),
+            buildDetailRow('loanAmount'.tr, formatLoanAmount(product)),
+            buildDetailRow('termsLabel'.tr, formatTerms(product)),
+            buildDetailRow('dueDate'.tr, formatDueDate(product)),
           ] else ...[
-            buildDetailRow(AppStrings.termsLabel, formatTerms(product)),
-            buildDetailRow(AppStrings.loanAmount, formatLoanAmount(product)),
+            buildDetailRow('termsLabel'.tr, formatTerms(product)),
+            buildDetailRow('loanAmount'.tr, formatLoanAmount(product)),
             buildDetailRow(
-              AppStrings.dailyInterestsLabel,
+              'dailyInterestsLabel'.tr,
               formatInterestRate(product),
             ),
           ],
@@ -83,19 +83,19 @@ abstract class BaseProductCard extends StatelessWidget {
   /// 格式化期限
   String formatTerms(Product product) {
     return product.daysPerTermFrom == product.daysPerTermTo
-        ? '${product.daysPerTermFrom ?? 7} ${AppStrings.daysLabel}'
-        : '${product.daysPerTermFrom ?? 7}~${product.daysPerTermTo ?? 180} ${AppStrings.daysLabel}';
+        ? '${product.daysPerTermFrom ?? 7} ${'daysLabel'.tr}'
+        : '${product.daysPerTermFrom ?? 7}~${product.daysPerTermTo ?? 180} ${'daysLabel'.tr}';
   }
 
   /// 格式化贷款金额
   String formatLoanAmount(Product product) {
     final ac = product.productAccount ?? 0;
     if (ac != 0) {
-      return '${AppStrings.currencyUSD}${StringUtil.formatAmount(product.productAccount ?? 0)}';
+      return '${'currencyUSD'.tr}${StringUtil.formatAmount(product.productAccount ?? 0)}';
     } else {
       return product.loanLimitFrom == product.loanLimitTo
-          ? '${AppStrings.currencyUSD}${StringUtil.formatAmount(product.loanLimitFrom as num)}'
-          : '${AppStrings.currencyUSD}${StringUtil.formatAmount(product.loanLimitFrom as num)}~${StringUtil.formatAmount(product.loanLimitTo as num)}';
+          ? '${'currencyUSD'.tr}${StringUtil.formatAmount(product.loanLimitFrom as num)}'
+          : '${'currencyUSD'.tr}${StringUtil.formatAmount(product.loanLimitFrom as num)}~${StringUtil.formatAmount(product.loanLimitTo as num)}';
     }
   }
 
@@ -111,7 +111,7 @@ abstract class BaseProductCard extends StatelessWidget {
     return product.dueDate ??
         product.repayDateStr ??
         product.repayDate ??
-        AppStrings.notAvailable;
+        'notAvailable'.tr;
   }
 
   /// 构建产品图标

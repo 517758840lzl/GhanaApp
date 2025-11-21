@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter3APP/utils/string/string_util.dart';
 import '../../common/colors/app_colors.dart';
-import '../../l10n/app_strings.dart';
 import 'package:get/get.dart';
 import '../../routes/routes.dart';
 import 'repayment_controller.dart';
@@ -46,7 +45,7 @@ class RepaymentPage extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.white,
       title: Text(
-        AppStrings.repayment,
+        'repayment'.tr,
         style: const TextStyle(
           color: Color(0xFF1A1A1A),
           fontSize: 18,
@@ -93,7 +92,7 @@ class RepaymentPage extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      AppStrings.paymentUpdateNotice,
+                      'paymentUpdateNotice'.tr,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey[600],
@@ -232,7 +231,7 @@ class RepaymentPage extends StatelessWidget {
                                   textBaseline: TextBaseline.alphabetic,
                                   children: [
                                     Text(
-                                      AppStrings.currencyUSD,
+                                      'currencyUSD'.tr,
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.grey[600],
@@ -253,7 +252,7 @@ class RepaymentPage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  AppStrings.dueDate,
+                                  'dueDate'.tr,
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[500],
@@ -378,7 +377,7 @@ class RepaymentPage extends StatelessWidget {
                 const Icon(Icons.payment, size: 16, color: Colors.black),
                 const SizedBox(width: 6),
                 Text(
-                  AppStrings.repayNow,
+                  'repayNow'.tr,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -426,7 +425,7 @@ class RepaymentPage extends StatelessWidget {
                       const Icon(Icons.payment, size: 18, color: Colors.black),
                       const SizedBox(width: 8),
                       Text(
-                        '${AppStrings.repayNow} ${AppStrings.currencyUSD}${StringUtil.formatAmount(controller.totalSelectedAmount)}',
+                        '${'repayNow'.tr} ${'currencyUSD'.tr}${StringUtil.formatAmount(controller.totalSelectedAmount)}',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -464,7 +463,7 @@ class RepaymentPage extends StatelessWidget {
 
           // 主标题
           Text(
-            AppStrings.noRepaymentRecords,
+            'noRepaymentRecords'.tr,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -478,7 +477,7 @@ class RepaymentPage extends StatelessWidget {
 
           // 描述文本
           Text(
-            AppStrings.noRepaymentRecordsDescription,
+            'noRepaymentRecordsDescription'.tr,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[600],
@@ -527,7 +526,7 @@ class RepaymentPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      AppStrings.refreshToCheck,
+                      'refreshToCheck'.tr,
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -558,11 +557,11 @@ class RepaymentPage extends StatelessWidget {
   // 获取状态文本
   String _getStatusText(dynamic item) {
     if (item.orderStatus == 5) {
-      return AppStrings.inProcess;
+      return 'inProcess'.tr;
     } else if (item.remainingDays >= 0) {
-      return AppStrings.processing;
+      return 'processing'.tr;
     } else {
-      return AppStrings.overdue;
+      return 'overdue'.tr;
     }
   }
 }

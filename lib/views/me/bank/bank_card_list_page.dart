@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../basa/main_constant.dart';
 import '../../../models/bank_card.dart';
 import '../../../common/colors/app_colors.dart';
 import 'package:get/get.dart';
 import 'bank_card_list_controller.dart';
-import '../../../l10n/app_strings.dart';
 
 // 导入BankCardMode枚举
 
@@ -18,8 +16,8 @@ class BankCardListPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
-        title: const Text(
-          AppStrings.myBankCards,
+        title: Text(
+          'myBankCards'.tr,
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -95,7 +93,7 @@ class BankCardListPage extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            AppStrings.noBankCardsFound,
+            'noBankCardsFound'.tr,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -104,7 +102,7 @@ class BankCardListPage extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            AppStrings.addFirstBankCard,
+            'addFirstBankCard'.tr,
             style: TextStyle(fontSize: 14, color: Colors.grey[500]),
           ),
         ],
@@ -165,163 +163,201 @@ class BankCardListPage extends StatelessWidget {
     required BankCardListController controller,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 15),
       child: Material(
-        elevation: 2,
+        elevation: 3,
         borderRadius: BorderRadius.circular(12),
-        shadowColor: Colors.black.withValues(alpha: 0.08),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [bgColor, bgColor.withValues(alpha: 0.9)],
-            ),
-            borderRadius: BorderRadius.circular(12),
-            border: Constant.APP_BLACK_CARD
-                ? isSelected
-                      ? Border.all(color: AppColors.primaryColor, width: 2)
-                      : null
-                : null,
-          ),
-          child: Stack(
-            children: [
-              // 背景水印
-              Positioned(
-                right: -20,
-                top: -20,
-                child: Opacity(
-                  opacity: 0.1,
-                  child: _buildBankLogo(card.bankName, 80),
-                ),
+        shadowColor: Colors.black.withValues(alpha: 0.1),
+        child: Obx(
+          () => Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  bgColor,
+                  bgColor.withValues(alpha: 0.85),
+                  bgColor.withValues(alpha: 0.75),
+                ],
               ),
-              InkWell(
-                borderRadius: BorderRadius.circular(12),
-                onTap: () => controller.selectedCard.value = card,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 顶部行：银行logo、名称和操作按钮
-                      Row(
-                        children: [
-                          // 银行logo
-                          _buildBankLogo(card.bankName, 32),
-                          const SizedBox(width: 12),
-                          // 银行名称和卡类型
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${card.bankName}${card.bankTypeDesc ?? ''}',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                if (isDefault)
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withValues(
-                                        alpha: 0.2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.3,
-                                        ),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      AppStrings.defaultCard,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          // 编辑按钮
-                          if (controller.edit == true)
-                            Row(
-                              children: [
-                                // 选择指示器
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: isSelected
-                                        ? AppColors.primaryColor
-                                        : Colors.white.withValues(alpha: 0.3),
-                                  ),
-                                  child: isSelected
-                                      ? const Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                          size: 14,
-                                        )
-                                      : null,
-                                ),
-                              ],
-                            ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // 卡号
-                      Text(
-                        card.bankCardNo,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                          letterSpacing: 2.0,
-                        ),
-                      ),
-
-                      const SizedBox(height: 5),
-
-                      // 底部行：持卡人信息和默认标识
-                      Row(
-                        children: [
-                          if (card.holderName != null &&
-                              card.holderName!.isNotEmpty)
-                            Expanded(
-                              child: Text(
-                                card.holderName!,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 5),
-
-                      // 操作按钮区域
-                      _buildCardActionButtons(card, controller),
-                    ],
+              borderRadius: BorderRadius.circular(12),
+              border: controller.edit.value
+                  ? isSelected
+                        ? Border.all(color: AppColors.primaryColor, width: 2.5)
+                        : Border.all(
+                            color: Colors.white.withValues(alpha: 0.2),
+                            width: 1,
+                          )
+                  : null,
+            ),
+            child: Stack(
+              children: [
+                // 背景装饰图案
+                Positioned(
+                  right: -30,
+                  top: -30,
+                  child: Opacity(
+                    opacity: 0.08,
+                    child: _buildBankLogo(card.bankName, 120),
                   ),
                 ),
-              ),
-            ],
+                Positioned(
+                  right: 20,
+                  bottom: -20,
+                  child: Opacity(
+                    opacity: 0.05,
+                    child: _buildBankLogo(card.bankName, 100),
+                  ),
+                ),
+                InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () => controller.selectedCard.value = card,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // 顶部区域：银行信息和选择指示器
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // 银行logo
+                            _buildBankLogo(card.bankName, 30),
+                            const SizedBox(width: 12),
+                            // 银行名称和默认标签
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // 银行名称
+                                  Text(
+                                    card.bankName,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  // 卡类型和默认标签
+                                  if ((card.bankTypeDesc != null &&
+                                          card.bankTypeDesc!.isNotEmpty) ||
+                                      isDefault)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 6),
+                                      child: Row(
+                                        children: [
+                                          if (card.bankTypeDesc != null &&
+                                              card.bankTypeDesc!.isNotEmpty)
+                                            Text(
+                                              card.bankTypeDesc!,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.8,
+                                                ),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          if (card.bankTypeDesc != null &&
+                                              card.bankTypeDesc!.isNotEmpty &&
+                                              isDefault)
+                                            const SizedBox(width: 8),
+                                          if (isDefault)
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 8,
+                                                    vertical: 3,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.25,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                              child: Text(
+                                                'defaultCard'.tr,
+                                                style: const TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            // 编辑模式下的选择指示器
+                            if (controller.edit == true)
+                              Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: isSelected
+                                      ? AppColors.primaryColor
+                                      : Colors.white.withValues(alpha: 0.25),
+                                  border: Border.all(
+                                    color: Colors.white.withValues(alpha: 0.5),
+                                    width: 1.5,
+                                  ),
+                                ),
+                                child: isSelected
+                                    ? const Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: 16,
+                                      )
+                                    : null,
+                              ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 5),
+
+                        // 卡号区域
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Card Number',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.white.withValues(alpha: 0.7),
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                card.bankCardNo,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                  letterSpacing: 3.0,
+                                  height: 1.2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -360,39 +396,18 @@ class BankCardListPage extends StatelessWidget {
     BankCardInfo card,
     BankCardListController controller,
   ) {
-    return Center(
-      child: _buildActionButton(
-        text: AppStrings.edit,
-        onTap: () {
-          // 管理卡片逻辑
-          controller.navigateToEditCard(card, controller);
-        },
-      ),
-    );
-  }
-
-  // 构建操作按钮
-  Widget _buildActionButton({
-    String? text,
-    IconData? icon,
-    required VoidCallback onTap,
-  }) {
     return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(6),
+      onTap: () {
+        controller.navigateToEditCard(card, controller);
+      },
+      borderRadius: BorderRadius.circular(8),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: text != null
-            ? Text(
-                text,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            : Icon(icon, color: Colors.white, size: 18),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(Icons.edit_outlined, color: Colors.white, size: 18),
       ),
     );
   }
@@ -428,8 +443,8 @@ class BankCardListPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text(
-                AppStrings.setAsDefault,
+              child: Text(
+                'setAsDefault'.tr,
                 style: TextStyle(
                   color: AppColors.primaryColor,
                   fontSize: 16,
@@ -467,8 +482,8 @@ class BankCardListPage extends StatelessWidget {
                     child: const Icon(Icons.add, color: Colors.white, size: 16),
                   ),
                   const SizedBox(width: 8),
-                  const Text(
-                    AppStrings.addBankAccount,
+                  Text(
+                    'addBankAccount'.tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../../common/colors/app_colors.dart';
 import '../../provider/app_state.dart';
-import '../../l10n/app_strings.dart';
 
 class KYCExitDialog extends StatefulWidget {
   const KYCExitDialog({super.key});
@@ -120,7 +120,7 @@ class _KYCExitDialogState extends State<KYCExitDialog>
                               children: [
                                 // 主标题
                                 Text(
-                                  AppStrings.exitWithoutSaving,
+                                  'exitWithoutSaving'.tr,
                                   style: const TextStyle(
                                     color: Color(0xFF1A1A1A),
                                     fontSize: 20,
@@ -140,7 +140,7 @@ class _KYCExitDialogState extends State<KYCExitDialog>
                         width: double.infinity,
                         height: 56,
                         child: _buildPrimaryButton(
-                          text: AppStrings.continueText,
+                          text: 'continueText'.tr,
                           onTap: _handleContinue,
                         ),
                       ),
@@ -149,7 +149,7 @@ class _KYCExitDialogState extends State<KYCExitDialog>
                       // 退出按钮
                       Center(
                         child: _buildSecondaryButton(
-                          text: AppStrings.noNecesitoDinero,
+                          text: 'noNecesitoDinero'.tr,
                           onTap: _handleExit,
                         ),
                       ),

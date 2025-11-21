@@ -11,7 +11,6 @@ import '../common/toast.dart';
 import '../models/loan_reject_info.dart';
 import '../models/pop_config.dart';
 import '../provider/app_state.dart';
-import '../l10n/app_strings.dart';
 import 'package:get/get.dart';
 import '../routes/routes.dart';
 

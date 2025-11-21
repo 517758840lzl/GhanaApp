@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 import '../../../utils/formatter/number_formatter.dart';
 import '../../widgets/exit_confirmation_dialog.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 import '../../../models/coupon.dart';
 import '../../widgets/coupon_bottom_sheet_widget.dart';
@@ -139,7 +138,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
         ),
       ),
       title: Text(
-        AppStrings.repaymentSubmit,
+        'repaymentSubmit'.tr,
         style: const TextStyle(
           color: Color(0xFF2C3E50),
           fontSize: 20,
@@ -203,8 +202,8 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
           ),
         ),
         const SizedBox(width: 8),
-        const Text(
-          AppStrings.repaymentAmount,
+         Text(
+          'repaymentAmount'.tr,
           style: TextStyle(
             color: Colors.black,
             fontSize: 16,
@@ -253,13 +252,13 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
               horizontal: 16,
               vertical: 16,
             ),
-            hintText: AppStrings.enterAmount,
+            hintText: 'enterAmount'.tr,
             hintStyle: TextStyle(
               color: Colors.grey.withOpacity(0.6),
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
-            prefixText: '${AppStrings.currencyUSD} ',
+            prefixText: '${'currencyUSD'.tr} ',
             prefixStyle: const TextStyle(
               color: AppColors.primaryColor,
               fontSize: 22,
@@ -326,7 +325,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                     Icon(Icons.local_offer, color: Colors.green[600], size: 14),
                     const SizedBox(width: 4),
                     Text(
-                      AppStrings.couponApplied,
+                      'couponApplied'.tr,
                       style: TextStyle(
                         color: Colors.green[600],
                         fontSize: 11,
@@ -343,7 +342,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${AppStrings.currencyUSD}${_formatAmount(couponResponse.repaymentAmount)}',
+                '${'currencyUSD'.tr}${_formatAmount(couponResponse.repaymentAmount)}',
                 style: TextStyle(
                   color: Colors.grey[400],
                   fontSize: 16,
@@ -356,7 +355,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
           ),
           const SizedBox(height: 6),
           Text(
-            '${AppStrings.currencyUSD}${_formatAmount(couponResponse.newRepaymentAmount)}',
+            '${'currencyUSD'.tr}${_formatAmount(couponResponse.newRepaymentAmount)}',
             style: const TextStyle(
               color: AppColors.primaryColor,
               fontSize: 28,
@@ -387,7 +386,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
           const SizedBox(width: 6),
           Flexible(
             child: Text(
-              '${AppStrings.repaymentRange}: ${AppStrings.currencyUSD}${controller.minAmount.value} ~ ${AppStrings.currencyUSD}${controller.maxAmount.value}',
+              '${'repaymentRange'.tr}: ${'currencyUSD'.tr}${controller.minAmount.value} ~ ${'currencyUSD'.tr}${controller.maxAmount.value}',
               style: TextStyle(
                 color: Colors.black.withOpacity(0.9),
                 fontSize: 12,
@@ -429,7 +428,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                 controller.clearSelectedCoupon();
                 Get.back();
               },
-              title: AppStrings.selectCoupon,
+              title: 'selectCoupon'.tr,
             );
           },
           child: Padding(
@@ -456,7 +455,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.selectCoupon,
+                        'selectCoupon'.tr,
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -498,8 +497,8 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                         } else {
                           return Text(
                             controller.couponList.length == 0
-                                ? AppStrings.noAvailableCoupons
-                                : AppStrings.pleaseCoupons,
+                                ? 'noAvailableCoupons'.tr
+                                : 'pleaseCoupons'.tr,
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.grey[500],
@@ -544,7 +543,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
       ),
       child: Column(
         children: [
-          _buildSectionHeader(AppStrings.paymentDetails, Icons.receipt_long),
+          _buildSectionHeader('paymentDetails'.tr, Icons.receipt_long),
           const SizedBox(height: 8),
           Obx(() {
             final billDetails = controller.billDetailsFuture.value;
@@ -559,16 +558,16 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
               child: Column(
                 children: [
                   _buildDetailItem(
-                    AppStrings.dueDate,
+                    'dueDate'.tr,
                     detail?.repayDate ?? "",
                     Icons.calendar_today,
                     Colors.blue,
                   ),
                   const SizedBox(height: 12),
                   _buildDetailItem(
-                    AppStrings.principal,
+                    'principal'.tr,
                     detail != null
-                        ? "${AppStrings.currencyUSD}${_formatAmount(detail.loanAmount)}"
+                        ? "${'currencyUSD'.tr}${_formatAmount(detail.loanAmount)}"
                         : "",
                     Icons.account_balance_wallet,
                     Colors.green,
@@ -576,9 +575,9 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                   ),
                   const SizedBox(height: 12),
                   _buildDetailItem(
-                    AppStrings.repaidAmount,
+                    'repaidAmount'.tr,
                     detail != null
-                        ? "${AppStrings.currencyUSD}${_formatAmount(detail.waivedAmount)}"
+                        ? "${'currencyUSD'.tr}${_formatAmount(detail.waivedAmount)}"
                         : "",
                     Icons.check_circle,
                     Colors.orange,
@@ -586,9 +585,9 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                   ),
                   const SizedBox(height: 12),
                   _buildDetailItem(
-                    AppStrings.interest,
+                    'interest'.tr,
                     detail != null
-                        ? "${AppStrings.currencyUSD}${_formatAmount(detail.interest)}"
+                        ? "${'currencyUSD'.tr}${_formatAmount(detail.interest)}"
                         : "",
                     Icons.trending_up,
                     Colors.purple,
@@ -596,9 +595,9 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                   ),
                   const SizedBox(height: 12),
                   _buildDetailItem(
-                    AppStrings.penaltyInterest,
+                    'penaltyInterest'.tr,
                     detail != null
-                        ? "${AppStrings.currencyUSD}${_formatAmount(detail.overdueInterest)}"
+                        ? "${'currencyUSD'.tr}${_formatAmount(detail.overdueInterest)}"
                         : "",
                     Icons.warning,
                     Colors.red,
@@ -606,7 +605,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                   ),
                   const SizedBox(height: 12),
                   _buildDetailItem(
-                    AppStrings.daysRemainingUntilRepaymentDue,
+                    'daysRemainingUntilRepaymentDue'.tr,
                     billDetails.remainingDay?.toString() ?? "0",
                     Icons.access_time,
                     (billDetails.remainingDay ?? 0) <= 3
@@ -695,7 +694,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  value.isEmpty ? AppStrings.notAvailable : value,
+                  value.isEmpty ? 'notAvailable'.tr : value,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -780,8 +779,8 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: const Text(
-          AppStrings.repayNow,
+        child:  Text(
+          'repayNow'.tr,
           style: TextStyle(
             color: Colors.black,
             fontSize: 16,
@@ -817,7 +816,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
           }
         },
         child: Text(
-          AppStrings.repayForExtension,
+          'repayForExtension'.tr,
           style: TextStyle(
             fontSize: 15,
             color: Colors.black,

@@ -6,7 +6,7 @@ import '../../../http/api_urls.dart';
 import '../../../provider/userDataHelper.dart';
 import '../../../common/toast.dart';
 import '../../../routes/routes.dart';
-import '../../../l10n/app_strings.dart';
+import '../../../controllers/language_controller.dart';
 import '../dialogs/delete_account_dialog.dart';
 import '../dialogs/clear_data_dialog.dart';
 
@@ -35,14 +35,12 @@ class PersonInformationController extends GetxController {
       if (result.isSucceed) {
         Get.offAllNamed(Routes.login);
         YDToast.text(
-          result.msg != "" ? result.msg : AppStrings.accountSuccessfullyDeleted,
+          result.msg != "" ? result.msg : 'accountSuccessfullyDeleted'.tr,
         );
         HttpUtil.cancelRequest();
         await UserDataHelper.clearUserToken();
       } else {
-        YDToast.text(
-          result.msg != "" ? result.msg : AppStrings.errorDeletingAccount,
-        );
+        YDToast.text(result.msg != "" ? result.msg : 'errorDeletingAccount'.tr);
       }
     } catch (e) {
       // ignore
@@ -62,7 +60,19 @@ class PersonInformationController extends GetxController {
     // 模拟清除缓存的过程
     Future.delayed(const Duration(seconds: 1), () {
       YDToast.cleanAll();
-      YDToast.text(AppStrings.dataDeletedSuccessfully);
+      YDToast.text('dataDeletedSuccessfully'.tr);
     });
+  }
+
+  /// 切换语言到英文
+  Future<void> switchToEnglish() async {
+    final languageController = Get.find<LanguageController>();
+    await languageController.switchToEnglish();
+  }
+
+  /// 切换语言到西班牙语
+  Future<void> switchToSpanish() async {
+    final languageController = Get.find<LanguageController>();
+    await languageController.switchToSpanish();
   }
 }

@@ -1,5 +1,4 @@
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'customer_service_controller.dart';
@@ -17,7 +16,7 @@ class CustomerServicePage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              AppStrings.Service,
+              'Service'.tr,
               style: const TextStyle(color: Colors.black),
             ),
             backgroundColor: Colors.white,
@@ -35,11 +34,11 @@ class CustomerServicePage extends StatelessWidget {
               children: [
                 Icon(Icons.error_outline, size: 64, color: Colors.grey),
                 SizedBox(height: 16),
-                Text(AppStrings.errorLoadingData),
+                Text('errorLoadingData'.tr),
                 SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => controller.refreshData(),
-                  child: Text(AppStrings.retry),
+                  child: Text('retry'.tr),
                 ),
               ],
             ),
@@ -71,7 +70,7 @@ class CustomerServicePage extends StatelessWidget {
           ),
         ),
         body: appCustomerServiceInfo == null
-            ? Center(child: Text(AppStrings.noDataAvailable))
+            ? Center(child: Text('noDataAvailable'.tr))
             : CustomScrollView(
                 slivers: [
                   // 顶部渐变背景区域
@@ -176,7 +175,7 @@ class CustomerServicePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    AppStrings.customerServiceResponseTime,
+                                    'customerServiceResponseTime'.tr,
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: AppColors.textSecondary,
@@ -217,32 +216,32 @@ class CustomerServicePage extends StatelessWidget {
         icon = Icons.phone_android;
         primaryColor = AppColors.primaryColor;
         lightColor = AppColors.primaryColor.withOpacity(0.1);
-        typeText = AppStrings.phoneSupport;
-        actionText = AppStrings.callNow;
+        typeText = 'phoneSupport'.tr;
+        actionText = 'callNow'.tr;
         onAction = () => controller.launchWhatsApp(account);
         break;
       case 2: // WhatsApp
         icon = Icons.chat_bubble_outline;
         primaryColor = Color(0xFF25D366);
         lightColor = Color(0xFF25D366).withOpacity(0.1);
-        typeText = AppStrings.whatsappSupport;
-        actionText = AppStrings.startChat;
+        typeText = 'whatsappSupport'.tr;
+        actionText = 'startChat'.tr;
         onAction = () => controller.launchWhatsApp(account);
         break;
       case 3: // 邮箱
         icon = Icons.email_outlined;
         primaryColor = Colors.blue;
         lightColor = Colors.blue.withOpacity(0.1);
-        typeText = AppStrings.emailSupport;
-        actionText = AppStrings.sendEmail;
+        typeText = 'emailSupport'.tr;
+        actionText = 'sendEmail'.tr;
         onAction = () => controller.launchEmail(account);
         break;
       default:
         icon = Icons.help_outline;
         primaryColor = AppColors.textSecondary;
         lightColor = AppColors.textSecondary.withOpacity(0.1);
-        typeText = AppStrings.otherContact;
-        actionText = AppStrings.contactSupport;
+        typeText = 'otherContact'.tr;
+        actionText = 'contactSupport'.tr;
         onAction = () {};
     }
 
@@ -339,7 +338,7 @@ class CustomerServicePage extends StatelessWidget {
                                 ),
                                 SizedBox(width: 8),
                                 Text(
-                                  AppStrings.copy,
+                                  'copy'.tr,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

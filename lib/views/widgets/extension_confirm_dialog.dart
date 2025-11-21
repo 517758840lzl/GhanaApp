@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../common/colors/app_colors.dart';
-import '../../l10n/app_strings.dart';
 
 class ExtensionConfirmDialog extends StatelessWidget {
   final VoidCallback onConfirm;
@@ -53,9 +53,9 @@ class ExtensionConfirmDialog extends StatelessWidget {
               fit: BoxFit.contain,
             ),
             const SizedBox(height: 10),
-            const Text(
-              AppStrings.extensionDialogTip,
-              style: TextStyle(
+            Text(
+              'extensionDialogTip'.tr,
+              style: const TextStyle(
                 fontSize: 16,
                 color: Color(0xFF2C3E50),
                 fontWeight: FontWeight.w600,
@@ -77,8 +77,8 @@ class ExtensionConfirmDialog extends StatelessWidget {
                   elevation: 0,
                 ),
                 onPressed: onConfirm,
-                child: const Text(
-                  AppStrings.confirm,
+                child:  Text(
+                  'confirm'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -90,8 +90,8 @@ class ExtensionConfirmDialog extends StatelessWidget {
             const SizedBox(height: 12),
             TextButton(
               onPressed: onCancel,
-              child: const Text(
-                AppStrings.cancel,
+              child:  Text(
+                'cancel'.tr,
                 style: TextStyle(
                   fontSize: 14,
                   color: Color(0xFF96A0B2),

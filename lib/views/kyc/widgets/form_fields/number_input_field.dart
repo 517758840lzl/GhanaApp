@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../utils/widget/modern_form_widgets.dart';
 import '../../kyc_step_controller.dart';
 
@@ -71,7 +71,7 @@ class NumberInputField extends StatelessWidget {
           errorText:
               controller.isSubmitted.value &&
                   (controller.controllers[code]?.text.trim().isEmpty ?? true)
-              ? AppStrings.pleaseFillAllFields
+              ? 'pleaseFillAllFields'.tr
               : null,
         ),
         onChanged: (v) {
@@ -82,7 +82,7 @@ class NumberInputField extends StatelessWidget {
         },
         validator: (v) {
           if (v == null || v.trim().isEmpty) {
-            return AppStrings.pleaseFillAllFields;
+            return 'pleaseFillAllFields'.tr;
           }
           if (code == '50002' && v.trim().length != 10) {
             return 'Please enter 10 digits';

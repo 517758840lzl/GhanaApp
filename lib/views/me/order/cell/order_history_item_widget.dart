@@ -5,7 +5,6 @@ import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:get/get.dart';
 import '../../../../common/colors/app_colors.dart';
 import '../../../../models/order_history.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../routes/routes.dart';
 import '../../../../utils/string/string_util.dart';
 import '../history_controller.dart';
@@ -64,23 +63,23 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
   String _getOrderStatusTextEs(int status) {
     switch (status) {
       case 3:
-        return AppStrings.disbursing;
+        return 'disbursing'.tr;
       case 4:
-        return AppStrings.processing;
+        return 'processing'.tr;
       case 5:
-        return AppStrings.disbursementFailed;
+        return 'disbursementFailed'.tr;
       case 6:
-        return AppStrings.completed;
+        return 'completed'.tr;
       case 7:
-        return AppStrings.exceptionallyClosed;
+        return 'exceptionallyClosed'.tr;
       case 12:
-        return AppStrings.disbursing;
+        return 'disbursing'.tr;
       case 20:
-        return AppStrings.underReview;
+        return 'underReview'.tr;
       case 22:
-        return AppStrings.rejected;
+        return 'rejected'.tr;
       default:
-        return AppStrings.unknown;
+        return 'unknown'.tr;
     }
   }
 
@@ -205,7 +204,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.repaymentAmount,
+                        'repaymentAmount'.tr,
                         style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF999999),
@@ -266,7 +265,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      AppStrings.timeRemaining,
+                      'timeRemaining'.tr,
                       style: const TextStyle(
                         fontSize: 14,
                         color: Color(0xFF666666),
@@ -295,9 +294,9 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: AppColors.primaryColor),
                         ),
-                        child: const Text(
-                          AppStrings.cancel,
-                          style: TextStyle(
+                        child: Text(
+                          'cancel'.tr,
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: AppColors.primaryColor,
@@ -341,7 +340,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                       const Icon(Icons.payment, size: 18,color: Colors.black),
                       const SizedBox(width: 8),
                       Text(
-                        AppStrings.payArrow,
+                        'payArrow'.tr,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -370,7 +369,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      '${AppStrings.dueDate}: ',
+                      '${'dueDate'.tr}: ',
                       style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFF999999),
@@ -417,9 +416,9 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                             color: AppColors.primaryColor,
                           ),
                           const SizedBox(width: 4),
-                          const Text(
-                            AppStrings.loanContract,
-                            style: TextStyle(
+                          Text(
+                            'loanContract'.tr,
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: AppColors.primaryColor,
@@ -445,15 +444,15 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
     if (widget.item.orderStatus == 5) {
       backgroundColor = const Color(0xFFE3F2FD);
       textColor = const Color(0xFF1976D2);
-      statusText = AppStrings.processing;
+      statusText = 'processing'.tr;
     } else if (widget.item.remainingDays >= 0) {
       backgroundColor = const Color(0xFFE8F5E8);
       textColor = const Color(0xFF2E7D32);
-      statusText = AppStrings.processing;
+      statusText = 'processing'.tr;
     } else {
       backgroundColor = const Color(0xFFFFEBEE);
       textColor = const Color(0xFFD32F2F);
-      statusText = AppStrings.overdue;
+      statusText = 'overdue'.tr;
     }
 
     return Container(

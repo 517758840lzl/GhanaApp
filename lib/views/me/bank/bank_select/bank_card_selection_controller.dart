@@ -5,7 +5,6 @@ import '../../../../common/colors/app_colors.dart';
 import '../../../../utils/string/string_util.dart';
 import '../../../../common/toast.dart';
 import '../../../../http/api_urls.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../routes/routes.dart';
 
 class BankCardSelectionController extends GetxController {
@@ -67,11 +66,11 @@ class BankCardSelectionController extends GetxController {
         YDToast.text(
           result.msg.isNotEmpty
               ? result.msg
-              : AppStrings.errorFetchingBankCards,
+              : 'errorFetchingBankCards'.tr,
         );
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorFetchingBankCards);
+      YDToast.text('errorFetchingBankCards'.tr);
     }
   }
 
@@ -99,12 +98,12 @@ class BankCardSelectionController extends GetxController {
           YDToast.text(
             result.msg.isNotEmpty
                 ? result.msg
-                : AppStrings.errorSettingDefaultCard,
+                : 'errorSettingDefaultCard'.tr,
           );
         }
       } catch (e) {
         YDToast.cleanAll();
-        YDToast.text(AppStrings.errorSettingDefaultCard);
+        YDToast.text('errorSettingDefaultCard'.tr);
       }
     } else {
       // 如果是当前银行卡或没有传入银行卡，直接选择
@@ -132,7 +131,7 @@ class BankCardSelectionController extends GetxController {
     await fetchBankCardList();
 
     if (bankCardList.isEmpty) {
-      YDToast.text(AppStrings.noBankCardsFound);
+      YDToast.text('noBankCardsFound'.tr);
       return;
     }
 
@@ -352,7 +351,7 @@ class BankCardSelectionController extends GetxController {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            AppStrings.defaultCard,
+                            'defaultCard'.tr,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.orange[700],

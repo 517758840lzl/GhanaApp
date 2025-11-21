@@ -12,7 +12,6 @@ import '../../../http/api_urls.dart';
 import '../../common/permission/permission_util.dart';
 import '../../../routes/routes.dart';
 import '../../basa/updateData/user_updata_server.dart';
-import '../../l10n/app_strings.dart';
 
 class BorrowController extends GetxController {
   var selectedProducts = <Product>[].obs;
@@ -179,8 +178,8 @@ class BorrowController extends GetxController {
         insetPadding: EdgeInsets.symmetric(horizontal: 30),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text(AppStrings.autoDisburseTip, style: TextStyle(fontWeight: FontWeight.bold)),
-        content: const Text(AppStrings.autoDisburseCancel),
+        title: Text('autoDisburseTip'.tr, style: const TextStyle(fontWeight: FontWeight.bold)),
+        content: Text('autoDisburseCancel'.tr),
         actions: [
           Container(
             child: Row(
@@ -195,7 +194,7 @@ class BorrowController extends GetxController {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   ),
-                  child: const Text(AppStrings.cancel, style: TextStyle(color: Colors.white, fontSize: 16)),
+                  child: Text('cancel'.tr, style: const TextStyle(color: Colors.white, fontSize: 16)),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -207,7 +206,7 @@ class BorrowController extends GetxController {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   ),
-                  child: const Text(AppStrings.confirm, style: TextStyle(color: Colors.white, fontSize: 16)),
+                  child: Text('confirm'.tr, style: const TextStyle(color: Colors.white, fontSize: 16)),
                 ),
               ],
             ),
@@ -228,7 +227,7 @@ class BorrowController extends GetxController {
       final result = await ApiUrls.removeAutoLoan(productCodes: productCodes);
       YDToast.cleanAll();
       if (result.isSucceed) {
-        YDToast.text(AppStrings.cancelSuccess);
+        YDToast.text('cancelSuccess'.tr);
         cancelAutoDisburse();
         await fetchDataWithLoading(false);
       } else {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../common/colors/app_colors.dart';
-import '../../l10n/app_strings.dart';
 
 class ConfirmBankCardDialog extends StatelessWidget {
   final String? contents;
@@ -14,8 +14,8 @@ class ConfirmBankCardDialog extends StatelessWidget {
     final confirmationText = contents != null
         ? contents
         : type == 1
-        ? '${AppStrings.confirmRun}\n$cardNo'
-        : '${AppStrings.confirmBankAccount}\n$cardNo';
+        ? '${'confirmRun'.tr}\n$cardNo'
+        : '${'confirmBankAccount'.tr}\n$cardNo';
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -61,8 +61,8 @@ class ConfirmBankCardDialog extends StatelessWidget {
                           Radius.circular(8),
                         ),
                       ),
-                      child: const Text(
-                        AppStrings.cancel,
+                      child:  Text(
+                        'cancel'.tr,
                         style: TextStyle(fontSize: 14, color: Colors.black),
                       ),
                     ),
@@ -82,8 +82,8 @@ class ConfirmBankCardDialog extends StatelessWidget {
                         color: AppColors.primaryColor,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
-                      child: const Text(
-                        AppStrings.confirm,
+                      child:  Text(
+                        'confirm'.tr,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../utils/widget/modern_form_widgets.dart';
 import '../../kyc_step_controller.dart';
 import '../../../widgets/ios_picker_widget.dart';
@@ -51,7 +50,7 @@ class BankListDropdown extends StatelessWidget {
         processedOptions.add({'key': itemKey, 'value': value});
       }
 
-      if (!isValidValue && currentValue != AppStrings.pleaseSelect) {
+      if (!isValidValue && currentValue != 'pleaseSelect'.tr) {
         displayValue = '';
       }
 
@@ -68,7 +67,7 @@ class BankListDropdown extends StatelessWidget {
           errorText:
           controller.isSubmitted.value &&
               (currentValue.isEmpty || !isValidValue)
-              ? AppStrings.pleaseFillAllFields
+              ? 'pleaseFillAllFields'.tr
               : null,
           suffixIcon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
         ),
@@ -95,7 +94,7 @@ class BankListDropdown extends StatelessWidget {
         },
         validator: (val) {
           if (val == null || val.isEmpty) {
-            return AppStrings.pleaseFillAllFields;
+            return 'pleaseFillAllFields'.tr;
           }
           return null;
         },

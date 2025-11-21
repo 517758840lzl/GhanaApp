@@ -4,7 +4,6 @@ import '../../../../common/toast.dart';
 import '../../../../http/api_urls.dart';
 import '../../../../models/bank_card.dart';
 import 'package:flutter/material.dart';
-import '../../../../l10n/app_strings.dart';
 
 class BankCardFormController extends GetxController {
   final Rx<TextEditingController> bvnTextController =
@@ -152,7 +151,7 @@ class BankCardFormController extends GetxController {
         return true;
       } else {
         YDToast.text(
-          result.msg.isNotEmpty ? result.msg : AppStrings.errorAddingBankCard,
+          result.msg.isNotEmpty ? result.msg : 'errorAddingBankCard'.tr,
         );
       }
     } catch (e) {}
@@ -178,7 +177,7 @@ class BankCardFormController extends GetxController {
         return true;
       } else {
         YDToast.text(
-          result.msg.isNotEmpty ? result.msg : AppStrings.errorUpdatingBankCard,
+          result.msg.isNotEmpty ? result.msg : 'errorUpdatingBankCard'.tr,
         );
       }
     } catch (e) {}
@@ -198,11 +197,11 @@ class BankCardFormController extends GetxController {
       // 数据验证
       // if (cardNo.isEmpty || bankId.isEmpty || bankType.isEmpty) {
       if (cardNo.isEmpty || bankId.isEmpty) {
-        YDToast.text(AppStrings.pleaseFillAllFields);
+        YDToast.text('pleaseFillAllFields'.tr);
         return;
       }
       // if (cardNo.length<10) {
-      //   YDToast.text(AppStrings.cardNumberMustBe10Digits);
+      //   YDToast.text('cardNumberMustBe10Digits'.tr);
       //   return;
       // }
 
@@ -226,7 +225,7 @@ class BankCardFormController extends GetxController {
       }
 
       if (success) {
-        YDToast.text(AppStrings.bankCardSubmittedSuccessfully);
+        YDToast.text('bankCardSubmittedSuccessfully'.tr);
         await Future.delayed(Duration(milliseconds: 500)); // 给用户一点时间看到成功消息
         Get.back(result: true);
       }

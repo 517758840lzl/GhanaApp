@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/utils/string/string_util.dart';
 import 'package:flutter3APP/views/borrowMoney/detail/loan_application_detail_controller.dart';
 import 'package:flutter3APP/models/home_page_data.dart';
@@ -29,7 +28,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
       backgroundColor: Colors.white,
       foregroundColor: Colors.white,
       title: Text(
-        AppStrings.loanDetails,
+        'loanDetails'.tr,
         style: const TextStyle(
           color: Colors.black,
           fontSize: 20,
@@ -55,7 +54,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
           Icon(Icons.receipt_long_outlined, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            AppStrings.noDetailsAvailable,
+            'noDetailsAvailable'.tr,
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
         ],
@@ -167,10 +166,10 @@ class LoanApplicationDetailPage extends StatelessWidget {
                   Expanded(
                     child: Text(
                       product.appOrderStatus == 22
-                          ? AppStrings.reviewFailedTip
+                          ? 'reviewFailedTip'.tr
                           : product.appOrderStatus == 5
-                          ? AppStrings.disbursementFailedTip
-                          : AppStrings.disbursementWaitTip,
+                          ? 'disbursementFailedTip'.tr
+                          : 'disbursementWaitTip'.tr,
                       style: TextStyle(
                         fontSize: 13,
                         color: product.appOrderStatus == 5
@@ -226,7 +225,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           _buildAmountRow(
-            AppStrings.loanAmount,
+            'loanAmount'.tr,
             product.loanAmount ?? 0,
             isPrimary: true,
           ),
@@ -235,7 +234,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
             children: [
               Expanded(
                 child: _buildAmountItem(
-                  AppStrings.amountToReceive,
+                  'amountToReceive'.tr,
                   product.receiptAmount ?? 0,
                   Icons.trending_up,
                 ),
@@ -243,7 +242,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: _buildAmountItem(
-                  AppStrings.repaymentAmount,
+                  'repaymentAmount'.tr,
                   product.repayAmount ?? 0,
                   Icons.trending_down,
                 ),
@@ -255,7 +254,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
             children: [
               Expanded(
                 child: _buildAmountItem(
-                  AppStrings.interest,
+                  'interest'.tr,
                   product.interest ?? 0,
                   Icons.percent,
                 ),
@@ -263,7 +262,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: _buildAmountItem(
-                  AppStrings.serviceFee,
+                  'serviceFee'.tr,
                   (product.serviceFee ??
                       ((product.loanAmount ?? 0) -
                           (product.receiptAmount ?? 0))),
@@ -301,7 +300,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
             ),
           ),
           Text(
-            '${AppStrings.currencyUSD}${StringUtil.formatAmount(amount)}',
+            '${'currencyUSD'.tr}${StringUtil.formatAmount(amount)}',
             style: TextStyle(
               fontSize: isPrimary ? 24 : 16,
               fontWeight: FontWeight.bold,
@@ -325,7 +324,7 @@ class LoanApplicationDetailPage extends StatelessWidget {
           // Icon(icon, color: Colors.grey[600], size: 20),
           const SizedBox(height: 8),
           Text(
-            '${AppStrings.currencyUSD}${StringUtil.formatAmount(amount)}',
+            '${'currencyUSD'.tr}${StringUtil.formatAmount(amount)}',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -381,22 +380,22 @@ class LoanApplicationDetailPage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           _buildInfoRow(
-            AppStrings.productName,
+            'productName'.tr,
             product.productName ?? '',
             Icons.business,
           ),
           _buildInfoRow(
-            AppStrings.orderId,
+            'orderId'.tr,
             product.appOrderId ?? '',
             Icons.receipt,
           ),
           _buildInfoRow(
-            AppStrings.loanTerm,
-            '${product.totalServiceDays ?? 0} ${AppStrings.daysLabel}',
+            'loanTerm'.tr,
+            '${product.totalServiceDays ?? 0} ${'daysLabel'.tr}',
             Icons.schedule,
           ),
           _buildInfoRow(
-            AppStrings.repaymentDate,
+            'repaymentDate'.tr,
             product.repayDateStr ?? '',
             Icons.calendar_today,
           ),
@@ -443,12 +442,12 @@ class LoanApplicationDetailPage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           _buildInfoRow(
-            AppStrings.bankCard,
+            'bankCard'.tr,
             product.bankCardName ?? '',
             Icons.credit_card,
           ),
           _buildInfoRow(
-            AppStrings.bankCardNumber,
+            'bankCardNumber'.tr,
             _maskBankCard(product.bankCardNo ?? ''),
             Icons.credit_card_outlined,
           ),
@@ -546,21 +545,21 @@ class LoanApplicationDetailPage extends StatelessWidget {
   String _getStatusText(int status) {
     switch (status) {
       case 20:
-        return AppStrings.processingLabel;
+        return 'processingLabel'.tr;
       case 22:
-        return AppStrings.rejection;
+        return 'rejection'.tr;
       case 3:
-        return AppStrings.disbursing;
+        return 'disbursing'.tr;
       case 4:
-        return AppStrings.repaying;
+        return 'repaying'.tr;
       case 5:
-        return AppStrings.disbursementFailed;
+        return 'disbursementFailed'.tr;
       case 6:
-        return AppStrings.repaymentCompleted;
+        return 'repaymentCompleted'.tr;
       case 7:
-        return AppStrings.unknownStatus;
+        return 'unknownStatus'.tr;
       default:
-        return AppStrings.unknownStatus;
+        return 'unknownStatus'.tr;
     }
   }
 

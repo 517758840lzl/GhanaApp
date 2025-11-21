@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../utils/widget/modern_form_widgets.dart';
 import '../../kyc_step_controller.dart';
 import '../../../widgets/address_picker_widget.dart';
@@ -41,7 +40,7 @@ class ProvinceCityDropdown extends StatelessWidget {
               .toList();
 
       if (validProvinces.isEmpty) {
-        return Text(AppStrings.noDataAvailable);
+        return Text('noDataAvailable'.tr);
       }
 
       // 获取当前选中的省份和城市名称
@@ -94,9 +93,9 @@ class ProvinceCityDropdown extends StatelessWidget {
         ),
         decoration: ModernFormWidgets.getModernInputDecoration(
           label: label,
-          hint: AppStrings.pleaseSelectBothProvinceAndCity,
+          hint: 'pleaseSelectBothProvinceAndCity'.tr,
           errorText: controller.isSubmitted.value && !isComplete
-              ? AppStrings.pleaseFillAllFields
+              ? 'pleaseFillAllFields'.tr
               : null,
           suffixIcon: Icon(
             Icons.location_on,
@@ -133,7 +132,7 @@ class ProvinceCityDropdown extends StatelessWidget {
         },
         validator: (value) {
           if (controller.isSubmitted.value && !isComplete) {
-            return AppStrings.pleaseFillAllFields;
+            return 'pleaseFillAllFields'.tr;
           }
           return null;
         },

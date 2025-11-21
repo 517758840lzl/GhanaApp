@@ -17,6 +17,7 @@ class UserDataHelper {
   static const String _keyUserId = 'user_id';
   static const String _keyCacheData = 'cacheData'; //是否审核人员
 
+  static const String _keyCountry = 'country'; //是国家
   static Future<void> saveUserData(String phoneNumber, String token, int? userId, int cacheData) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -28,6 +29,28 @@ class UserDataHelper {
       AppState.to.login((userId??0).toString());
     } catch (e) {
       LogUtil.d('Failed to save user data: $e');
+    }
+  }
+
+  //本地保存国家
+  static Future<void> saveCountry(String country) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      await prefs.setString(_keyCountry, country);
+    } catch (e) {
+      LogUtil.d('Failed to save country data: $e');
+    }
+  }
+
+  static Future<String?> getCountry() async {
+    try {
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString(_keyCountry);
+    } catch (e) {
+      LogUtil.d('Failed to get country: $e');
+      return null;
     }
   }
 

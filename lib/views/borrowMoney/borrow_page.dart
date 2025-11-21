@@ -9,7 +9,6 @@ import 'package:flutter3APP/views/repayMoney/repayment_controller.dart';
 
 import '../../models/home_page_data.dart';
 import '../../routes/routes.dart';
-import '../../l10n/app_strings.dart';
 import '../../utils/non_repeatable_click.dart';
 import '../../common/colors/app_colors.dart';
 import 'widgets/product_card_factory.dart';
@@ -159,7 +158,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  controller.cacheFlag.value==0?AppStrings.maintainGoodCreditTip:AppStrings.maintainingGoodCreditHistory,
+                  controller.cacheFlag.value==0?'maintainGoodCreditTip'.tr:'maintainingGoodCreditHistory'.tr,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.black54,
@@ -272,7 +271,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppStrings.creditLimit,
+                  'creditLimit'.tr,
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
@@ -307,7 +306,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.TotalSelectloanPrincipal,
+                        'TotalSelectloanPrincipal'.tr,
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -316,7 +315,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '${AppStrings.currencyUSD}${StringUtil.formatAmount(totalLoanAmount)}',
+                        '${'currencyUSD'.tr}${StringUtil.formatAmount(totalLoanAmount)}',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -325,7 +324,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        AppStrings.instantApproval,
+                        'instantApproval'.tr,
                         style: TextStyle(fontSize: 12, color: Colors.black38),
                       ),
                     ],
@@ -345,7 +344,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          AppStrings.repaymentAmount,
+                          'repaymentAmount'.tr,
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.orange.shade700,
@@ -354,7 +353,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '${AppStrings.currencyUSD}${StringUtil.formatAmount(totalRepayAmount)}',
+                          '${'currencyUSD'.tr}${StringUtil.formatAmount(totalRepayAmount)}',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -376,7 +375,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          AppStrings.availableProducts,
+                          'availableProducts'.tr,
                           style: TextStyle(
                             fontSize: 12,
                             color: AppColors.textSecondary,
@@ -394,7 +393,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          AppStrings.availableTotal,
+                          'availableTotal'.tr,
                           style: TextStyle(
                             fontSize: 10,
                             color: AppColors.textTertiary,
@@ -460,7 +459,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.autoDisburseIn.replaceFirst(
+                    'autoDisburseIn'.tr.replaceFirst(
                       '{seconds}',
                       _formatTimeFromSeconds(controller.countdownSeconds.value),
                     ),
@@ -472,7 +471,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    AppStrings.autoDisburseDescription,
+                    'autoDisburseDescription'.tr,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.orange.shade600,
@@ -493,7 +492,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  AppStrings.cancel,
+                  'cancel'.tr,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -513,12 +512,12 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
     return Obx(() {
       final details = controller.homePageData.value;
       if (details.confirmData == null) {
-        return const Center(
+        return Center(
           child: Padding(
-            padding: EdgeInsets.all(32.0),
+            padding: const EdgeInsets.all(32.0),
             child: Text(
-              AppStrings.noProductsAvailable,
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+              'noProductsAvailable'.tr,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ),
         );
@@ -531,12 +530,12 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
   /// 构建产品网格
   Widget _buildProductGrid(ConfirmData confirmData) {
     if (confirmData.list == null || confirmData.list!.isEmpty) {
-      return const Center(
+      return Center(
         child: Padding(
-          padding: EdgeInsets.all(32.0),
+          padding: const EdgeInsets.all(32.0),
           child: Text(
-            AppStrings.noProductsAvailable,
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            'noProductsAvailable'.tr,
+            style: const TextStyle(fontSize: 16, color: Colors.grey),
           ),
         ),
       );
@@ -550,7 +549,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
           Container(
             margin: EdgeInsets.only(left: 10),
             child: Text(
-              '${AppStrings.products} (${confirmData.list!.length})',
+              '${'products'.tr} (${confirmData.list!.length})',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -681,7 +680,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                             ],
                           ),
                           child: Text(
-                            AppStrings.swipeRight,
+                            'swipeRight'.tr,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -744,7 +743,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                             ],
                           ),
                           child: Text(
-                            AppStrings.browseProducts,
+                            'browseProducts'.tr,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -788,7 +787,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          AppStrings.swipeToBrowseProducts,
+                          'swipeToBrowseProducts'.tr,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -852,7 +851,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
       if (controller.selectedProducts.length > 1) {
         controller.selectedProducts.remove(product);
       } else {
-        YDToast.text(AppStrings.mustSelectOneProduct);
+        YDToast.text('mustSelectOneProduct'.tr);
       }
     } else {
       controller.selectedProducts.add(product);
@@ -898,9 +897,9 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
                           size: 20,
                         ),
                         const SizedBox(width: 8),
-                        const Text(
-                          AppStrings.getMoney,
-                          style: TextStyle(
+                        Text(
+                          'getMoney'.tr,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                             fontSize: 18,

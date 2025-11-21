@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:flutter3APP/utils/string/string_util.dart';
 import '../../../common/colors/app_colors.dart';
 import 'extension_request_controller.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 
 class ExtensionRequestPage extends StatelessWidget {
@@ -22,7 +21,7 @@ class ExtensionRequestPage extends StatelessWidget {
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text(
-          AppStrings.deferredPaymentDetails,
+          'deferredPaymentDetails'.tr,
           style: TextStyle(
             color: const Color(0xFF1A1A1A),
             fontSize: 18,
@@ -127,8 +126,8 @@ class ExtensionRequestPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          const Text(
-            AppStrings.noData,
+           Text(
+            'noData'.tr,
             style: TextStyle(
               fontSize: 16,
               color: Color(0xFF666666),
@@ -167,9 +166,9 @@ class ExtensionRequestPage extends StatelessWidget {
                 child: Icon(Icons.schedule, color: Colors.black, size: 20),
               ),
               const SizedBox(width: 3),
-              const Expanded(
+               Expanded(
                 child: Text(
-                  AppStrings.deferredPaymentAmount,
+                  'deferredPaymentAmount'.tr,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -187,7 +186,7 @@ class ExtensionRequestPage extends StatelessWidget {
               if (controller.selectedCouponId.value == null)
                 Container(
                   child: Text(
-                    "${AppStrings.currencyUSD}$newAmountText",
+                    "${'currencyUSD'.tr}$newAmountText",
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -200,7 +199,7 @@ class ExtensionRequestPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "${AppStrings.currencyUSD}$newAmountText",
+                      "${'currencyUSD'.tr}$newAmountText",
                       style: const TextStyle(
                         fontSize: 30,
                         color: Colors.black,
@@ -209,7 +208,7 @@ class ExtensionRequestPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      "${AppStrings.currencyUSD}$originalAmountText",
+                      "${'currencyUSD'.tr}$originalAmountText",
                       style: const TextStyle(
                         fontSize: 14,
                         color: Color(0xFF999999),
@@ -246,8 +245,8 @@ class ExtensionRequestPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            AppStrings.extensionDetails,
+           Text(
+            'extensionDetails'.tr,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -256,20 +255,20 @@ class ExtensionRequestPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _buildDetailRow(
-            AppStrings.newDueDate,
+            'newDueDate'.tr,
             extensionInfo.extensionRepaymentDate,
             Icons.calendar_today,
           ),
           const SizedBox(height: 8),
           _buildDetailRow(
-            AppStrings.extensionPeriod,
-            "${extensionInfo.remainingDay} ${AppStrings.daysLabel}",
+            'extensionPeriod'.tr,
+            "${extensionInfo.remainingDay} ${'daysLabel'.tr}",
             Icons.access_time,
           ),
           const SizedBox(height: 8),
           _buildDetailRow(
-            AppStrings.amountDueAtMaturity,
-            "${AppStrings.currencyUSD}${StringUtil.formatAmount(extensionInfo.totalSureRepayAmounts)}",
+            'amountDueAtMaturity'.tr,
+            "${'currencyUSD'.tr}${StringUtil.formatAmount(extensionInfo.totalSureRepayAmounts)}",
             Icons.account_balance_wallet,
             isAmount: true,
           ),
@@ -297,8 +296,8 @@ class ExtensionRequestPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            AppStrings.feeDetails,
+           Text(
+            'feeDetails'.tr,
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -309,12 +308,12 @@ class ExtensionRequestPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                AppStrings.extensionFee,
+               Text(
+                'extensionFee'.tr,
                 style: TextStyle(fontSize: 14, color: Color(0xFF666666)),
               ),
               Text(
-                "${AppStrings.currencyUSD}${StringUtil.formatAmount(extensionInfo.extensionFee)}",
+                "${'currencyUSD'.tr}${StringUtil.formatAmount(extensionInfo.extensionFee)}",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -328,12 +327,12 @@ class ExtensionRequestPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  AppStrings.discount,
+                 Text(
+                  'discount'.tr,
                   style: TextStyle(fontSize: 14, color: Color(0xFF52C41A)),
                 ),
                 Text(
-                  "-${AppStrings.currencyUSD}${StringUtil.formatAmount(extensionInfo.extensionFee - extensionInfo.newExtensionFee)}",
+                  "-${'currencyUSD'.tr}${StringUtil.formatAmount(extensionInfo.extensionFee - extensionInfo.newExtensionFee)}",
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -347,8 +346,8 @@ class ExtensionRequestPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                AppStrings.totalPayment,
+               Text(
+                'totalPayment'.tr,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -356,7 +355,7 @@ class ExtensionRequestPage extends StatelessWidget {
                 ),
               ),
               Text(
-                "${AppStrings.currencyUSD}${StringUtil.formatAmount(extensionInfo.newExtensionFee)}",
+                "${'currencyUSD'.tr}${StringUtil.formatAmount(extensionInfo.newExtensionFee)}",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -392,8 +391,8 @@ class ExtensionRequestPage extends StatelessWidget {
             children: [
               Icon(Icons.local_offer, color: AppColors.primaryColor, size: 16),
               const SizedBox(width: 6),
-              const Text(
-                AppStrings.selectCoupon,
+               Text(
+                'selectCoupon'.tr,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -405,7 +404,7 @@ class ExtensionRequestPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () => controller.clearSelectedCoupon(),
                   child: Text(
-                    AppStrings.cancel,
+                    'cancel'.tr,
                     style: TextStyle(
                       color: AppColors.primaryColor,
                       fontSize: 12,
@@ -417,12 +416,12 @@ class ExtensionRequestPage extends StatelessWidget {
           const SizedBox(height: 12),
           Obx(() {
             if (controller.couponList.isEmpty) {
-              return const Center(
+              return Center(
                 child: Padding(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   child: Text(
-                    AppStrings.noAvailableCoupons,
-                    style: TextStyle(color: Color(0xFF999999), fontSize: 12),
+                    'noAvailableCoupons'.tr,
+                    style: const TextStyle(color: Color(0xFF999999), fontSize: 12),
                   ),
                 ),
               );
@@ -535,9 +534,9 @@ class ExtensionRequestPage extends StatelessWidget {
             size: 16,
           ),
           const SizedBox(width: 8),
-          const Expanded(
+           Expanded(
             child: Text(
-              AppStrings.extensionTip,
+              'extensionTip'.tr,
               style: TextStyle(
                 fontSize: 11,
                 color: Color(0xFF8C4A00),
@@ -573,10 +572,10 @@ class ExtensionRequestPage extends StatelessWidget {
           onTap: () async {
             await controller.onConfirmExtension();
           },
-          child: const Center(
+          child: Center(
             child: Text(
-              AppStrings.confirmExtension,
-              style: TextStyle(
+              'confirmExtension'.tr,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Colors.black,

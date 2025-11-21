@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import '../../../models/coupon.dart';
 import '../../../http/api_urls.dart';
 import '../../../common/toast.dart';
-import '../../../l10n/app_strings.dart';
 
 class CouponListController extends GetxController {
   final couponList = <CouponInfo>[].obs;
@@ -25,11 +24,11 @@ class CouponListController extends GetxController {
         couponList.value = data.coupons;
       } else {
         YDToast.text(
-          resp.msg.isNotEmpty ? resp.msg : AppStrings.errorLoadingData,
+          resp.msg.isNotEmpty ? resp.msg : 'errorLoadingData'.tr,
         );
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorLoadingData);
+      YDToast.text('errorLoadingData'.tr);
     } finally {
       isRefreshing.value = false;
     }
@@ -45,17 +44,17 @@ class CouponListController extends GetxController {
   String getCouponStatusText(CouponInfo coupon) {
     switch (coupon.status) {
       case -1:
-        return AppStrings.expired;
+        return 'expired'.tr;
       case 0:
-        return AppStrings.available;
+        return 'available'.tr;
       case 1:
-        return AppStrings.used;
+        return 'used'.tr;
       case 2:
-        return AppStrings.notYetAvailable;
+        return 'notYetAvailable'.tr;
       case 3:
-        return AppStrings.unavailable;
+        return 'unavailable'.tr;
       default:
-        return AppStrings.unknown;
+        return 'unknown'.tr;
     }
   }
 
@@ -81,11 +80,11 @@ class CouponListController extends GetxController {
   String getCouponTypeText(CouponInfo coupon) {
     switch (coupon.type) {
       case 'PRE':
-        return AppStrings.Loan;
+        return 'Loan'.tr;
       case 'POST':
-        return AppStrings.repayment;
+        return 'repayment'.tr;
       default:
-        return AppStrings.unknown;
+        return 'unknown'.tr;
     }
   }
 

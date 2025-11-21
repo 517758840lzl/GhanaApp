@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../common/colors/app_colors.dart';
-import '../../../../l10n/app_strings.dart';
 import '../kyc_step_controller.dart';
 
 class KycHeaderView extends StatelessWidget {
@@ -64,7 +63,7 @@ class KycHeaderView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    AppStrings.completionProgress,
+                    'completionProgress'.tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,

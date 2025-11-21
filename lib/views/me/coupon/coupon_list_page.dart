@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../models/coupon.dart';
 import 'coupon_list_controller.dart';
 
@@ -35,7 +34,7 @@ class _CouponListPageState extends State<CouponListPage>
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: Text(AppStrings.couponList),
+        title: Text('couponList'.tr),
         backgroundColor: AppColors.primaryColor,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -45,8 +44,8 @@ class _CouponListPageState extends State<CouponListPage>
           labelColor: Colors.black,
           unselectedLabelColor: Colors.black45,
           tabs: [
-            Tab(text: AppStrings.Loan),
-            Tab(text: AppStrings.repayment),
+            Tab(text: 'Loan'.tr),
+            Tab(text: 'repayment'.tr),
           ],
         ),
       ),
@@ -108,7 +107,7 @@ class _CouponListPageState extends State<CouponListPage>
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  AppStrings.noCouponsAvailable,
+                  'noCouponsAvailable'.tr,
                   style: const TextStyle(
                     fontSize: 20,
                     color: Color(0xFF333333),
@@ -118,8 +117,8 @@ class _CouponListPageState extends State<CouponListPage>
                 const SizedBox(height: 12),
                 Text(
                   type == 'PRE'
-                      ? AppStrings.noLoanCouponsAvailable
-                      : AppStrings.noRepaymentCouponsAvailable,
+                      ? 'noLoanCouponsAvailable'.tr
+                      : 'noRepaymentCouponsAvailable'.tr,
                   style: const TextStyle(
                     fontSize: 14,
                     color: Color(0xFF666666),
@@ -147,9 +146,9 @@ class _CouponListPageState extends State<CouponListPage>
                     children: [
                       const Icon(Icons.refresh, color: Colors.black, size: 16),
                       const SizedBox(width: 8),
-                      const Text(
-                        AppStrings.pullDownToRefresh,
-                        style: TextStyle(
+                      Text(
+                        'pullDownToRefresh'.tr,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,
                           fontSize: 14,

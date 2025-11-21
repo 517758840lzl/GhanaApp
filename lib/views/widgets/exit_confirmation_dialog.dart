@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../../common/colors/app_colors.dart';
-import '../../l10n/app_strings.dart';
 
 class ExitConfirmationDialog extends StatefulWidget {
   const ExitConfirmationDialog({Key? key}) : super(key: key);
@@ -112,7 +112,7 @@ class _ExitConfirmationDialogState extends State<ExitConfirmationDialog>
 
                     // 标题 - 增强字体层次
                     Text(
-                      AppStrings.exitConfirmationTitle,
+                      'exitConfirmationTitle'.tr,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -126,7 +126,7 @@ class _ExitConfirmationDialogState extends State<ExitConfirmationDialog>
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
-                        AppStrings.exitConfirmationMessage,
+                        'exitConfirmationMessage'.tr,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Color(0xFF666666),
@@ -144,7 +144,7 @@ class _ExitConfirmationDialogState extends State<ExitConfirmationDialog>
                         // 取消按钮 - 现代化设计
                         Expanded(
                           child: _buildButton(
-                            text: AppStrings.cancel,
+                            text: 'cancel'.tr,
                             isPrimary: false,
                             onTap: () => _handleButtonTap('cancel'),
                           ),
@@ -154,7 +154,7 @@ class _ExitConfirmationDialogState extends State<ExitConfirmationDialog>
                         // 确认按钮 - 增强视觉吸引力
                         Expanded(
                           child: _buildButton(
-                            text: AppStrings.confirm,
+                            text: 'confirm'.tr,
                             isPrimary: true,
                             onTap: () => _handleButtonTap('confirm'),
                           ),

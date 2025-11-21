@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../models/settled_contract.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../utils/string/string_util.dart';
 
 class CheckoutOrderItemCard extends StatelessWidget {
@@ -100,7 +100,7 @@ class CheckoutOrderItemCard extends StatelessWidget {
                         ),
                       const SizedBox(height: 4),
                       Text(
-                        '${AppStrings.orderId} ${item.appOrderId}',
+                        '${'orderId'.tr} ${item.appOrderId}',
                         style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF999999),
@@ -129,9 +129,9 @@ class CheckoutOrderItemCard extends StatelessWidget {
                         color: Color(0xFF4CAF50),
                       ),
                       const SizedBox(width: 4),
-                      const Text(
-                        AppStrings.completed,
-                        style: TextStyle(
+                      Text(
+                        'completed'.tr,
+                        style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF4CAF50),
@@ -161,7 +161,7 @@ class CheckoutOrderItemCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.repaidAmount,
+                        'repaidAmount'.tr,
                         style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF999999),
@@ -189,14 +189,14 @@ class CheckoutOrderItemCard extends StatelessWidget {
                     color: const Color(0xFF4CAF50),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.verified, size: 12, color: Colors.white),
-                      SizedBox(width: 4),
+                      const Icon(Icons.verified, size: 12, color: Colors.white),
+                      const SizedBox(width: 4),
                       Text(
-                        AppStrings.settled,
-                        style: TextStyle(
+                        'settled'.tr,
+                        style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
@@ -224,7 +224,7 @@ class CheckoutOrderItemCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      '${AppStrings.dueDate}: ',
+                      '${'dueDate'.tr}: ',
                       style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFF999999),
@@ -250,14 +250,14 @@ class CheckoutOrderItemCard extends StatelessWidget {
                     color: const Color(0xFF4CAF50).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.history, size: 12, color: Color(0xFF4CAF50)),
-                      SizedBox(width: 4),
+                      const Icon(Icons.history, size: 12, color: Color(0xFF4CAF50)),
+                      const SizedBox(width: 4),
                       Text(
-                        AppStrings.completed,
-                        style: TextStyle(
+                        'completed'.tr,
+                        style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF4CAF50),

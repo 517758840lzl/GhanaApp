@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import '../../../http/api_urls.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../common/toast.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,7 +35,7 @@ class CustomerServiceController extends GetxController {
   /// 复制到剪贴板
   void copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
-    YDToast.text(AppStrings.textCopiedToClipboard);
+    YDToast.text('textCopiedToClipboard'.tr);
   }
 
   /// 联系客服电话
@@ -74,8 +73,8 @@ class CustomerServiceController extends GetxController {
   /// 显示错误提示
   void _showErrorToast() {
     Get.snackbar(
-      AppStrings.error,
-      AppStrings.unableToContactWhatsApp,
+      'error'.tr,
+      'unableToContactWhatsApp'.tr,
       snackPosition: SnackPosition.BOTTOM,
     );
   }
@@ -86,7 +85,7 @@ class CustomerServiceController extends GetxController {
     if (await canLaunch(url.toString())) {
       await launch(url.toString());
     } else {
-      throw AppStrings.cannotOpenMailApplication;
+      throw 'cannotOpenMailApplication'.tr;
     }
   }
 

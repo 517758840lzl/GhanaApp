@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../../models/bank_card.dart';
 import '../../../../common/colors/app_colors.dart';
 import '../../../../utils/string/string_util.dart';
-import '../../../../l10n/app_strings.dart';
 import 'bank_card_selection_controller.dart';
 
 class BankCardSelection extends StatelessWidget {
@@ -67,9 +66,9 @@ class BankCardSelection extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text(
-            AppStrings.selectBankCard,
-            style: TextStyle(
+          Text(
+            'selectBankCard'.tr,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: Colors.black87,
@@ -183,7 +182,7 @@ class BankCardSelection extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              AppStrings.defaultCard,
+                              'defaultCard'.tr,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.orange[700],
@@ -256,8 +255,8 @@ class BankCardSelection extends StatelessWidget {
                 ),
               ),
               icon: const Icon(Icons.add, size: 20),
-              label: const Text(
-                AppStrings.addNewBankCard,
+              label:  Text(
+                'addNewBankCard'.tr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),

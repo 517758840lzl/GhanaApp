@@ -2,7 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'colors/app_colors.dart';
 
 class YDToast {
@@ -108,7 +107,7 @@ class YDToast {
     backButtonBehavior: BackButtonBehavior.ignore,
     toastBuilder: (cancelFunc) {
       final textWidget = Text(
-        text ?? AppStrings.loading,
+        text ?? 'loading'.tr,
         maxLines: 4,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(color: Colors.white, fontSize: 17),

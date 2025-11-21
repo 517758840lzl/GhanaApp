@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import '../../basa/country_config_helper.dart';
 import '../../basa/main_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../l10n/app_strings.dart';
 import '../../routes/routes.dart';
 import '../../common/colors/app_colors.dart';
+import '../../controllers/language_controller.dart';
+import '../../provider/userDataHelper.dart';
 import 'my_controller.dart';
 
 //我的界面
@@ -45,26 +47,26 @@ class MyPage extends StatelessWidget {
                         children: [
                           // 顶部操作栏
                           const SizedBox(height: 20),
-                         // Row(
-                         //   mainAxisAlignment: MainAxisAlignment.end,
-                         //   children: [
-                         //     Container(
-                         //       height: 44,
-                         //       width: 44,
-                         //       decoration: BoxDecoration(
-                         //         color: Colors.white.withOpacity(0.4),
-                         //         borderRadius: BorderRadius.circular(22),),
-                         //       child: IconButton(
-                         //         icon: Image.asset(
-                         //           'assets/images/icon_service_two.png',
-                         //           width: 20,
-                         //           height: 20,
-                         //         ),
-                         //         onPressed: () => Get.toNamed(Routes.contact),
-                         //       ),
-                         //     ),
-                         //   ],
-                         // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     Container(
+                          //       height: 44,
+                          //       width: 44,
+                          //       decoration: BoxDecoration(
+                          //         color: Colors.white.withOpacity(0.4),
+                          //         borderRadius: BorderRadius.circular(22),),
+                          //       child: IconButton(
+                          //         icon: Image.asset(
+                          //           'assets/images/icon_service_two.png',
+                          //           width: 20,
+                          //           height: 20,
+                          //         ),
+                          //         onPressed: () => Get.toNamed(Routes.contact),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           // 用户信息卡片
                           Row(
                             children: [
@@ -87,30 +89,32 @@ class MyPage extends StatelessWidget {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(40),
-                                  child: Image.asset(
-                                    controller.getAvatarAsset(),
-                                    width: 80,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        width: 80,
-                                        height: 80,
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFF0F0F0),
-                                          borderRadius: BorderRadius.circular(
-                                            40,
-                                          ),
-                                        ),
-                                        child: Icon(
-                                          controller.sex.value == 0
-                                              ? Icons.person
-                                              : Icons.person_outline,
-                                          size: 40,
-                                          color: const Color(0xFF999999),
-                                        ),
-                                      );
-                                    },
+                                  child: Obx(
+                                    () => Image.asset(
+                                      controller.avatarAsset.value,
+                                      width: 80,
+                                      height: 80,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFFF0F0F0),
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                              ),
+                                              child: Icon(
+                                                controller.sex.value == 0
+                                                    ? Icons.person
+                                                    : Icons.person_outline,
+                                                size: 40,
+                                                color: const Color(0xFF999999),
+                                              ),
+                                            );
+                                          },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -199,32 +203,35 @@ class MyPage extends StatelessWidget {
                       _buildMeituanSettingsItem(
                         icon: Icons.history,
                         iconColor: AppColors.primaryColor,
-                        title: AppStrings.historyLabel,
+                        title: 'historyLabel'.tr,
                         onTap: () {
                           Get.toNamed(Routes.history);
                         },
                       ),
-                      if (Constant.APP_BLACK_CARD)
-                     Container(
-                       child: Column(
-                         children: [
-                           _buildDivider(),
-                           _buildMeituanSettingsItem(
-                             icon: Icons.credit_card,
-                             iconColor: AppColors.accentColor,
-                             title: AppStrings.myBankCards,
-                             onTap: () {
-                               Get.toNamed(Routes.bankCardList);
-                             },
-                           ),
-                         ],
-                       ),
-                     ),
+                      Obx(
+                        () => controller.appBlackCard.value
+                            ? Container(
+                                child: Column(
+                                  children: [
+                                    _buildDivider(),
+                                    _buildMeituanSettingsItem(
+                                      icon: Icons.credit_card,
+                                      iconColor: AppColors.accentColor,
+                                      title: 'myBankCards'.tr,
+                                      onTap: () {
+                                        Get.toNamed(Routes.bankCardList);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                      ),
                       _buildDivider(),
                       _buildMeituanSettingsItem(
                         icon: Icons.local_offer,
                         iconColor: AppColors.warning,
-                        title: AppStrings.couponList,
+                        title: 'couponList'.tr,
                         onTap: () {
                           Get.toNamed(Routes.couponList);
                         },
@@ -233,7 +240,7 @@ class MyPage extends StatelessWidget {
                       _buildMeituanSettingsItem(
                         icon: Icons.chat_bubble_outline,
                         iconColor: AppColors.textSecondary,
-                        title: AppStrings.Service,
+                        title: 'Service'.tr,
                         onTap: () {
                           Get.toNamed(Routes.contact);
                         },
@@ -242,13 +249,16 @@ class MyPage extends StatelessWidget {
                       _buildMeituanSettingsItem(
                         icon: Icons.description_outlined,
                         iconColor: AppColors.textSecondary,
-                        title: AppStrings.privacyPolicy,
-                        onTap: () {
+                        title: 'privacyPolicy'.tr,
+                        onTap: () async {
+                          final countryCode = await UserDataHelper.getCountry();
                           Get.toNamed(
                             Routes.privacyPolicy,
                             arguments: {
                               'url': Platform.isIOS
-                                  ? Constant.URL_PRIVACY_POLICY
+                                  ? CountryConfigHelper.getPrivacyPolicyUrl(
+                                      countryCode,
+                                    )
                                   : Constant.URL_PRIVACY_POLICY_ANDROIF,
                             },
                           );
@@ -262,12 +272,17 @@ class MyPage extends StatelessWidget {
                               _buildMeituanSettingsItem(
                                 icon: Icons.description_outlined,
                                 iconColor: AppColors.textSecondary,
-                                title: AppStrings.termsOfService,
-                                onTap: () {
+                                title: 'termsOfService'.tr,
+                                onTap: () async {
+                                  final countryCode =
+                                      await UserDataHelper.getCountry();
                                   Get.toNamed(
                                     Routes.privacyPolicy,
                                     arguments: {
-                                      'url': Constant.URL_TERM_SERVICE,
+                                      'url':
+                                          CountryConfigHelper.getTermServiceUrl(
+                                            countryCode,
+                                          ),
                                     },
                                   );
                                 },
@@ -279,7 +294,7 @@ class MyPage extends StatelessWidget {
                       _buildMeituanSettingsItem(
                         icon: Icons.info_outline,
                         iconColor: AppColors.textSecondary,
-                        title: AppStrings.about,
+                        title: 'about'.tr,
                         onTap: () {
                           Get.toNamed(Routes.personInfo);
                         },
@@ -382,7 +397,7 @@ class MyPage extends StatelessWidget {
             const Icon(Icons.logout, size: 20, color: Colors.black),
             const SizedBox(width: 8),
             Text(
-              AppStrings.logOut,
+              'logOut'.tr,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

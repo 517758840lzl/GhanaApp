@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter3APP/common/toast.dart';
 import 'package:get/get.dart';
-import '../../l10n/app_strings.dart';
 import '../../common/colors/app_colors.dart';
 
 class AddressPickerWidget {
@@ -108,11 +107,11 @@ class AddressPickerWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: 100,
                             child: TextButton(
                               onPressed: () => Navigator.pop(context),
                               child: Text(
-                                AppStrings.cancel,
+                                'cancel'.tr,
                                 style: TextStyle(
                                   color: Colors.grey[600],
                                   fontSize: 16,
@@ -152,7 +151,7 @@ class AddressPickerWidget {
                                       ),
                                       SizedBox(width: 8),
                                       Text(
-                                        AppStrings.Region,
+                                        'Region'.tr,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
@@ -263,7 +262,7 @@ class AddressPickerWidget {
                                       ),
                                       SizedBox(width: 8),
                                       Text(
-                                        AppStrings.city,
+                                        'city'.tr,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
@@ -277,8 +276,7 @@ class AddressPickerWidget {
                                   child: currentCities.isEmpty
                                       ? Center(
                                           child: Text(
-                                            AppStrings
-                                                .pleaseSelectProvinceFirst,
+                                            'pleaseSelectProvinceFirst'.tr,
                                             style: TextStyle(
                                               color: Colors.grey[600],
                                               fontSize: 14,
@@ -385,8 +383,7 @@ class AddressPickerWidget {
                                   };
                                   Navigator.pop(context, result);
                                 } else {
-                                  YDToast.text(AppStrings
-                                      .pleaseSelectBothProvinceAndCity);
+                                  YDToast.text('pleaseSelectBothProvinceAndCity'.tr);
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -399,7 +396,7 @@ class AddressPickerWidget {
                                 elevation: 0,
                               ),
                               child: Text(
-                                AppStrings.confirm,
+                                'confirm'.tr,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

@@ -1,14 +1,11 @@
 import 'package:get/get.dart';
-import '../../../basa/main_constant.dart';
+import 'package:flutter/material.dart';
+import '../../../basa/country_config_helper.dart';
 import '../../../models/bank_card.dart';
 import '../../../common/toast.dart';
-import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import '../../../http/api_urls.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 import '../../../common/logger/app_logger.dart';
-import 'bank_card_list_page.dart';
 import 'edit/bank_card_form_page.dart';
 
 class BankCardListController extends GetxController {
@@ -16,10 +13,11 @@ class BankCardListController extends GetxController {
   final Rx<BankCardInfo?> selectedCard = Rx<BankCardInfo?>(null);
 
   //是否可编辑
-  final edit = Constant.APP_BLACK_CARD;
+  final  edit = true.obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    edit.value = await CountryConfigHelper.getAppBlackCardAsync();
     refreshBankCardList();
   }
 
@@ -40,14 +38,13 @@ class BankCardListController extends GetxController {
             List<Map<String, dynamic>>.from(
               result.rawData["userBankCardInfoRespList"],
             );
-        final mapped =
-            rawList.map((e) => BankCardInfoMapper.fromMap(e)).toList() ?? [];
+        final mapped = rawList
+            .map((e) => BankCardInfoMapper.fromMap(e))
+            .toList();
         return mapped;
       } else {
         YDToast.text(
-          result.msg.isNotEmpty
-              ? result.msg
-              : AppStrings.errorFetchingBankCards,
+          result.msg.isNotEmpty ? result.msg : 'errorFetchingBankCards'.tr,
         );
       }
     } catch (e) {
@@ -71,9 +68,7 @@ class BankCardListController extends GetxController {
         return true;
       } else {
         YDToast.text(
-          result.msg.isNotEmpty
-              ? result.msg
-              : AppStrings.errorSettingDefaultCard,
+          result.msg.isNotEmpty ? result.msg : 'errorSettingDefaultCard'.tr,
         );
       }
     } catch (e) {
@@ -84,7 +79,7 @@ class BankCardListController extends GetxController {
 
   Future<void> setDefaultCard() async {
     if (selectedCard.value == null) {
-      YDToast.text(AppStrings.pleaseSelectCard);
+      YDToast.text('pleaseSelectCard'.tr);
       return;
     }
     final success = await setDefaultBankCard(
@@ -92,7 +87,7 @@ class BankCardListController extends GetxController {
       selectedCard.value!.id,
     );
     if (success) {
-      YDToast.text(AppStrings.defaultCardSetSuccessfully);
+      YDToast.text('defaultCardSetSuccessfully'.tr);
 
       refreshBankCardList(loading: false);
     }
@@ -107,7 +102,7 @@ class BankCardListController extends GetxController {
   //       return true;
   //     } else {
   //       YDToast.text(
-  //         result.msg.isNotEmpty ? result.msg : AppStrings.errorDeletingBankCard,
+  //         result.msg.isNotEmpty ? result.msg : 'errorDeletingBankCard'.tr,
   //       );
   //     }
   //   } catch (e) {
@@ -120,16 +115,16 @@ class BankCardListController extends GetxController {
   //   bool confirm =
   //       await Get.dialog<bool>(
   //         AlertDialog(
-  //           title: const Text(AppStrings.deleteCard),
-  //           content: const Text(AppStrings.areYouSureDeleteCard),
+  //           title: const Text('deleteCard'.tr),
+  //           content: const Text('areYouSureDeleteCard'.tr),
   //           actions: [
   //             TextButton(
   //               onPressed: () => Get.back(result: false),
-  //               child: const Text(AppStrings.cancel),
+  //               child: const Text('cancel'.tr),
   //             ),
   //             TextButton(
   //               onPressed: () => Get.back(result: true),
-  //               child: const Text(AppStrings.ok),
+  //               child: const Text('ok'.tr),
   //             ),
   //           ],
   //         ),
@@ -138,7 +133,7 @@ class BankCardListController extends GetxController {
   //   if (!confirm) return;
   //   final success = await deleteBankCardInfo(context, card.id);
   //   if (success) {
-  //     YDToast.text(AppStrings.cardSuccessfullyRemoved);
+  //     YDToast.text('cardSuccessfullyRemoved'.tr);
   //     refreshBankCardList();
   //   }
   // }

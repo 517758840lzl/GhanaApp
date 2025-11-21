@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/views/home_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:get/get.dart';
@@ -134,8 +133,8 @@ class _WebViewPageState extends State<WebViewPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-            AppStrings.repayment
+        title:  Text(
+            'repayment'.tr
         ),
         titleTextStyle:TextStyle(color: Colors.white,fontSize: 20),
         backgroundColor: AppColors.primaryColor,

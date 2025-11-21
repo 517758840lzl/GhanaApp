@@ -7,7 +7,6 @@ import '../../../models/coupon.dart';
 import '../../../models/post_coupon_calc.dart';
 import '../../../provider/userDataHelper.dart';
 import '../../../http/api_urls.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 import '../../../views/widgets/extension_confirm_dialog.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +55,7 @@ class ExtensionRequestController extends GetxController {
       }
     } catch (e) {
       YDToast.cleanAll();
-      YDToast.text(AppStrings.errorLoadingData);
+      YDToast.text('errorLoadingData'.tr);
     }
   }
 
@@ -80,7 +79,7 @@ class ExtensionRequestController extends GetxController {
         couponList.assignAll(coupons);
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorLoadingData);
+      YDToast.text('errorLoadingData'.tr);
     }
   }
 
@@ -92,7 +91,7 @@ class ExtensionRequestController extends GetxController {
       // // 计算优惠券后的金额
       // await calculatePostLoanCoupon(couponId);
     } catch (e) {
-      YDToast.text(AppStrings.errorApplyingCoupon);
+      YDToast.text('errorApplyingCoupon'.tr);
     }
   }
 
@@ -110,7 +109,7 @@ class ExtensionRequestController extends GetxController {
   //       );
   //     }
   //   } catch (e) {
-  //     YDToast.text(AppStrings.errorApplyingCoupon);
+  //     YDToast.text('errorApplyingCoupon'.tr);
   //   }
   // }
 

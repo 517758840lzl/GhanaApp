@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../basa/main_constant.dart';
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import 'person_information_controller.dart';
 
 //关于我们的页面
@@ -18,7 +17,7 @@ class PersonInformationPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        title: Text(AppStrings.about),
+        title: Text('about'.tr),
         titleTextStyle: const TextStyle(
           color: Colors.black,
           fontSize: 18,
@@ -76,7 +75,7 @@ class PersonInformationPage extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
-                "assets/images/logo_app.webp",
+                "assets/images/logo_app.png",
                 fit: BoxFit.cover,
               ),
             ),
@@ -95,7 +94,7 @@ class PersonInformationPage extends StatelessWidget {
           // 版本号
           Obx(
             () => Text(
-              '${AppStrings.version} ${controller.version.value} (${controller.build_number.value})',
+              '${'version'.tr} ${controller.version.value} (${controller.build_number.value})',
               style: const TextStyle(fontSize: 14, color: Color(0xFF999999)),
             ),
           ),
@@ -114,15 +113,21 @@ class PersonInformationPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoItem(
+            icon: Icons.language,
+            title: 'language'.tr,
+            subtitle: 'languageDescription'.tr,
+            onTap: () => _showLanguageDialog(controller),
+          ),
+          _buildInfoItem(
             icon: Icons.storage,
-            title: AppStrings.clearCache,
-            subtitle: AppStrings.clearCacheDescription,
+            title: 'clearCache'.tr,
+            subtitle: 'clearCacheDescription'.tr,
             onTap: controller.clearData,
           ),
           _buildInfoItem(
             icon: Icons.delete_forever,
-            title: AppStrings.deleteAccount,
-            subtitle: AppStrings.deleteAccountDescription,
+            title: 'deleteAccount'.tr,
+            subtitle: 'deleteAccountDescription'.tr,
             onTap: () => controller.showDeleteAccountDialog(Get.context!),
             showDivider: false,
             textColor: const Color(0xFFFF4757),
@@ -202,6 +207,111 @@ class PersonInformationPage extends StatelessWidget {
             color: const Color(0xFFF0F0F0),
           ),
       ],
+    );
+  }
+
+  /// 显示语言选择对话框
+  void _showLanguageDialog(PersonInformationController controller) {
+    final currentLanguage = Get.locale?.languageCode ?? 'en';
+
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+        backgroundColor: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 20,
+                spreadRadius: 0,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // 标题
+              Padding(
+                padding: const EdgeInsets.only(top: 24, bottom: 16),
+                child: Text(
+                  'language'.tr,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF333333),
+                  ),
+                ),
+              ),
+              // 语言选项列表
+              Column(
+                children: [
+                  _buildLanguageOption(
+                    title: 'english'.tr,
+                    isSelected: currentLanguage == 'en',
+                    onTap: () async {
+                      await controller.switchToEnglish();
+                      Get.back();
+                    },
+                  ),
+                  Container(
+                    height: 0.5,
+                    color: const Color(0xFFF0F0F0),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                  _buildLanguageOption(
+                    title: 'spanish'.tr,
+                    isSelected: currentLanguage == 'es',
+                    onTap: () async {
+                      await controller.switchToSpanish();
+                      Get.back();
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
+  }
+
+  /// 构建语言选项
+  Widget _buildLanguageOption({
+    required String title,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF333333),
+                  ),
+                ),
+              ),
+              if (isSelected)
+                const Icon(Icons.check, color: Color(0xFF007AFF), size: 20),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

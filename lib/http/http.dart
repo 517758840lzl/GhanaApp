@@ -17,11 +17,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../basa/main_constant.dart';
+import '../basa/country_config_helper.dart';
 import '../common/logger/app_logger.dart';
 import '../../utils/des/des.dart';
 import '../common/toast.dart';
-import '../l10n/app_strings.dart';
 import '../provider/app_state.dart';
+import '../provider/userDataHelper.dart';
 import '../routes/routes.dart';
 import 'err_code.dart';
 import 'headers/request_headers.dart';
@@ -40,9 +41,19 @@ class HttpUtil {
 
   static bool isOffline = true; //是否需要掉线检测
 
+  /// 根据国家代码获取对应的 BASE_URL
+  static Future<String> getBaseUrl() async {
+    try {
+      return await CountryConfigHelper.getBaseUrlAsync();
+    } catch (e) {
+      LogUtil.d('Failed to get base URL: $e');
+      return Constant.BASE_URL.first;
+    }
+  }
+
   static BaseOptions get dioBaseOptions {
     return BaseOptions(
-      baseUrl: Constant.BASE_URL,
+      baseUrl: Constant.BASE_URL.first, // 默认使用第一个，实际会在拦截器中动态更新
       connectTimeout: Duration(milliseconds: 60000),
       sendTimeout: Duration(milliseconds: 60000),
       receiveTimeout: Duration(milliseconds: 60000),
@@ -204,7 +215,16 @@ class HttpUtil {
   //做数据解析的拦截器，http正常数据已使用requestDataCheck做数据处理，该拦截器只做异常错误处理
   static QueuedInterceptorsWrapper get _interceptor {
     return QueuedInterceptorsWrapper(
-      onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+      onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+        // 根据国家代码动态设置 baseUrl
+        try {
+          final baseUrl = await getBaseUrl();
+          if (options.baseUrl != baseUrl) {
+            options.baseUrl = baseUrl;
+          }
+        } catch (e) {
+          LogUtil.d('Failed to update baseUrl in interceptor: $e');
+        }
         handler.next(options); // 继续处理请求
         options.extra["startTime"] = DateTime.now().millisecondsSinceEpoch;
       },
@@ -225,7 +245,7 @@ class HttpUtil {
         responseJson.data = responseData;
         if (responseJson.data["code"] == ErrCode.CODE_KICK_OUT) {
           if (!Get.currentRoute.contains(Routes.login) && AppState.to.isLoggedIn.value == true) {
-            YDToast.text(AppStrings.accountLoggedOut);
+            YDToast.text('accountLoggedOut'.tr);
             AppState.to.logout();
             Get.offAllNamed(Routes.login);
           }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../../../../models/settled_contract.dart';
 import '../../../../utils/string/string_util.dart';
 import '../../../../models/order_history.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../common/colors/app_colors.dart';
 
 class HistoryDialogs {
@@ -47,8 +47,8 @@ class HistoryDialogs {
                   // 头部
                   _buildMeituanHeader(
                     context,
-                    AppStrings.orderDetails,
-                    AppStrings.completeLoanInformation,
+                    'orderDetails'.tr,
+                    'completeLoanInformation'.tr,
                   ),
 
                   // 内容区域
@@ -61,12 +61,12 @@ class HistoryDialogs {
 
                           // 主要金额卡片
                           _buildAmountCard(
-                            title: AppStrings.singleRepaymentAmount,
+                            title: 'singleRepaymentAmount'.tr,
                             amount:
-                                "${AppStrings.currencyUSD}${StringUtil.formatAmount(item.repayAmount)}",
-                            subtitle: AppStrings.loanAmount,
+                                "${'currencyUSD'.tr}${StringUtil.formatAmount(item.repayAmount)}",
+                            subtitle: 'loanAmount'.tr,
                             subtitleAmount:
-                                "${AppStrings.currencyUSD}${StringUtil.formatAmount(item.loanAmount)}",
+                                "${'currencyUSD'.tr}${StringUtil.formatAmount(item.loanAmount)}",
                             isPrimary: true,
                           ),
 
@@ -74,26 +74,26 @@ class HistoryDialogs {
 
                           // 费用明细卡片
                           _buildInfoCard(
-                            title: AppStrings.feeBreakdown,
+                            title: 'feeBreakdown'.tr,
                             children: [
                               _buildMeituanDetailRow(
-                                AppStrings.amountCredited,
-                                "${AppStrings.currencyUSD}${StringUtil.formatAmount(item.receiptAmount)}",
+                                'amountCredited'.tr,
+                                "${'currencyUSD'.tr}${StringUtil.formatAmount(item.receiptAmount)}",
                               ),
                               _buildMeituanDetailRow(
-                                AppStrings.serviceFee,
-                                "${AppStrings.currencyUSD}${StringUtil.formatAmount(item.loanAmount - item.receiptAmount)}",
+                                'serviceFee'.tr,
+                                "${'currencyUSD'.tr}${StringUtil.formatAmount(item.loanAmount - item.receiptAmount)}",
                               ),
                               _buildMeituanDetailRow(
-                                AppStrings.interest,
-                                "${AppStrings.currencyUSD}${StringUtil.formatAmount(item.interest)}",
+                                'interest'.tr,
+                                "${'currencyUSD'.tr}${StringUtil.formatAmount(item.interest)}",
                               ),
                               _buildMeituanDetailRow(
-                                AppStrings.termsLabel,
-                                "${item.totalServiceDays} ${AppStrings.daysLabel}",
+                                'termsLabel'.tr,
+                                "${item.totalServiceDays} ${'daysLabel'.tr}",
                               ),
                               _buildMeituanDetailRow(
-                                AppStrings.dueDate,
+                                'dueDate'.tr,
                                 item.repayDateStr,
                               ),
                             ],
@@ -154,8 +154,8 @@ class HistoryDialogs {
                   // 头部 - 绿色主题表示成功
                   _buildMeituanHeader(
                     context,
-                    AppStrings.settledOrderDetails,
-                    AppStrings.successfullyCompletedLoan,
+                    'settledOrderDetails'.tr,
+                    'successfullyCompletedLoan'.tr,
                     isSuccess: true,
                   ),
 
@@ -169,9 +169,9 @@ class HistoryDialogs {
 
                           // 主要金额卡片 - 绿色成功主题
                           _buildAmountCard(
-                            title: AppStrings.singleRepaymentAmount,
+                            title: 'singleRepaymentAmount'.tr,
                             amount:
-                                "${AppStrings.currencyUSD}${StringUtil.formatAmount(item.repaidAmount)}",
+                                "${'currencyUSD'.tr}${StringUtil.formatAmount(item.repaidAmount)}",
                             isPrimary: true,
                             isSuccess: true,
                           ),
@@ -180,20 +180,20 @@ class HistoryDialogs {
 
                           // 订单信息卡片
                           _buildInfoCard(
-                            title: AppStrings.orderInformation,
+                            title: 'orderInformation'.tr,
                             children: [
                               _buildMeituanDetailRow(
-                                AppStrings.orderNumber,
+                                'orderNumber'.tr,
                                 item.appOrderId,
                               ),
                               if (cacheFlag == 0) ...[
                                 _buildMeituanDetailRow(
-                                  AppStrings.product,
+                                  'product'.tr,
                                   item.productName,
                                 ),
                               ],
                               _buildMeituanDetailRow(
-                                AppStrings.dueDate,
+                                'dueDate'.tr,
                                 item.repayDate,
                               ),
                             ],
@@ -449,22 +449,22 @@ class HistoryDialogs {
             child: const Icon(Icons.check, color: Colors.white, size: 18),
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppStrings.successfullySettled,
-                  style: TextStyle(
+                  'successfullySettled'.tr,
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF00B96B),
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
-                  AppStrings.loanFullyRepaid,
-                  style: TextStyle(fontSize: 13, color: Color(0xFF52C41A)),
+                  'loanFullyRepaid'.tr,
+                  style: const TextStyle(fontSize: 13, color: Color(0xFF52C41A)),
                 ),
               ],
             ),

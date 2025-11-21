@@ -11,7 +11,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:get/get.dart';
 
 import '../../utils/image/image_util.dart';
-import '../../l10n/app_strings.dart';
 
 class FaceDetectionScreen extends StatefulWidget {
   const FaceDetectionScreen({Key? key}) : super(key: key);
@@ -699,15 +698,15 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //   String _getActionPrompt() {
 //     switch (_currentAction) {
 //       case LivenessAction.blinkStep:
-//         return AppStrings.pleaseBlinkEyes;
+//         return 'pleaseBlinkEyes'.tr;
 //       case LivenessAction.smileStep:
-//         return AppStrings.pleaseSmile;
+//         return 'pleaseSmile'.tr;
 //       case LivenessAction.sideFaceStep:
-//         return AppStrings.pleaseTurnHeadLeftRight;
+//         return 'pleaseTurnHeadLeftRight'.tr;
 //       case LivenessAction.mouthOpenStep:
-//         return AppStrings.pleaseOpenMouth;
+//         return 'pleaseOpenMouth'.tr;
 //       case LivenessAction.frontFaceStep:
-//         return AppStrings.pleaseFaceCameraDirectly;
+//         return 'pleaseFaceCameraDirectly'.tr;
 //     }
 //   }
 //
@@ -723,7 +722,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //     return Scaffold(
 //       appBar: AppBar(
 //         title: Text(
-//           AppStrings.faceRecognition,
+//           'faceRecognition'.tr,
 //           style: TextStyle(color: Colors.white),
 //         ),
 //         titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
@@ -794,13 +793,13 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //                             children: [
 //                               Text(
 //                                 _faceTooSmall
-//                                     ? AppStrings.moveCloserToCamera
+//                                     ? 'moveCloserToCamera'.tr
 //                                     : !_faceInFrame
-//                                     ? AppStrings.pleaseKeepFaceInFrame
+//                                     ? 'pleaseKeepFaceInFrame'.tr
 //                                     : _allActionsCompleted
-//                                     ? AppStrings.allActionsCompleted
+//                                     ? 'allActionsCompleted'.tr
 //                                     : _isLive
-//                                     ? AppStrings.actionCompleted
+//                                     ? 'actionCompleted'.tr
 //                                     : _getActionPrompt(),
 //                                 style: TextStyle(
 //                                   color: Colors.white,
@@ -812,7 +811,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //                               if (!_allActionsCompleted && !_faceTooSmall) ...[
 //                                 SizedBox(height: 8),
 //                                 Text(
-//                                   AppStrings.stepProgress
+//                                   'stepProgress'.tr
 //                                       .replaceAll(
 //                                         '{current}',
 //                                         '${_currentActionIndex + 1}',
@@ -843,7 +842,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
 //                     CircularProgressIndicator(),
 //                     SizedBox(height: 20),
 //                     Text(
-//                       AppStrings.initializingCamera,
+//                       'initializingCamera'.tr,
 //                       style: TextStyle(color: Colors.white),
 //                     ),
 //                   ],

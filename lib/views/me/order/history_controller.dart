@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../provider/userDataHelper.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../models/order_history.dart';
 import '../../../models/settled_contract.dart';
 import '../../../http/api_urls.dart';
@@ -119,7 +118,7 @@ class HistoryController extends GetxController {
     try {
       final result = await ApiUrls.removeLoanCountDown(appOrderId: appOrderId);
       if (result.isSucceed) {
-        YDToast.text(AppStrings.cancelSuccess);
+        YDToast.text('cancelSuccess'.tr);
         fetchOrders();
         return true;
       } else {
@@ -137,11 +136,11 @@ class HistoryController extends GetxController {
         insetPadding: EdgeInsets.symmetric(horizontal: 30),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text(
-          AppStrings.autoDisburseTip,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          'autoDisburseTip'.tr,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        content: const Text(AppStrings.autoDisburseCancel),
+        content: Text('autoDisburseCancel'.tr),
         actions: [
           Container(
             child: Row(
@@ -161,9 +160,9 @@ class HistoryController extends GetxController {
                       horizontal: 30,
                     ),
                   ),
-                  child: const Text(
-                    AppStrings.cancel,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  child: Text(
+                    'cancel'.tr,
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
                 ElevatedButton(
@@ -184,9 +183,9 @@ class HistoryController extends GetxController {
                       horizontal: 30,
                     ),
                   ),
-                  child: const Text(
-                    AppStrings.confirm,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  child: Text(
+                    'confirm'.tr,
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ],
@@ -215,13 +214,13 @@ class HistoryController extends GetxController {
       Routes.loanContract,
       arguments: {
         'loanAmount':
-            '${AppStrings.currencyUSD}${StringUtil.formatAmount(loanAmount)}',
+            '${'currencyUSD'.tr}${StringUtil.formatAmount(loanAmount)}',
         'singleRepaymentAmount':
-            '${AppStrings.currencyUSD}${StringUtil.formatAmount(singleRepaymentAmount)}',
+            '${'currencyUSD'.tr}${StringUtil.formatAmount(singleRepaymentAmount)}',
         'amountCredited':
-            '${AppStrings.currencyUSD}${StringUtil.formatAmount(amountCredited)}',
+            '${'currencyUSD'.tr}${StringUtil.formatAmount(amountCredited)}',
         'interest':
-            '${AppStrings.currencyUSD}${StringUtil.formatAmount(singleRepaymentAmount - loanAmount)}',
+            '${'currencyUSD'.tr}${StringUtil.formatAmount(singleRepaymentAmount - loanAmount)}',
         'dueDate': dueDate,
         'name': customerName,
         'idCardNumber': idCardNumber,

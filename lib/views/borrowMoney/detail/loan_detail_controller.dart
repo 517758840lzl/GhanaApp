@@ -15,10 +15,9 @@ import '../../../models/bank_card.dart';
 import '../../../provider/userDataHelper.dart';
 import '../../../common/toast.dart';
 import '../../../http/api_urls.dart';
+import '../../../basa/country_config_helper.dart';
 import 'package:flutter/material.dart';
 import '../../../routes/routes.dart';
-import '../../../l10n/app_strings.dart';
-
 
 class LoanDetailController extends GetxController {
   // 状态变量
@@ -34,6 +33,7 @@ class LoanDetailController extends GetxController {
   final RxBool isAutoLoanCancelled = false.obs;
   final RxInt cacheFlag = 0.obs;
   final RxBool isPrivacyAgreed = Platform.isAndroid ? true.obs : false.obs;
+  final RxBool appBlackCard = false.obs;
   Timer? countDownTimer;
   // int isResetCountDownTime = 0;
   List<Product> initialSelectedProducts = [];
@@ -46,6 +46,7 @@ class LoanDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _loadAppBlackCard();
     final args = Get.arguments ?? {};
 
     // isResetCountDownTime = args['isResetCountDownTime'] ?? 0;
@@ -55,6 +56,10 @@ class LoanDetailController extends GetxController {
       product.isSelected = true;
     }
     fetchConfirmationData();
+  }
+
+  Future<void> _loadAppBlackCard() async {
+    appBlackCard.value = await CountryConfigHelper.getAppBlackCardAsync();
   }
 
   @override
@@ -166,7 +171,7 @@ class LoanDetailController extends GetxController {
         confirmResponse.refresh();
       }
     } else {
-      YDToast.text(AppStrings.errorApplyingCoupon);
+      YDToast.text('errorApplyingCoupon'.tr);
     }
   }
 
@@ -256,11 +261,11 @@ class LoanDetailController extends GetxController {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
-            AppStrings.ConfirmApplication,
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: Text(
+            'ConfirmApplication'.tr,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          content: const Text(AppStrings.ConfirmApplicationDetail),
+          content: Text('ConfirmApplicationDetail'.tr),
           actions: [
             Container(
               child: Row(
@@ -280,9 +285,9 @@ class LoanDetailController extends GetxController {
                         horizontal: 30,
                       ),
                     ),
-                    child: const Text(
-                      AppStrings.cancel,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    child: Text(
+                      'cancel'.tr,
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                   ElevatedButton(
@@ -301,9 +306,9 @@ class LoanDetailController extends GetxController {
                         horizontal: 30,
                       ),
                     ),
-                    child: const Text(
-                      AppStrings.confirm,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    child: Text(
+                      'confirm'.tr,
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                 ],
@@ -323,7 +328,7 @@ class LoanDetailController extends GetxController {
       // final selected =
       //     initialSelectedProducts.where((p) => p.isSelected).toList();
       if (confirmResponse.value!.list.length == 0) {
-        YDToast.text(AppStrings.pleaseSelectAtLeastOneProduct);
+        YDToast.text('pleaseSelectAtLeastOneProduct'.tr);
         return;
       }
       YDToast.loading();
@@ -351,16 +356,14 @@ class LoanDetailController extends GetxController {
       YDToast.cleanAll();
       if (resp.isSucceed) {
         AppsFlyerHelper().eventWithdrawSuccess();
-        YDToast.text(AppStrings.loanSubmittedSuccessfully);
+        YDToast.text('loanSubmittedSuccessfully'.tr);
         Get.find<BorrowController>().refreshData();
         Get.offAllNamed(Routes.loanResult);
       } else {
-        YDToast.text(
-          resp.msg != "" ? resp.msg : AppStrings.loanSubmissionFailed,
-        );
+        YDToast.text(resp.msg != "" ? resp.msg : 'loanSubmissionFailed'.tr);
       }
     } catch (e) {
-      YDToast.text('${AppStrings.loanSubmissionError}: $e');
+      YDToast.text('${'loanSubmissionError'.tr}: $e');
     }
   }
 

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:in_app_review/in_app_review.dart';
 import '../../../common/toast.dart';
 import '../../../basa/main_constant.dart';
-import '../../../l10n/app_strings.dart';
 import 'package:flutter/material.dart';
 import '../../../http/api_urls.dart';
 import '../../../models/pop_dialog.dart';
@@ -67,7 +66,7 @@ class LoanResultController extends GetxController {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Text(
-                popDialogConfig?.title ?? AppStrings.rateUs,
+                popDialogConfig?.title ?? 'rateUs'.tr,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -81,7 +80,7 @@ class LoanResultController extends GetxController {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               child: Text(
-                popDialogConfig?.description ?? AppStrings.provideFeedback,
+                popDialogConfig?.description ?? 'provideFeedback'.tr,
                 style: const TextStyle(
                   fontSize: 16,
                   color: AppColors.textSecondary,
@@ -151,7 +150,7 @@ class LoanResultController extends GetxController {
                           ),
                         ),
                         child: Text(
-                          popDialogConfig?.cancelText ?? AppStrings.cancel,
+                          popDialogConfig?.cancelText ?? 'cancel'.tr,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -187,16 +186,16 @@ class LoanResultController extends GetxController {
                       child: TextButton(
                         onPressed: () async {
                           if (rating.value == 0) {
-                            YDToast.text(AppStrings.provideFeedback);
+                            YDToast.text('provideFeedback'.tr);
                             return;
                           }
                           Get.back();
                           if (rating.value >=
                               (popDialogConfig?.config?.score ?? 4)) {
                             await _initReview();
-                            YDToast.text(AppStrings.thankYouFeedback);
+                            YDToast.text('thankYouFeedback'.tr);
                           } else {
-                            YDToast.text(AppStrings.thankYouSubmission);
+                            YDToast.text('thankYouSubmission'.tr);
                           }
                         },
                         style: TextButton.styleFrom(
@@ -206,7 +205,7 @@ class LoanResultController extends GetxController {
                           ),
                         ),
                         child: Text(
-                          popDialogConfig?.okText ?? AppStrings.submit,
+                          popDialogConfig?.okText ?? 'submit'.tr,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

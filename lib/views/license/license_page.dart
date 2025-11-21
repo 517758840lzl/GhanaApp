@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/basa/main_constant.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'license_controller.dart';
 
@@ -36,7 +34,7 @@ class LicensePage extends GetView<LicenseController> {
         appBar: AppBar(
           elevation: 0,
           title: Text(
-            AppStrings.permissionsStatement,
+            'permissionsStatement'.tr,
             style: const TextStyle(
               color: Colors.white,
               fontSize: sp18,
@@ -117,7 +115,7 @@ class LicensePage extends GetView<LicenseController> {
                               ),
                               const SizedBox(height: dp12),
                               Text(
-                                Constant.licenseSummary,
+                                'licenseSummary'.tr,
                                 style: const TextStyle(
                                   fontSize: sp14,
                                   color: AppColors.textColor,
@@ -163,7 +161,7 @@ class LicensePage extends GetView<LicenseController> {
                             const Icon(Icons.check_circle_outline, size: dp20),
                             const SizedBox(width: dp8),
                             Text(
-                              AppStrings.agreeButtonText,
+                              'agreeButtonText'.tr,
                               style: const TextStyle(
                                 fontSize: sp16,
                                 fontWeight: FontWeight.w600,
@@ -199,7 +197,7 @@ class LicensePage extends GetView<LicenseController> {
                             const Icon(Icons.close, size: dp16),
                             const SizedBox(width: dp8),
                             Text(
-                              AppStrings.rejection,
+                              'rejection'.tr,
                               style: const TextStyle(
                                 fontSize: sp14,
                                 fontWeight: FontWeight.w500,

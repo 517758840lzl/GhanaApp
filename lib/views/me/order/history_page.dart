@@ -2,7 +2,6 @@ import 'package:flutter3APP/views/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import 'history_controller.dart';
 import 'dialog/history_dialogs.dart';
 import 'cell/order_history_item_widget.dart';
@@ -19,7 +18,7 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: const Color(0xFFF5F5F5),
         appBar: AppBar(
           title: Text(
-            AppStrings.history,
+            'history'.tr,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -62,7 +61,7 @@ class HistoryPage extends StatelessWidget {
                       // 使用主题色的分组标题
                       if (controller.historyData.isNotEmpty) ...[
                         // _buildSectionHeader(
-                        //   AppStrings.activeOrders,
+                        //   'activeOrders'.tr,
                         //   controller.historyData.length,
                         //   AppColors.primaryColor,
                         // ),
@@ -93,7 +92,7 @@ class HistoryPage extends StatelessWidget {
 
                       if (controller.checkoutOrders.isNotEmpty) ...[
                         _buildSectionHeader(
-                          AppStrings.completedOrders,
+                          'completedOrders'.tr,
                           controller.checkoutOrders.length,
                           AppColors.primaryDarkColor,
                         ),
@@ -208,7 +207,7 @@ class NoDataPage extends StatelessWidget {
 
             const SizedBox(height: 15),
             Text(
-              AppStrings.noOrdersYet,
+              'noOrdersYet'.tr,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -217,7 +216,7 @@ class NoDataPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              AppStrings.noApprovedOrders,
+              'noApprovedOrders'.tr,
               style: const TextStyle(fontSize: 14, color: Color(0xFF999999)),
               textAlign: TextAlign.center,
             ),
@@ -245,7 +244,7 @@ class NoDataPage extends StatelessWidget {
                     const Icon(Icons.add, size: 18, color: Colors.black),
                     const SizedBox(width: 8),
                     Text(
-                      AppStrings.getMoney,
+                      'getMoney'.tr,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:flutter3APP/models/coupon.dart';
 
@@ -48,7 +47,7 @@ class CouponBottomSheetWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    title ?? AppStrings.selectCoupon,
+                    title ?? 'selectCoupon'.tr,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -60,7 +59,7 @@ class CouponBottomSheetWidget {
                     GestureDetector(
                       onTap: onClearCoupon,
                       child: Text(
-                        AppStrings.cancel,
+                        'cancel'.tr,
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontSize: 14,
@@ -112,7 +111,7 @@ class CouponBottomSheetWidget {
           Icon(Icons.local_offer_outlined, color: Colors.grey[400], size: 20),
           const SizedBox(width: 8),
           Text(
-            AppStrings.noAvailableCoupons,
+            'noAvailableCoupons'.tr,
             style: TextStyle(color: Colors.grey[600], fontSize: 14),
           ),
         ],

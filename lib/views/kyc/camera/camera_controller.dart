@@ -3,7 +3,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
-import '../../../l10n/app_strings.dart';
 
 class CameraScreenController extends GetxController {
   CameraController? _cameraController;
@@ -33,7 +32,7 @@ class CameraScreenController extends GetxController {
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
         hasError.value = true;
-        errorMessage.value = AppStrings.noCamerasFound;
+        errorMessage.value = 'noCamerasFound'.tr;
         return;
       }
 
@@ -48,12 +47,12 @@ class CameraScreenController extends GetxController {
         showTips.value = true;
       }).catchError((error) {
         hasError.value = true;
-        errorMessage.value = AppStrings.errorInitializingCamera;
+        errorMessage.value = 'errorInitializingCamera'.tr;
         isInitializing.value = false;
       });
     } catch (e) {
       hasError.value = true;
-      errorMessage.value = AppStrings.errorInitializingCamera;
+      errorMessage.value = 'errorInitializingCamera'.tr;
       isInitializing.value = false;
     }
   }
@@ -72,7 +71,7 @@ class CameraScreenController extends GetxController {
       Get.back(result: croppedBytes);
     } catch (e) {
       hasError.value = true;
-      errorMessage.value = AppStrings.errorTakingPhoto;
+      errorMessage.value = 'errorTakingPhoto'.tr;
     } finally {
       isCapturing.value = false;
     }
@@ -101,7 +100,7 @@ class CameraScreenController extends GetxController {
       });
     } catch (e) {
       hasError.value = true;
-      errorMessage.value = AppStrings.errorInitializingCamera;
+      errorMessage.value = 'errorInitializingCamera'.tr;
     }
   }
 

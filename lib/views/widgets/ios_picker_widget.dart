@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../l10n/app_strings.dart';
 import '../../common/colors/app_colors.dart';
 
 class IOSPickerWidget {
@@ -120,11 +119,11 @@ class IOSPickerWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: 100,
                             child: TextButton(
                               onPressed: () => Navigator.pop(context),
                               child: Text(
-                                AppStrings.cancel,
+                                'cancel'.tr,
                                 style: TextStyle(
                                   color: Colors.grey[600],
                                   fontSize: 16,
@@ -155,7 +154,7 @@ class IOSPickerWidget {
                             });
                           },
                           decoration: InputDecoration(
-                            hintText: AppStrings.search,
+                            hintText: 'search'.tr,
                             prefixIcon: Icon(
                               Icons.search,
                               color: Colors.grey[600],
@@ -206,7 +205,7 @@ class IOSPickerWidget {
                           filteredIndices.isEmpty
                               ? Center(
                                 child: Text(
-                                  AppStrings.noMatchingOptions,
+                                  'noMatchingOptions'.tr,
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 16,

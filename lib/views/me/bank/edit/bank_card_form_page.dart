@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import '../../../../common/colors/app_colors.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../utils/widget/modern_form_widgets.dart';
 import '../../../../views/widgets/ios_picker_widget.dart';
 import 'bank_card_form_controller.dart';
@@ -26,8 +25,8 @@ class BankCardFormPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             controller.mode == BankCardMode.add
-                ? AppStrings.addBankCard
-                : AppStrings.editBankCard,
+                ? 'addBankCard'.tr
+                : 'editBankCard'.tr,
           ),
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
           backgroundColor: AppColors.primaryColor,
@@ -95,9 +94,9 @@ class BankCardFormPage extends StatelessWidget {
                           children: [
                             // Account type selection
                             // Semantics(
-                            //   label: AppStrings.accountTypeSelection,
+                            //   label: 'accountTypeSelection'.tr,
                             //   child: Text(
-                            //     AppStrings.accountType,
+                            //     'accountType'.tr,
                             //     style: TextStyle(
                             //       fontSize: 16,
                             //       fontWeight: FontWeight.w600,
@@ -131,7 +130,7 @@ class BankCardFormPage extends StatelessWidget {
                             //                 AppStrings
                             //                     .loadingAccountTypes,
                             //             child: Text(
-                            //               AppStrings.loadingAccountTypes,
+                            //               'loadingAccountTypes'.tr,
                             //               style: TextStyle(
                             //                 color: Colors.grey[600],
                             //               ),
@@ -142,7 +141,7 @@ class BankCardFormPage extends StatelessWidget {
                             //     )
                             //     : _buildSelectionField(
                             //       controller,
-                            //       AppStrings.accountType,
+                            //       'accountType'.tr,
                             //       controller.selectedBankType.value,
                             //       controller.bankTypes,
                             //       (value) =>
@@ -157,9 +156,9 @@ class BankCardFormPage extends StatelessWidget {
                             //     ),
 
                             // Semantics(
-                            //   label: AppStrings.bvnNumberInput,
+                            //   label: 'bvnNumberInput'.tr,
                             //   child: Text(
-                            //     "${AppStrings.bvnNumber}:",
+                            //     "${'bvnNumber'.tr}:",
                             //     style: TextStyle(
                             //       fontSize: 16,
                             //       fontWeight: FontWeight.w600,
@@ -171,9 +170,9 @@ class BankCardFormPage extends StatelessWidget {
 
                             // Bank selection
                             Semantics(
-                              label: AppStrings.bankSelection,
+                              label: 'bankSelection'.tr,
                               child: Text(
-                                AppStrings.selectBank,
+                                'selectBank'.tr,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -201,9 +200,9 @@ class BankCardFormPage extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 12),
                                       Semantics(
-                                        label: AppStrings.loadingBankList,
+                                        label: 'loadingBankList'.tr,
                                         child: Text(
-                                          AppStrings.loadingBankList,
+                                          'loadingBankList'.tr,
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                           ),
@@ -217,9 +216,9 @@ class BankCardFormPage extends StatelessWidget {
 
                             // Card number input
                             Semantics(
-                              label: AppStrings.cardNumberInput,
+                              label: 'cardNumberInput'.tr,
                               child: Text(
-                                AppStrings.cardNumber,
+                                'cardNumber'.tr,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -230,14 +229,14 @@ class BankCardFormPage extends StatelessWidget {
                             const SizedBox(height: 12),
                             ModernFormWidgets.buildShadowedInputField(
                               Semantics(
-                                label: AppStrings.cardNumberInputField,
+                                label: 'cardNumberInputField'.tr,
                                 child: TextFormField(
                                   controller:
                                       controller.bankCardNoController.value,
                                   decoration:
                                       ModernFormWidgets.getModernInputDecoration(
-                                        label: AppStrings.cardNumber,
-                                        hint: AppStrings.pleaseEnterCardNumber,
+                                        label: 'cardNumber'.tr,
+                                        hint: 'pleaseEnterCardNumber'.tr,
                                       ),
                                   keyboardType: TextInputType.number,
                                   textInputAction: TextInputAction.done,
@@ -246,7 +245,7 @@ class BankCardFormPage extends StatelessWidget {
                                   },
                                   validator: (val) {
                                     if (val == null || val.isEmpty) {
-                                      return AppStrings.enterCardNumber;
+                                      return 'enterCardNumber'.tr;
                                     }
                                   },
                                 ),
@@ -277,7 +276,7 @@ class BankCardFormPage extends StatelessWidget {
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
-                              AppStrings.bankAccountTip,
+                              'bankAccountTip'.tr,
                               style: TextStyle(
                                 color: Colors.orange[700],
                                 fontSize: 14,
@@ -318,8 +317,8 @@ class BankCardFormPage extends StatelessWidget {
                         ),
                         child: Text(
                           controller.mode == BankCardMode.add
-                              ? AppStrings.addCard
-                              : AppStrings.updateCard,
+                              ? 'addCard'.tr
+                              : 'updateCard'.tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -376,10 +375,10 @@ class BankCardFormPage extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
         decoration: ModernFormWidgets.getModernInputDecoration(
-          label: AppStrings.selectBank,
+          label: 'selectBank'.tr,
           errorText:
               controller.selectedBankId.value.isEmpty
-                  ? AppStrings.pleaseSelectBank
+                  ? 'pleaseSelectBank'.tr
                   : null,
           suffixIcon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
         ),
@@ -387,7 +386,7 @@ class BankCardFormPage extends StatelessWidget {
           if (controller.bankList.isNotEmpty) {
             await IOSPickerWidget.showIOSPicker(
               Get.context!,
-              AppStrings.selectBank,
+              'selectBank'.tr,
               bankOptions,
               (value) => controller.selectedBankId.value = value,
               controller.selectedBankId.value,
@@ -397,7 +396,7 @@ class BankCardFormPage extends StatelessWidget {
         validator:
             (value) =>
                 value == null || value.isEmpty
-                    ? AppStrings.pleaseSelectBank
+                    ? 'pleaseSelectBank'.tr
                     : null,
       ),
     );

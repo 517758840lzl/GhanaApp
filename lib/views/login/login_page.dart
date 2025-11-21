@@ -2,18 +2,21 @@ import 'dart:io';
 import 'package:flutter3APP/utils/widget/widget.dart';
 
 import '../../basa/main_constant.dart';
+import '../../basa/country_config_helper.dart';
 import '../../common/colors/app_colors.dart';
-import '../../l10n/app_strings.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../routes/routes.dart';
 import '../../utils/non_repeatable_click.dart';
+import '../../provider/userDataHelper.dart';
+import '../../controllers/language_controller.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   final LoginController controller = Get.put(LoginController());
+  final LanguageController languageController = Get.find<LanguageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +85,12 @@ class LoginPage extends StatelessWidget {
                       Positioned(
                         top: 70,
                         left: 20,
-                        right: 80,
+                        right: 30,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              AppStrings.fastApprovalQuickDisbursement,
+                              'fastApprovalQuickDisbursement'.tr,
                               style: TextStyle(
                                 color: AppColors.textPrimary,
                                 fontSize: 20,
@@ -98,7 +101,7 @@ class LoginPage extends StatelessWidget {
                             ),
                             SizedBox(height: 12),
                             Text(
-                              AppStrings.getApprovedInMinutesCashOutFast,
+                              'getApprovedInMinutesCashOutFast'.tr,
                               style: TextStyle(
                                 color: AppColors.primaryColor,
                                 fontSize: 13,
@@ -164,7 +167,7 @@ class LoginPage extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Text(
-                                        AppStrings.phoneLogin,
+                                        'phoneLogin'.tr,
                                         style: TextStyle(
                                           color: AppColors.textPrimary,
                                           fontSize: 20,
@@ -174,7 +177,7 @@ class LoginPage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 6),
                                       Text(
-                                        AppStrings.enterPhoneNumberToLogin,
+                                        'enterPhoneNumberToLogin'.tr,
                                         style: TextStyle(
                                           color: AppColors.textSecondary,
                                           fontSize: 14,
@@ -360,7 +363,7 @@ class LoginPage extends StatelessWidget {
                                         child: Container(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            AppStrings.continueText,
+                                            'continueText'.tr,
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
@@ -435,7 +438,7 @@ class LoginPage extends StatelessWidget {
                                   child: GestureDetector(
                                     child: RichText(
                                       text: TextSpan(
-                                        text: AppStrings.iHaveReadAndAgree,
+                                        text: 'iHaveReadAndAgree'.tr,
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.textSecondary,
@@ -443,8 +446,7 @@ class LoginPage extends StatelessWidget {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text:
-                                                '《${AppStrings.privacyPolicy}》',
+                                            text: '《${'privacyPolicy'.tr}》',
                                             style: TextStyle(
                                               fontSize: 14,
                                               color:
@@ -461,8 +463,7 @@ class LoginPage extends StatelessWidget {
                                           if (Theme.of(context).platform ==
                                               TargetPlatform.iOS)
                                             TextSpan(
-                                              text:
-                                                  '《${AppStrings.termsOfService}》',
+                                              text: '《${'termsOfService'.tr}》',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: AppColors
@@ -471,14 +472,16 @@ class LoginPage extends StatelessWidget {
                                               ),
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () async {
+                                                  final countryCode =
+                                                      await UserDataHelper.getCountry();
+                                                  final url = Platform.isIOS
+                                                      ? CountryConfigHelper.getTermServiceUrl(
+                                                          countryCode,
+                                                        )
+                                                      : "";
                                                   Get.toNamed(
                                                     Routes.privacyPolicy,
-                                                    arguments: {
-                                                      "url": Platform.isIOS
-                                                          ? Constant
-                                                                .URL_TERM_SERVICE
-                                                          : "",
-                                                    },
+                                                    arguments: {"url": url},
                                                   );
                                                 },
                                             ),
@@ -496,8 +499,182 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                // 底部语言切换
+                _buildLanguageSwitcher(),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageSwitcher() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Obx(() {
+        final currentLang = languageController.currentLocale.value.languageCode;
+        final currentLabel = currentLang == 'en' ? 'English' : 'Español';
+        return Center(
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => _showLanguagePicker(),
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: AppColors.primaryColor.withOpacity(0.3),
+                    width: 1.5,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.language,
+                      color: AppColors.primaryColor,
+                      size: 18,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      currentLabel,
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: AppColors.primaryColor,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
+  void _showLanguagePicker() {
+    showModalBottomSheet(
+      context: Get.context!,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // 标题栏
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: AppColors.textSecondary.withOpacity(0.1),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'language'.tr,
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close, color: AppColors.textSecondary),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              // 语言选项列表
+              Obx(() {
+                final currentLang =
+                    languageController.currentLocale.value.languageCode;
+                return Column(
+                  children: [
+                    _buildLanguageOption(
+                      title: 'English',
+                      isSelected: currentLang == 'en',
+                      onTap: () async {
+                        await languageController.switchToEnglish();
+                        Navigator.pop(context);
+                      },
+                    ),
+                    Container(
+                      height: 0.5,
+                      color: AppColors.textSecondary.withOpacity(0.1),
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                    ),
+                    _buildLanguageOption(
+                      title: 'Español',
+                      isSelected: currentLang == 'es',
+                      onTap: () async {
+                        await languageController.switchToSpanish();
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              }),
+              SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
+            ],
+          ),
+        );
+      },
+      isDismissible: true,
+    );
+  }
+
+  Widget _buildLanguageOption({
+    required String title,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.textPrimary,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                  ),
+                ),
+              ),
+              if (isSelected)
+                Icon(Icons.check, color: AppColors.primaryColor, size: 20),
+            ],
           ),
         ),
       ),
@@ -532,30 +709,48 @@ class LoginPage extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // 国家代码区域
-          Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(left: 12, right: 8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/icon_national_flag.webp',
-                  width: 20,
-                  height: 14,
-                ),
-                SizedBox(width: 6),
-                Text(
-                  '+${Constant.COUNTRY_CODE}',
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
+          // 国家代码区域 - 可点击选择
+          Obx(() {
+            final imageName = CountryConfigHelper.getCountryCodeImage(
+              controller.countryCode.value,
+            );
+            final imagePath = 'assets/images/$imageName';
+            return Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  FocusScope.of(Get.context!).unfocus();
+                  _showCountryCodePicker(Get.context!);
+                },
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(left: 12, right: 8),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(imagePath, width: 20, height: 14),
+                      SizedBox(width: 6),
+                      Text(
+                        '+${controller.countryCode.value}',
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Icon(
+                        Icons.arrow_drop_down,
+                        color: AppColors.textPrimary,
+                        size: 18,
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          }),
 
           // 分隔线
           Container(
@@ -593,7 +788,7 @@ class LoginPage extends StatelessWidget {
                   height: 1.0,
                 ),
                 decoration: InputDecoration(
-                  hintText: AppStrings.phoneNumber,
+                  hintText: 'phoneNumber'.tr,
                   hintStyle: TextStyle(
                     color: AppColors.textSecondary,
                     fontSize: 16,
@@ -708,7 +903,7 @@ class LoginPage extends StatelessWidget {
           letterSpacing: 2.0,
         ),
         decoration: InputDecoration(
-          hintText: AppStrings.enterOtp,
+          hintText: 'enterOtp'.tr,
           hintStyle: TextStyle(
             color: AppColors.textSecondary,
             fontSize: 16,
@@ -729,6 +924,118 @@ class LoginPage extends StatelessWidget {
           FocusScope.of(Get.context!).unfocus();
         },
       ),
+    );
+  }
+
+  void _showCountryCodePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // 标题栏
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: AppColors.textSecondary.withOpacity(0.1),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'selectCountryCode'.tr,
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close, color: AppColors.textSecondary),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              // 区号列表
+              ...Constant.COUNTRY_CODES.asMap().entries.map((entry) {
+                final code = entry.value;
+                final imageName = CountryConfigHelper.getCountryCodeImage(code);
+                final imagePath = 'assets/images/$imageName';
+                return Obx(
+                  () => Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        controller.selectCountryCode(code);
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                          color: controller.countryCode.value == code
+                              ? AppColors.primaryColor.withOpacity(0.1)
+                              : Colors.transparent,
+                          border: Border(
+                            bottom: BorderSide(
+                              color: AppColors.textSecondary.withOpacity(0.05),
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(imagePath, width: 20, height: 14),
+                                SizedBox(width: 12),
+                                Text(
+                                  '+$code',
+                                  style: TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (controller.countryCode.value == code)
+                              Icon(
+                                Icons.check,
+                                color: AppColors.primaryColor,
+                                size: 20,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+              SizedBox(height: MediaQuery.of(context).padding.bottom),
+            ],
+          ),
+        );
+      },
     );
   }
 }

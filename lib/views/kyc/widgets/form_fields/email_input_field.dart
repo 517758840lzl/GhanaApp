@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../../../utils/widget/modern_form_widgets.dart';
 import '../../kyc_step_controller.dart';
 
@@ -133,7 +133,7 @@ class EmailInputField extends StatelessWidget {
                   errorText:
                       controller.isSubmitted.value &&
                           (textEditingController.text.trim().isEmpty)
-                      ? AppStrings.pleaseFillAllFields
+                      ? 'pleaseFillAllFields'.tr
                       : null,
                   suffixIcon: Icon(
                     Icons.email_outlined,
@@ -149,7 +149,7 @@ class EmailInputField extends StatelessWidget {
                 },
                 validator: (v) {
                   if (v == null || v.trim().isEmpty) {
-                    return AppStrings.pleaseFillAllFields;
+                    return 'pleaseFillAllFields'.tr;
                   }
                   return null;
                 },

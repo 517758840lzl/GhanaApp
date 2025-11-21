@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../common/colors/app_colors.dart';
 import '../../../common/toast.dart';
 import 'base_product_card.dart';
@@ -67,7 +66,7 @@ class AvailableProductCard extends BaseProductCard {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.productName ?? AppStrings.productDefault,
+                        product.productName ?? 'productDefault'.tr,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -76,7 +75,7 @@ class AvailableProductCard extends BaseProductCard {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        AppStrings.fastApprovalInstantTransfer,
+                        'fastApprovalInstantTransfer'.tr,
                         style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
@@ -160,7 +159,7 @@ class AvailableProductCard extends BaseProductCard {
             ),
             const SizedBox(width: 8),
             Text(
-              isSelected ? AppStrings.selected : AppStrings.selectProduct,
+              isSelected ? 'selected'.tr : 'selectProduct'.tr,
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
           ],
@@ -175,7 +174,7 @@ class AvailableProductCard extends BaseProductCard {
       if (selectedProducts.length > 1) {
         onProductSelection(product, isSelected);
       } else {
-        YDToast.text(AppStrings.mustSelectOneProduct);
+        YDToast.text('mustSelectOneProduct'.tr);
       }
     } else {
       onProductSelection(product, isSelected);

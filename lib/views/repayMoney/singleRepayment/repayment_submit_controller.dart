@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../../../models/repayment_result.dart';
 import '../../../http/api_urls.dart';
 import '../../../common/toast.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 import '../../../common/logger/app_logger.dart';
 import '../../../models/coupon.dart';
@@ -75,7 +74,7 @@ class RepaymentSubmitController extends GetxController {
           }
         }
       } else {
-        YDToast.text(result.msg != "" ? result.msg : AppStrings.error);
+        YDToast.text(result.msg != "" ? result.msg : 'error'.tr);
       }
     } catch (e) {
       LogUtil.d("catch error: $e");
@@ -104,7 +103,7 @@ class RepaymentSubmitController extends GetxController {
         couponList.refresh();
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorLoadingData);
+      YDToast.text('errorLoadingData'.tr);
     }
   }
 
@@ -116,7 +115,7 @@ class RepaymentSubmitController extends GetxController {
       // 计算优惠券后的金额
       await calculatePostLoanCoupon(couponId);
     } catch (e) {
-      YDToast.text(AppStrings.errorApplyingCoupon);
+      YDToast.text('errorApplyingCoupon'.tr);
     }
   }
 
@@ -145,7 +144,7 @@ class RepaymentSubmitController extends GetxController {
         );
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorApplyingCoupon);
+      YDToast.text('errorApplyingCoupon'.tr);
     }
   }
 
@@ -212,7 +211,7 @@ class RepaymentSubmitController extends GetxController {
       if (amount != maxAmount.value && selectedCouponId.value != 0) {
         // 清除优惠券选择
         clearSelectedCoupon();
-        YDToast.text(AppStrings.couponTips);
+        YDToast.text('couponTips'.tr);
       }
     }
   }
@@ -239,7 +238,7 @@ class RepaymentSubmitController extends GetxController {
         final mapped = RepaymentResultDataMapper.fromMap(result.data ?? {});
         return mapped;
       } else {
-        YDToast.text(result.msg != "" ? result.msg : AppStrings.error);
+        YDToast.text(result.msg != "" ? result.msg : 'error'.tr);
       }
     } catch (e) {
       LogUtil.d("catch error: $e");

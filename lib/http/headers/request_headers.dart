@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter3APP/basa/country_config_helper.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,17 +59,45 @@ class RequestHeaders {
     };
   }
 
+  static Future<Map<String, String>> getHeaders() async {
+    
+    try {
+      String? token = await UserDataHelper.getToken();
+      if (token == null) {
+        LogUtil.i('No token found');
+      }
+      final countryCode = await UserDataHelper.getCountry();
+      final index =await CountryConfigHelper.getCountryIndex(countryCode);
+      if (index==0) {
+        return {
+          'Eingangskanal': 'GHQU',//原acqChannel
+          'EingangskanalIndex': '2',//原acqChannelIndex
+          if (token != null) 'Autogramm': token,//原token
+        };
+      } else
+        {
+          return {
+            'Channel-Flowx': 'Pskurso',//原acqChannel
+            'Channel-Idxz': '4',//原acqChannelIndex
+            if (token != null) 'Token-Secrz': token,//原token
+          };
+        }
+
+
+    } catch (e) {
+      LogUtil.i('Error  $e');
+      return {};
+    }
+    
+    
+  }
+
   static Future<Map<String, dynamic>> commonAppJsonHeaders({bool encryption=Constant.APP_ENCRYPTION}) async {
     // final deviceInfo = await getDeviceInfo();
-    String? token = await UserDataHelper.getToken();
-    if (token == null) {
-      LogUtil.i('No token found');
-    }
+    final header = await getHeaders();
     return {
       'Content-Type': 'application/json',
-      'Eingangskanal': 'GHQU',//原acqChannel
-      'EingangskanalIndex': '2',//原acqChannelIndex
-      if (token != null) 'Autogramm': token,//原token
+      ...header,
       if (encryption==false)'disableEncBody': 'false',
       // ...deviceInfo,
     };
@@ -77,12 +106,10 @@ class RequestHeaders {
 
   static Future<Map<String, dynamic>> commonFileUploadHeaders({bool encryption=Constant.APP_ENCRYPTION}) async {
     // final deviceInfo = await getDeviceInfo();
-    String? token = await UserDataHelper.getToken();
+    final header = await getHeaders();
     return {
       'Content-Type': 'application/json',
-      'Eingangskanal': 'GHQU',
-      'EingangskanalIndex': '2',
-      if (token != null) 'Autogramm': token,
+      ...header,
       if (encryption==false)'disableEncBody': 'false',
       // ...deviceInfo,
     };

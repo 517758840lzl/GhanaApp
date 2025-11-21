@@ -7,6 +7,7 @@ import '../../http/api_urls.dart';
 import '../../provider/userDataHelper.dart';
 import '../../common/toast.dart';
 import '../../routes/routes.dart';
+import '../../basa/country_config_helper.dart';
 
 class MyController extends GetxController with WidgetsBindingObserver {
   final RxString phone = ''.obs;
@@ -17,6 +18,8 @@ class MyController extends GetxController with WidgetsBindingObserver {
   final RxString idCardNumber = ''.obs;
 
   final RxBool isRepaymentVisible = false.obs;
+  final RxBool appBlackCard = false.obs;
+  final RxString avatarAsset = 'assets/images/avatar_male.webp'.obs;
 
   static DateTime? _lastConfirmTime;
   static const Duration _cooldown = Duration(seconds: 5);
@@ -33,7 +36,12 @@ class MyController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
+    _loadAppBlackCard();
     loadCachedData();
+  }
+
+  Future<void> _loadAppBlackCard() async {
+    appBlackCard.value = await CountryConfigHelper.getAppBlackCardAsync();
   }
 
   @override
@@ -58,6 +66,7 @@ class MyController extends GetxController with WidgetsBindingObserver {
     phone.value = cachedPhone ?? '';
     sex.value = cachedSex ?? 1;
     level.value = cachedLevel ?? 1;
+    await _updateAvatarAsset();
     await fetchUserInfo();
     await fetchRepaymentVisible();
     if (cachedTimestamp != null) {
@@ -85,6 +94,7 @@ class MyController extends GetxController with WidgetsBindingObserver {
         customerName.value = userData?['customerName']?.toString() ?? '';
         idCardNumber.value = userData?['idCardNumber']?.toString() ?? '';
         level.value = userData?['level'] ?? 1;
+        await _updateAvatarAsset();
         _lastConfirmTime = now;
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(_phoneKey, phone.value);
@@ -111,11 +121,13 @@ class MyController extends GetxController with WidgetsBindingObserver {
     isRepaymentVisible.value = false; // TODO: 替换为真实接口判断
   }
 
+  /// 更新头像路径（根据区号和性别）
+  Future<void> _updateAvatarAsset() async {
+    avatarAsset.value = await CountryConfigHelper.getAvatarImageAsync(sex.value);
+  }
+
   String getAvatarAsset() {
-    if (sex.value == 2) {
-      return 'assets/images/avatar_female.png';
-    }
-    return 'assets/images/avatar_male.webp';
+    return avatarAsset.value;
   }
 
   Future<void> logout() async {

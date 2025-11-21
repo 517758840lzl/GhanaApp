@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 
 /// 清除数据确认弹窗
 class ClearDataDialog {
@@ -15,10 +14,10 @@ class ClearDataDialog {
   }) {
     Get.dialog(
       _buildDialog(
-        title: title ?? AppStrings.clearCacheConfirm,
-        message: message ?? AppStrings.clearCacheMessage,
-        confirmText: confirmText ?? AppStrings.confirm,
-        cancelText: cancelText ?? AppStrings.cancel,
+        title: title ?? 'clearCacheConfirm'.tr,
+        message: message ?? 'clearCacheMessage'.tr,
+        confirmText: confirmText ?? 'confirm'.tr,
+        cancelText: cancelText ?? 'cancel'.tr,
         onConfirm: onConfirm,
       ),
       barrierDismissible: true,

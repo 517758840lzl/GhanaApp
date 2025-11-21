@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:flutter3APP/models/coupon.dart';
 import 'package:flutter3APP/views/borrowMoney/detail/loan_detail_controller.dart';
@@ -50,7 +49,7 @@ class CouponBottomSheetWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    AppStrings.selectCoupon,
+                    'selectCoupon'.tr,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -68,7 +67,7 @@ class CouponBottomSheetWidget {
                           Get.back();
                         },
                         child: Text(
-                          AppStrings.delete,
+                          'delete'.tr,
                           style: const TextStyle(
                             color: AppColors.primaryColor,
                             fontSize: 16,
@@ -123,7 +122,7 @@ class CouponBottomSheetWidget {
           Icon(Icons.local_offer_outlined, color: Colors.grey[400], size: 20),
           const SizedBox(width: 8),
           Text(
-            AppStrings.noAvailableCoupons,
+            'noAvailableCoupons'.tr,
             style: TextStyle(color: Colors.grey[600], fontSize: 14),
           ),
         ],

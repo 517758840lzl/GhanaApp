@@ -3,8 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/basa/main_constant.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/routes/routes.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:flutter3APP/utils/non_repeatable_click.dart';
@@ -48,7 +46,7 @@ class LoanDetailPage extends StatelessWidget {
         onPressed: () => Get.back(),
       ),
       title: Text(
-        AppStrings.loanConfirmation,
+        'loanConfirmation'.tr,
         style: const TextStyle(
           color: Colors.black,
           fontSize: 20,
@@ -80,7 +78,7 @@ class LoanDetailPage extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            AppStrings.noLoanConfirmationInfo,
+            'noLoanConfirmationInfo'.tr,
             style: TextStyle(
               color: Colors.grey[600],
               fontSize: 16,
@@ -171,7 +169,7 @@ class LoanDetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.loanPrincipal,
+                          'loanPrincipal'.tr,
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -190,7 +188,7 @@ class LoanDetailPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        '${AppStrings.currencyUSD}${response.loanAmount}',
+                        '${'currencyUSD'.tr}${response.loanAmount}',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -220,7 +218,7 @@ class LoanDetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              AppStrings.repaymentDate,
+                              'repaymentDate'.tr,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.orange[700],
@@ -277,34 +275,34 @@ class LoanDetailPage extends StatelessWidget {
             child: Column(
               children: [
                 _buildFeeItem(
-                  AppStrings.loanPrincipal,
-                  '${AppStrings.currencyUSD}${response.loanAmount}',
+                  'loanPrincipal'.tr,
+                  '${'currencyUSD'.tr}${response.loanAmount}',
                   isHighlighted: false,
                 ),
                 const SizedBox(height: 12),
                 _buildFeeItem(
-                  AppStrings.actualAmountToAccount,
-                  '${AppStrings.currencyUSD}${response.actualToAccountMoney}',
+                  'actualAmountToAccount'.tr,
+                  '${'currencyUSD'.tr}${response.actualToAccountMoney}',
                   isHighlighted: false,
                 ),
                 const SizedBox(height: 12),
                 _buildFeeItem(
-                  AppStrings.serviceFee,
-                  '${AppStrings.currencyUSD}${response.serviceFee}',
+                  'serviceFee'.tr,
+                  '${'currencyUSD'.tr}${response.serviceFee}',
                   isHighlighted: true,
                 ),
                 const SizedBox(height: 12),
                 _buildFeeItem(
-                  AppStrings.interest,
-                  '${AppStrings.currencyUSD}${response.rent}',
+                  'interest'.tr,
+                  '${'currencyUSD'.tr}${response.rent}',
                   isHighlighted: true,
                 ),
                 const SizedBox(height: 16),
                 Container(height: 1, color: Colors.grey[200]),
                 const SizedBox(height: 16),
                 _buildFeeItem(
-                  AppStrings.totalRepaymentAmount,
-                  '${AppStrings.currencyUSD}${totalAmount}',
+                  'totalRepaymentAmount'.tr,
+                  '${'currencyUSD'.tr}${totalAmount}',
                   isHighlighted: true,
                   isTotal: true,
                 ),
@@ -369,7 +367,7 @@ class LoanDetailPage extends StatelessWidget {
           NonRepeatableClick.checkClick(
             debounceDuration: const Duration(seconds: 1),
             click: () async {
-              if (Constant.APP_BLACK_CARD) {
+              if (controller.appBlackCard.value) {
                 await controller.showBankCardSelectionDialog();
               }
             },
@@ -397,7 +395,7 @@ class LoanDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppStrings.bankCardToAccount,
+                      'bankCardToAccount'.tr,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey[600],
@@ -425,12 +423,13 @@ class LoanDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-              if (Constant.APP_BLACK_CARD)
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.grey[400],
-                  size: 16,
-                ),
+              Obx(() => controller.appBlackCard.value
+                  ? Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey[400],
+                      size: 16,
+                    )
+                  : SizedBox.shrink()),
             ],
           ),
         ),
@@ -479,7 +478,7 @@ class LoanDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppStrings.selectCoupon,
+                      'selectCoupon'.tr,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -520,14 +519,14 @@ class LoanDetailPage extends StatelessWidget {
                       } else {
                         return controller.couponList.isEmpty
                             ? Text(
-                                AppStrings.noAvailableCoupons,
+                                'noAvailableCoupons'.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[500],
                                 ),
                               )
                             : Text(
-                                AppStrings.pleaseCoupons,
+                                'pleaseCoupons'.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[500],
@@ -573,7 +572,7 @@ class LoanDetailPage extends StatelessWidget {
               text: TextSpan(
                 style: const TextStyle(fontSize: 14, color: Colors.black87),
                 children: [
-                  TextSpan(text: AppStrings.iHaveReadAndAgreeText),
+                  TextSpan(text: 'iHaveReadAndAgreeText'.tr),
                   TextSpan(
                     recognizer: TapGestureRecognizer()
                       ..onTap = () async {
@@ -612,8 +611,8 @@ class LoanDetailPage extends StatelessWidget {
                         }
                       },
                     text: Platform.isAndroid
-                        ? AppStrings.privacyPolicy
-                        : AppStrings.loanContract,
+                        ? 'privacyPolicy'.tr
+                        : 'loanContract'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.primaryColor,
@@ -666,7 +665,7 @@ class LoanDetailPage extends StatelessWidget {
               disabledBackgroundColor: Colors.grey[300],
             ),
             child: Text(
-              AppStrings.confirmLoan,
+              'confirmLoan'.tr,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

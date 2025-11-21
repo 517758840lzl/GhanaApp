@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:get/get.dart';
 
 /// 退出登录确认弹框
@@ -14,9 +13,9 @@ class MeituanLogoutDialog {
   }) {
     Get.dialog(
       _buildDialog(
-        title: title ?? AppStrings.areYouSureLogout,
-        confirmText: confirmText ?? AppStrings.confirm,
-        cancelText: cancelText ?? AppStrings.cancel,
+        title: title ?? 'areYouSureLogout'.tr,
+        confirmText: confirmText ?? 'confirm'.tr,
+        cancelText: cancelText ?? 'cancel'.tr,
         onConfirm: onConfirm,
       ),
       barrierDismissible: true,

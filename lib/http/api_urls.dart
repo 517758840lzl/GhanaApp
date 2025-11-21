@@ -10,118 +10,117 @@ import '../../models/acquisition.dart';
 class ApiUrls {
   // 用户相关
   static const String checkACPElementinfoUrl =
-      "/ghqu/erwerb/eingehendeDaten/info"; // 原: /api/user/acquisition/acpElementInfo
+      "/api/user/acquisition/acpElementInfo"; // 原: /api/user/acquisition/acpElementInfo
   static const String getApplyRouter =
-      "/ghqu/erwerb/prozess"; // 原: /api/user/acquisition/queryAcquisitionProgress
+      "/api/user/acquisition/queryAcquisitionProgress"; // 原: /api/user/acquisition/queryAcquisitionProgress
   static const String submitAcpInfoUrl =
-      "/ghqu/erwerb/eingehendeDaten/speichern"; // 原: /api/user/acquisition/submitAcpInfo
+      "/api/user/acquisition/submitAcpInfo"; // 原: /api/user/acquisition/submitAcpInfo
   static const String getBankListUrl =
-      "/ghqu/erwerb/bankkarten/liste"; // 原: /api/user/acquisition/queryBankList
+      "/api/user/acquisition/queryBankList"; // 原: /api/user/acquisition/queryBankList
   static const String getUserInformationUrl =
-      "/ghqu/benutzerdaten/abrufen"; // 原: /api/user/userInfo
+      "/api/user/userInfo"; // 原: /api/user/userInfo
   static const String deleteAccountUrl =
-      "/ghqu/stornierung"; // 原: /api/user/logout
+      "/api/user/logout"; // 原: /api/user/logout
   static const String sendVerifyCode =
-      "/ghqu/prufcode/senden"; // 原: /api/user/sendVerifyCode
-  static const String userlogin = "/ghqu/logintrieren"; // 原: /api/user/login
+      "/api/user/sendVerifyCode"; // 原: /api/user/sendVerifyCode
+  static const String userlogin = "/api/user/login"; // 原: /api/user/login
   static const String getKYCData =
-      "/ghqu/erwerb/benutzerdaten/info"; // 原: /api/user/acquisition/queryAcqInfo
+      "/api/user/acquisition/queryAcqInfo"; // 原: /api/user/acquisition/queryAcqInfo
 
   // 银行卡相关
 
   // 获取用户银行卡列表
   static const String getBankCardListUrl =
-      "/ghqu/erwerb/benutzer/bankkarten/liste"; // 原: /api/user/acquisition/queryUserBankCardList
+      "/api/user/acquisition/queryUserBankCardList"; // 原: /api/user/acquisition/queryUserBankCardList
   // 设置默认银行卡
   static const String setDefaultBankCard =
-      "/ghqu/erwerb/bankkarten/standard"; // 原: /api/user/acquisition/setDefaultBankAccount
+      "/api/user/acquisition/setDefaultBankAccount"; // 原: /api/user/acquisition/setDefaultBankAccount
   // 更新银行卡
   static const String editBank =
-      "/ghqu/erwerb/bankcard/update"; // 原: /api/user/acquisition/updateBankCardInfo
+      "/api/user/acquisition/updateBankCardInfo"; // 原: /api/user/acquisition/updateBankCardInfo
   // 保存银行卡
   static const String addBankInfoUrl =
-      "/ghqu/erwerb/bankkarten/info"; // 原: /api/user/acquisition/saveBankCardInfo
+      "/api/user/acquisition/saveBankCardInfo"; // 原: /api/user/acquisition/saveBankCardInfo
   // 确认更换银行卡
   static const String confirmChangeBank =
-      "/ghqu/verwendet/vertrag/bestatigung"; // 原: /api/order/loanOrder/confirmChangeBank
+      "/api/order/loanOrder/confirmChangeBank"; // 原: /api/order/loanOrder/confirmChangeBank
 
   // 首页相关
   static const String getHomeMessageList =
-      "/ghqu/verwendet/nachrichten"; // 原: /api/common/messages
-  static const String getBannerUrl =
-      "/ghqu/erwerb/bnr/lst"; // 原: /api/banner/list
-  static const String getHomeV4 = "/ghqu/v4/startseite"; // 原: /api/v4/home
+      "/api/common/messages"; // 原: /api/common/messages
+  static const String getBannerUrl = "/api/banner/list"; // 原: /api/banner/list
+  static const String getHomeV4 = "/api/v4/home"; // 原: /api/v4/home
   static const String getHomeRetryConfig =
-      "/ghqu/startseite/retryConf"; // 原: /api/home/retryConfig
+      "/api/home/retryConfig"; // 原: /api/home/retryConfig
   static const String rejectInfoUrl =
-      "/ghqu/verwendet/rejectionDetails"; // 原: /api/order/loanOrder/rejectInfo
+      "/api/order/loanOrder/rejectInfo"; // 原: /api/order/loanOrder/rejectInfo
 
   // 文件上传
   static const String uploadImage =
-      "/ghqu/verwendet/hochladen"; // 原: /api/common/uploadFile
+      "/api/common/uploadFile"; // 原: /api/common/uploadFile
   static const String UPLOAD_DATA =
-      "/ghqu/benutzerdaten/hochladen"; // 原: /api/upload/data/submitUserUploadData
+      "/api/upload/data/submitUserUploadData"; // 原: /api/upload/data/submitUserUploadData
   static const String CHECK_UPLOAD_VALID =
-      "/ghqu/benutzerdaten/erkennung"; // 原: /api/upload/data/checkUploadDataValid
+      "/api/upload/data/checkUploadDataValid"; // 原: /api/upload/data/checkUploadDataValid
 
   // 其他
   static const String getPCADataUrl =
-      "/ghqu/verwendet/region"; // 原: /api/common/provincesCitiesArea
+      "/api/common/provincesCitiesArea"; // 原: /api/common/provincesCitiesArea
   static const String ocrIdentification =
-      "/ghqu/erwerb/ocr/prufung"; // 原: /api/user/acquisition/ocrVerification
+      "/api/user/acquisition/ocrVerification"; // 原: /api/user/acquisition/ocrVerification
   static const String faceDetection =
-      "/ghqu/erwerb/gesichtserkennung"; // 原: /api/user/acquisition/checkFace
+      "/api/user/acquisition/checkFace"; // 原: /api/user/acquisition/checkFace
 
   static const String userRepayment =
-      "/ghqu/verwendet/vertrag/ruckzahlung"; // 原: /api/order/loanOrder/userRepayment
+      "/api/order/loanOrder/userRepayment"; // 原: /api/order/loanOrder/userRepayment
   static const String lockGroupOrder =
-      "/ghqu/verwendet/vertrag/verriegelung"; // 原: /api/order/loanOrder/lockGroupOrder
+      "/api/order/loanOrder/lockGroupOrder"; // 原: /api/order/loanOrder/lockGroupOrder
   static const String confirmUserApplyAmountUrl =
-      "/ghqu/verwendet/vertrag/bestatigungsseite"; // 原: /api/order/loanOrder/confirmUserApplyAmountInfo   // 额度确认
+      "/api/order/loanOrder/confirmUserApplyAmountInfo"; // 原: /api/order/loanOrder/confirmUserApplyAmountInfo   // 额度确认
   static const String billDetail =
-      "/ghqu/verwendet/vertrag/rechnungsdetails"; // 原: /api/order/loanOrder/api/order/billDetails
+      "/api/order/loanOrder/api/order/billDetails"; // 原: /api/order/loanOrder/api/order/billDetails
   static const String channelList =
-      "/ghqu/verwendet/vertrag/kanalliste"; // 原: /api/order/loanOrder/channelList
+      "/api/order/loanOrder/channelList"; // 原: /api/order/loanOrder/channelList
   static const String generatesUrl =
-      "/ghqu/verwendet/vertrag/link"; // 原: /api/order/loanOrder/generatesUrl//还款确认接口
+      "/api/order/loanOrder/generatesUrl"; // 原: /api/order/loanOrder/generatesUrl//还款确认接口
   static const String confirmOrderUrl =
-      "/ghqu/verwendet/vertrag/bestatigung"; // 原: /api/order/loanOrder/confirmOrder
+      "/api/order/loanOrder/confirmOrder"; // 原: /api/order/loanOrder/confirmOrder
   static const String applyExtensionUrl =
-      "/ghqu/verwendet/vertrag/erweiterung"; // 原: /api/order/loanOrder/api/order/extension
+      "/api/order/loanOrder/api/order/extension"; // 原: /api/order/loanOrder/api/order/extension
   static const String getCustomerUrl =
-      "/ghqu/verwendet/kundenservice"; // 原: /api/appExtraInfo/customerServiceInfo
+      "/api/appExtraInfo/customerServiceInfo"; // 原: /api/appExtraInfo/customerServiceInfo
   static const String getCouponList =
-      "/ghqu/erwerb/cpn/v2/overview"; // 原: /api/customer/coupon/v2/list  // 获取优惠券列表
+      "/api/customer/coupon/v2/list"; // 原: /api/customer/coupon/v2/list  // 获取优惠券列表
   static const String calculatedAmountaUrl =
-      "/ghqu/erwerb/cpn/check"; // 原: /api/customer/coupon/pre/use  // 计算优惠券借款金额
+      "/api/customer/coupon/pre/use"; // 原: /api/customer/coupon/pre/use  // 计算优惠券借款金额
   static const String calculatePostAmount =
-      "/ghqu/erwerb/cpn/confirm"; // 原: /api/customer/coupon/post/use  // 计算贷后使用优惠券金额
+      "/api/customer/coupon/post/use"; // 原: /api/customer/coupon/post/use  // 计算贷后使用优惠券金额
   static const String getAppSystemConfig =
-      "/ghqu/verwendet/starten/konfiguration"; // 原: /api/common/startup/config   // 获取系统配置接口
+      "/api/common/startup/config"; // 原: /api/common/startup/config   // 获取系统配置接口
   static const String cancelAutoOrder =
-      "/ghqu/verwendet/cancelAuto"; // 原: /api/order/loanOrder/removeAutoLoan   // 取消自动放款
+      "/api/order/loanOrder/removeAutoLoan"; // 原: /api/order/loanOrder/removeAutoLoan   // 取消自动放款
   static const String removeCountDownTime =
-      "/ghqu/verwendet/cancelTimer"; // 原: /api/order/loanOrder/removeLoanCountDown   // 删除倒计时，关单
+      "/api/order/loanOrder/removeLoanCountDown"; // 原: /api/order/loanOrder/removeLoanCountDown   // 删除倒计时，关单
   static const String getRejectInfo =
-      "/ghqu/verwendet/rejectionDetails"; // 原: /api/order/loanOrder/rejectInfo   // 获取拒绝信息
+      "/api/order/loanOrder/rejectInfo"; // 原: /api/order/loanOrder/rejectInfo   // 获取拒绝信息
   static const String getAppUpgradeConfig =
-      "/ghqu/verwendet/version"; // 原: /api/common/appVersion  // 获取APP升级配置
+      "/api/common/appVersion"; // 原: /api/common/appVersion  // 获取APP升级配置
   static const String getPopDialogConfig =
-      "/ghqu/verwendet/pp/konfiguration"; // 原: /api/common/pop/config   // 获取弹窗配置
+      "/api/common/pop/config"; // 原: /api/common/pop/config   // 获取弹窗配置
   static const String getSettledOrderList =
-      "/ghqu/contract/settledRecords"; // 原: /api/contract/settled/list   // 获取已结算订单列表
+      "/api/contract/settled/list"; // 原: /api/contract/settled/list   // 获取已结算订单列表
 
   static const String faceCompareUrl =
-      "/ghqu/verwendet/hochladen"; // 原: /api/user/acquisition/checkFace
+      "/api/user/acquisition/checkFace"; // 原: /api/user/acquisition/checkFace
   static const String ocrUrl =
-      "/ghqu/erwerb/ocr/prufung"; //原: /api/user/acquisition/ocrVerification
+      "/api/user/acquisition/ocrVerification"; //原: /api/user/acquisition/ocrVerification
   static const String userSignOut =
-      "/api/user/signOut"; //  /ghqu/prufcode/senden  /api/user/signOut
+      "/api/user/signOut"; //  原:  /api/user/signOut
   static const String getRePopDialogConfig =
-      "/api/common/pop/config"; //"/ghqu/verwendet/pp/konfiguration",
+      "/api/common/pop/config"; // 原: /api/common/pop/config
 
   static const String postSysmetaEvents =
-      "/ghqu/verwendet/ereignis"; //原  /api/common/event,
+      "/api/common/event"; //原  /api/common/event,
   static const String getCouponAllList =
       "/api/customer/coupon/list/all"; // 原: /api/customer/coupon/list/all  // 获取所有优惠券列表
 
@@ -142,8 +141,9 @@ class ApiUrls {
     required String phone,
     required String authCode,
     int onlyLogin = 0,
-    String countryCode = Constant.COUNTRY_CODE,
+    String? countryCode,
   }) async {
+    countryCode ??= Constant.COUNTRY_CODES.first;
     final deviceInfo = await RequestHeaders.getDeviceInfo();
     return await HttpUtil.fetchModel<RawResponseModel>(
       FetchType.post,

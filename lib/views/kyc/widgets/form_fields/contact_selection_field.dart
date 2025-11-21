@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
 import '../../../../common/colors/app_colors.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../kyc_step_controller.dart';
 
-class ContactSelectionField extends StatelessWidget {
+class ContactSelectionField extends StatefulWidget {
   final String code;
   final String label;
   final String currentValue;
@@ -30,35 +31,123 @@ class ContactSelectionField extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<ContactSelectionField> createState() => _ContactSelectionFieldState();
+}
+
+class _ContactSelectionFieldState extends State<ContactSelectionField> {
+  late FocusNode _focusNode;
+  bool _isDisposed = false;
+  bool _isProcessing = false;
+  DateTime? _lastTapTime;
+  static const Duration _debounceDuration = Duration(milliseconds: 500);
+
+  @override
+  void initState() {
+    super.initState();
     // 确保控制器存在
-    if (!controller.controllers.containsKey(code)) {
-      controller.controllers[code] = TextEditingController(text: currentValue);
+    if (!widget.controller.controllers.containsKey(widget.code)) {
+      widget.controller.controllers[widget.code] = TextEditingController(
+        text: widget.currentValue,
+      );
     }
 
     // 创建FocusNode并添加到列表
-    final focusNode = FocusNode();
-    addFocusNode(focusNode);
+    _focusNode = FocusNode();
+    widget.addFocusNode(_focusNode);
 
+    // 监听焦点变化
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    if (_isDisposed) return;
+
+    if (_focusNode.hasFocus) {
+      AppEventTracker.instance.startInteraction(
+        widget.controller.currentStep.value,
+        widget.code,
+        widget.label,
+      );
+    } else {
+      AppEventTracker.instance.endInteraction(
+        widget.controller.currentStep.value,
+        widget.code,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleContactTap() async {
+    // 如果正在处理或已销毁，直接返回
+    if (_isProcessing || _isDisposed) return;
+
+    // 防抖处理：防止快速连续点击
+    final now = DateTime.now();
+    if (_lastTapTime != null &&
+        now.difference(_lastTapTime!) < _debounceDuration) {
+      return;
+    }
+    _lastTapTime = now;
+
+    // 设置处理标志
+    _isProcessing = true;
+
+    try {
+      // 先取消焦点，避免系统上下文菜单冲突
+      _focusNode.unfocus();
+
+      // 隐藏键盘
+      widget.hideKeyboard();
+
+      // 等待一小段时间确保焦点状态更新
+      await Future.delayed(const Duration(milliseconds: 150));
+
+      if (_isDisposed) {
+        _isProcessing = false;
+        return;
+      }
+
+      AppEventTracker.instance.startInteraction(
+        widget.controller.currentStep.value,
+        widget.code,
+        widget.label,
+      );
+      await widget.controller.requestContactPermission(widget.code);
+      AppEventTracker.instance.endInteraction(
+        widget.controller.currentStep.value,
+        widget.code,
+      );
+    } catch (e) {
+      // 忽略错误，避免崩溃
+      debugPrint('Error in contact selection: $e');
+    } finally {
+      // 确保重置处理标志
+      if (!_isDisposed) {
+        _isProcessing = false;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // 判断是否可编辑
-    bool isEditable = type == 10; // 10可选可输入，9只能选
+    bool isEditable = widget.type == 10; // 10可选可输入，9只能选
 
-    return Focus(
-      focusNode: focusNode,
-      onFocusChange: (hasFocus) {
-        if (hasFocus) {
-          AppEventTracker.instance.startInteraction(
-            controller.currentStep.value,
-            code,
-            label,
-          );
-        } else {
-          AppEventTracker.instance.endInteraction(
-            controller.currentStep.value,
-            code,
-          );
-        }
-      },
+    return GestureDetector(
+      onTap: !isEditable
+          ? () {
+              // 对于只读字段，点击时直接触发联系人选择
+              _handleContactTap();
+            }
+          : null,
+      behavior: HitTestBehavior.opaque,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -75,23 +164,30 @@ class ContactSelectionField extends StatelessWidget {
         ),
         child: TextFormField(
           readOnly: !isEditable,
-          controller: controller.controllers[code],
+          controller: widget.controller.controllers[widget.code],
+          focusNode: _focusNode,
           keyboardType: TextInputType.phone,
+          enableInteractiveSelection: isEditable,
+          contextMenuBuilder: (context, editableTextState) {
+            // 返回空菜单，防止系统上下文菜单错误
+            // 这样可以避免快速点击时的文本输入连接错误
+            return const SizedBox.shrink();
+          },
           style: TextStyle(
             fontSize: 16,
             color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
           decoration: InputDecoration(
-            labelText: label,
+            labelText: widget.label,
             labelStyle: TextStyle(
               color: Colors.grey[600],
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
             hintText: isEditable
-                ? AppStrings.enterPhoneNumberOrSelectFromContacts
-                : AppStrings.selectFromContacts,
+                ? 'enterPhoneNumberOrSelectFromContacts'.tr
+                : 'selectFromContacts'.tr,
             hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -99,21 +195,9 @@ class ContactSelectionField extends StatelessWidget {
               margin: EdgeInsets.only(right: 8),
               child: Material(
                 color: Colors.transparent,
-                child: InkWell(
-                  onTap: () async {
-                    hideKeyboard();
-                    AppEventTracker.instance.startInteraction(
-                      controller.currentStep.value,
-                      code,
-                      label,
-                    );
-                    await controller.requestContactPermission(code);
-                    AppEventTracker.instance.endInteraction(
-                      controller.currentStep.value,
-                      code,
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(8),
+                child: GestureDetector(
+                  onTap: _handleContactTap,
+                  behavior: HitTestBehavior.opaque,
                   child: Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -130,23 +214,26 @@ class ContactSelectionField extends StatelessWidget {
               ),
             ),
             errorText:
-                controller.isSubmitted.value &&
-                    (controller.controllers[code]?.text.trim().isEmpty ?? true)
-                ? AppStrings.pleaseFillAllFields
+                widget.controller.isSubmitted.value &&
+                    (widget.controller.controllers[widget.code]?.text
+                            .trim()
+                            .isEmpty ??
+                        true)
+                ? 'pleaseFillAllFields'.tr
                 : null,
           ),
           onChanged: isEditable
               ? (val) {
-                  controller.stepData[code] = val;
+                  widget.controller.stepData[widget.code] = val;
                   if (val.trim().isNotEmpty) {
-                    controller.isSubmitted.value = false;
+                    widget.controller.isSubmitted.value = false;
                   }
                 }
               : null,
           validator: (val) {
-            if (controller.isSubmitted.value &&
+            if (widget.controller.isSubmitted.value &&
                 (val == null || val.trim().isEmpty)) {
-              return AppStrings.pleaseFillAllFields;
+              return 'pleaseFillAllFields'.tr;
             }
             return null;
           },

@@ -29,7 +29,6 @@ import '../widgets/KYC_exit_dialog.dart';
 import '../widgets/ios_picker_widget.dart';
 import '../widgets/address_picker_widget.dart';
 import '../../common/toast.dart';
-import '../../l10n/app_strings.dart';
 import '../../models/step.dart';
 import '../../models/startup_config.dart';
 
@@ -188,10 +187,10 @@ class KycStepController extends GetxController {
             );
           }
         } else {
-          YDToast.text(AppStrings.noStepsDataAvailable);
+          YDToast.text('noStepsDataAvailable'.tr);
         }
       } else {
-        YDToast.text(AppStrings.progressCouldNotBeObtained);
+        YDToast.text('progressCouldNotBeObtained'.tr);
       }
     } catch (e) {
       LogUtil.d(e);
@@ -244,10 +243,10 @@ class KycStepController extends GetxController {
           fetchStartupConfig();
         }
       } else {
-        YDToast.text(AppStrings.systemErrorTryAgain);
+        YDToast.text('systemErrorTryAgain'.tr);
       }
     } catch (e) {
-      YDToast.text(AppStrings.systemErrorTryAgain);
+      YDToast.text('systemErrorTryAgain'.tr);
     } finally {}
   }
 
@@ -273,7 +272,7 @@ class KycStepController extends GetxController {
         });
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorFetchingBankList);
+      YDToast.text('errorFetchingBankList'.tr);
     }
   }
 
@@ -285,10 +284,10 @@ class KycStepController extends GetxController {
         provinceCityCache['province'] = responseData['province'];
         provinceCityCache['city'] = responseData['city'];
       } else {
-        YDToast.text(AppStrings.errorFetchingProvincesCities);
+        YDToast.text('errorFetchingProvincesCities'.tr);
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorFetchingProvincesCities);
+      YDToast.text('errorFetchingProvincesCities'.tr);
     }
   }
 
@@ -355,19 +354,19 @@ class KycStepController extends GetxController {
   void _showContactPermissionDeniedDialog() {
     Get.dialog(
       AlertDialog(
-        title: Text(AppStrings.failedToAccessContacts),
-        content: Text(AppStrings.pleaseCheckContactPermission),
+        title: Text('failedToAccessContacts'.tr),
+        content: Text('pleaseCheckContactPermission'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text(AppStrings.cancel),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () {
               Get.back();
               openAppSettings();
             },
-            child: Text(AppStrings.openSettings),
+            child: Text('openSettings'.tr),
           ),
         ],
       ),
@@ -419,7 +418,7 @@ class KycStepController extends GetxController {
             }
           }
         } else {
-          YDToast.text(AppStrings.contactRestricted);
+          YDToast.text('contactRestricted'.tr);
         }
       } else {
         if (phoneNumber.isNotEmpty) {
@@ -437,11 +436,11 @@ class KycStepController extends GetxController {
             }
           } catch (e) {}
         } else {
-          YDToast.text(AppStrings.contactRestricted);
+          YDToast.text('contactRestricted'.tr);
         }
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorSelectingContact);
+      YDToast.text('errorSelectingContact'.tr);
     }
   }
 
@@ -544,12 +543,12 @@ class KycStepController extends GetxController {
       } else {
         YDToast.cleanAll();
         YDToast.text(
-          result.msg != "" ? result.msg : AppStrings.systemErrorTryAgain,
+          result.msg != "" ? result.msg : 'systemErrorTryAgain'.tr,
         );
       }
     } catch (e) {
       YDToast.cleanAll();
-      YDToast.text(AppStrings.systemErrorTryAgain);
+      YDToast.text('systemErrorTryAgain'.tr);
     } finally {}
   }
 
@@ -641,9 +640,9 @@ class KycStepController extends GetxController {
 
           // 根据缺失字段类型显示不同提示
           if (hasFaceRecognitionMissing) {
-            YDToast.text(AppStrings.pleaseCompleteFaceRecognition);
+            YDToast.text('pleaseCompleteFaceRecognition'.tr);
           } else {
-            YDToast.text(AppStrings.pleaseCompleteRequiredFields);
+            YDToast.text('pleaseCompleteRequiredFields'.tr);
           }
           return;
         }
@@ -674,16 +673,16 @@ class KycStepController extends GetxController {
         final val = stepData["40002"]?.toString() ?? '';
         final val2 = stepData["50002"]?.toString() ?? '';
         if (val != '' || val != '') {
-          value = '${AppStrings.confirmAccount}\n';
+          value = '${'confirmAccount'.tr}\n';
         }
         if (val != '') {
-          value = value + "${AppStrings.bvnNumberInput}: ${val}";
+          value = value + "${'bvnNumberInput'.tr}: ${val}";
         }
         if (val2 != '') {
           if (val != '') {
-            value = value + "\n${AppStrings.bankCard}: ${val2}";
+            value = value + "\n${'bankCard'.tr}: ${val2}";
           } else {
-            value = value + "${AppStrings.bankCard}: ${val2}";
+            value = value + "${'bankCard'.tr}: ${val2}";
           }
         }
         if (value.isNotEmpty) {
@@ -1068,7 +1067,7 @@ class KycStepController extends GetxController {
       if (bytes != null) {
         uploadImageOcrFromBytes(bytes, type, code);
       } else {
-        LogUtil.d('Image', AppStrings.noPhotoSelected);
+        LogUtil.d('Image', 'noPhotoSelected'.tr);
       }
     } catch (e) {}
   }
@@ -1116,8 +1115,8 @@ class KycStepController extends GetxController {
       YDToast.cleanAll();
       if (result.isSucceed && result.data != null) {
         LogUtil.d(
-          AppStrings.success,
-          result.msg != "" ? result.msg : AppStrings.success,
+          'success'.tr,
+          result.msg != "" ? result.msg : 'success'.tr,
         );
         final data = result.data ?? {};
         final url = data['url'] ?? "";
@@ -1137,8 +1136,8 @@ class KycStepController extends GetxController {
         isSubmitted.value = false;
       } else {
         LogUtil.d(
-          AppStrings.error,
-          result.msg != "" ? result.msg : AppStrings.unknownErrorMsg,
+          'error'.tr,
+          result.msg != "" ? result.msg : 'unknownErrorMsg'.tr,
         );
       }
     } catch (e) {
@@ -1171,10 +1170,10 @@ class KycStepController extends GetxController {
       );
       YDToast.cleanAll();
       if (result.isSucceed && result.data != null) {
-        YDToast.text(AppStrings.success);
+        YDToast.text('success'.tr);
         LogUtil.d(
-          AppStrings.success,
-          result.msg != "" ? result.msg : AppStrings.success,
+          'success'.tr,
+          result.msg != "" ? result.msg : 'success'.tr,
         );
         final data = result.data ?? {};
         final url = data['url'] ?? "";
@@ -1235,10 +1234,10 @@ class KycStepController extends GetxController {
       );
 
       if (imagePaths.isEmpty) {
-        YDToast.text(AppStrings.faceDetectionFailed);
+        YDToast.text('faceDetectionFailed'.tr);
         return;
       } else {
-        YDToast.text(AppStrings.faceDetectionCompleted);
+        YDToast.text('faceDetectionCompleted'.tr);
       }
 
       final fileBytes = await File(imagePaths.first).readAsBytes();

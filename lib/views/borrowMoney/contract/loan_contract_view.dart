@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../common/colors/app_colors.dart';
 
 // 合同页面
@@ -24,7 +23,7 @@ class LoanContractPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:  AppColors.primaryColor,
-        title: const Text(AppStrings.loanContract),
+        title: Text('loanContract'.tr),
         titleTextStyle:TextStyle(color: Colors.white,fontSize: 20),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios,color: Colors.white,),
@@ -41,54 +40,54 @@ class LoanContractPage extends StatelessWidget {
             //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             // ),
             const SizedBox(height: 5),
-            const Text(
-              AppStrings.loanContractIntro,
-              style: TextStyle(height: 1.5),
+            Text(
+              'loanContractIntro'.tr,
+              style: const TextStyle(height: 1.5),
             ),
             const SizedBox(height: 16),
-            const Text(
-              AppStrings.loanContractTermsTitle,
+             Text(
+              'loanContractTermsTitle'.tr,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
-              AppStrings.loanContractTerms,
+             Text(
+              'loanContractTerms'.tr,
               style: TextStyle(height: 1.5),
             ),
             const SizedBox(height: 16),
-            const Text(
-              AppStrings.loanContractDetailsTitle,
+             Text(
+              'loanContractDetailsTitle'.tr,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              '${AppStrings.contractDatePrefix} ${DateTime.now().toLocal().toString().split(' ')[0]}',
+              '${'contractDatePrefix'.tr} ${DateTime.now().toLocal().toString().split(' ')[0]}',
             ),
-            Text('${AppStrings.dearSirMadam}：$name'),
+            Text('${'dearSirMadam'.tr}：$name'),
             const SizedBox(height: 8),
-            const Text(AppStrings.followingYourLoanApplication),
+             Text('followingYourLoanApplication'.tr),
             const SizedBox(height: 8),
             Text(
-              '${AppStrings.loanAmount} (${AppStrings.currencyUSD}): $loanAmount',
+              '${'loanAmount'.tr} (${'currencyUSD'.tr}): $loanAmount',
             ),
             // Text('Annual Percentage Rate (APR): $apr'),
             Text(
-              '${AppStrings.singleRepaymentAmount} (${AppStrings.currencyUSD}): $singleRepaymentAmount',
+              '${'singleRepaymentAmount'.tr} (${'currencyUSD'.tr}): $singleRepaymentAmount',
             ),
             // Text('Loan Term (Days): $loanTerm'),
             Text(
-              '${AppStrings.amountCredited} (${AppStrings.currencyUSD}): $amountCredited',
+              '${'amountCredited'.tr} (${'currencyUSD'.tr}): $amountCredited',
             ),
             // Text('Interest (\$): $interest'),
             Text(
-              '${AppStrings.repaymentFrequency}: ${AppStrings.singleRepayment}',
+              '${'repaymentFrequency'.tr}: ${'singleRepayment'.tr}',
             ),
-            Text('${AppStrings.dueDate}: $dueDate'),
-            Text('${AppStrings.name}: $name'),
-            Text('${AppStrings.idCardNumber}: $idCardNumber'),
-            Text('${AppStrings.walletAccount}: $receivingBankCardNumber'),
+            Text('${'dueDate'.tr}: $dueDate'),
+            Text('${'name'.tr}: $name'),
+            Text('${'idCardNumber'.tr}: $idCardNumber'),
+            Text('${'walletAccount'.tr}: $receivingBankCardNumber'),
             // Text('Late Penalty: $latePenalty'),
-            Text('${AppStrings.loanMobilePhoneNumber}: $loanMobilePhoneNumber'),
+            Text('${'loanMobilePhoneNumber'.tr}: $loanMobilePhoneNumber'),
             const SizedBox(height: 16),
             // const Text(
             //   'Complaint Officer',

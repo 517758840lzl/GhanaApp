@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../../models/repayment_result.dart';
 import '../../../http/api_urls.dart';
 import '../../../common/toast.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 import '../../../common/logger/app_logger.dart';
 import '../../../models/coupon.dart';
@@ -65,7 +64,7 @@ class AllRepaymentSubmitController extends GetxController {
           );
         }
       } else {
-        YDToast.text(result.msg != "" ? result.msg : AppStrings.error);
+        YDToast.text(result.msg != "" ? result.msg : 'error'.tr);
       }
     } catch (e) {
       LogUtil.d("catch error: $e");
@@ -98,7 +97,7 @@ class AllRepaymentSubmitController extends GetxController {
         couponList.refresh();
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorLoadingData);
+      YDToast.text('errorLoadingData'.tr);
     }
   }
 
@@ -109,7 +108,7 @@ class AllRepaymentSubmitController extends GetxController {
       // 计算优惠券后的金额
       await calculatePostLoanCoupon(couponId);
     } catch (e) {
-      YDToast.text(AppStrings.errorApplyingCoupon);
+      YDToast.text('errorApplyingCoupon'.tr);
     }
   }
 
@@ -138,7 +137,7 @@ class AllRepaymentSubmitController extends GetxController {
         );
       }
     } catch (e) {
-      YDToast.text(AppStrings.errorApplyingCoupon);
+      YDToast.text('errorApplyingCoupon'.tr);
     }
   }
 
@@ -171,7 +170,7 @@ class AllRepaymentSubmitController extends GetxController {
         );
         return responseData;
       } else {
-        YDToast.text(result.msg != "" ? result.msg : AppStrings.error);
+        YDToast.text(result.msg != "" ? result.msg : 'error'.tr);
       }
     } catch (e) {
       LogUtil.d("catch error: $e");

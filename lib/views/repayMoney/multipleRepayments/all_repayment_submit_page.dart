@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:flutter3APP/models/bill_detail.dart';
 import 'package:flutter3APP/models/coupon.dart';
@@ -37,8 +36,8 @@ class AllRepaymentSubmitPage extends StatelessWidget {
   // AppBar
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text(
-        AppStrings.allRepaymentSubmit,
+      title:  Text(
+        'allRepaymentSubmit'.tr,
         style: TextStyle(
           color: Colors.black,
           fontSize: 18,
@@ -128,7 +127,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               child: Text(
-                "${AppStrings.repaymentAmount}",
+                "${'repaymentAmount'.tr}",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -156,7 +155,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       alignment: Alignment.center,
       child:  Text(
-        '${AppStrings.currencyUSD}${controller.readOnlyAmount.value}',
+        '${'currencyUSD'.tr}${controller.readOnlyAmount.value}',
         style: TextStyle(
           color: Colors.black,
           fontSize: 30,
@@ -182,7 +181,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
               const Icon(Icons.local_offer, color: Colors.black, size: 16),
               const SizedBox(width: 8),
               Text(
-                AppStrings.couponApplied,
+                'couponApplied'.tr,
                 style: TextStyle(
                   color: Colors.black.withOpacity(0.9),
                   fontSize: 12,
@@ -195,7 +194,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
           Row(
             children: [
               Text(
-                '${AppStrings.currencyUSD}${_formatAmount(controller.postLoanCouponResponse.value?.repaymentAmount ?? 0)}',
+                '${'currencyUSD'.tr}${_formatAmount(controller.postLoanCouponResponse.value?.repaymentAmount ?? 0)}',
                 style: TextStyle(
                   color: Colors.black.withOpacity(0.6),
                   fontSize: 14,
@@ -204,7 +203,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Text(
-                '${AppStrings.currencyUSD}${_formatAmount(controller.postLoanCouponResponse.value?.newRepaymentAmount ?? 0)}',
+                '${'currencyUSD'.tr}${_formatAmount(controller.postLoanCouponResponse.value?.newRepaymentAmount ?? 0)}',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -248,7 +247,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                 controller.clearSelectedCoupon();
                 Get.back();
               },
-              title: AppStrings.selectCoupon,
+              title: 'selectCoupon'.tr,
             );
           },
           child: Padding(
@@ -272,8 +271,8 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        AppStrings.selectCoupon,
+                       Text(
+                        'selectCoupon'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -314,7 +313,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                           );
                         } else {
                           return Text(
-                            AppStrings.pleaseCoupons,
+                            'pleaseCoupons'.tr,
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey[500],
@@ -350,8 +349,8 @@ class AllRepaymentSubmitPage extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        const Text(
-          AppStrings.billDetails,
+         Text(
+          'billDetails'.tr,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -422,7 +421,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${AppStrings.dueDateColon} ${detail?.repayDate ?? ""}',
+                        '${'dueDateColon'.tr} ${detail?.repayDate ?? ""}',
                         style: TextStyle(fontSize: 13, color: Colors.grey[600]),
                       ),
                     ],
@@ -439,7 +438,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${AppStrings.amountDue} ${detail?.repaymentAmount ?? ""}',
+                        '${'amountDue'.tr} ${detail?.repaymentAmount ?? ""}',
                         style: TextStyle(fontSize: 13, color: Colors.grey[600]),
                       ),
                     ],
@@ -520,7 +519,7 @@ class AllRepaymentSubmitPage extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Text(
-            '${days}${AppStrings.daysRemaining}',
+            '${days}${'daysRemaining'.tr}',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -572,8 +571,8 @@ class AllRepaymentSubmitPage extends StatelessWidget {
                     children: [
                       const Icon(Icons.payment, color: Colors.black, size: 20),
                       const SizedBox(width: 8),
-                      const Text(
-                        AppStrings.repayNow,
+                       Text(
+                        'repayNow'.tr,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,

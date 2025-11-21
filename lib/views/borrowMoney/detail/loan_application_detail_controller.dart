@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/models/home_page_data.dart';
 
 class LoanApplicationDetailController extends GetxController {
@@ -18,7 +17,7 @@ class LoanApplicationDetailController extends GetxController {
       }
     }
 
-    if (product.value == null) Get.snackbar(AppStrings.error, '');
+    if (product.value == null) Get.snackbar('error'.tr, '');
   }
 
   void refreshData() {

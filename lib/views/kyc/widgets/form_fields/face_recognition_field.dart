@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
 import '../../../../common/colors/app_colors.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../kyc_step_controller.dart';
 
 class FaceRecognitionField extends StatelessWidget {
@@ -103,8 +103,8 @@ class FaceRecognitionField extends StatelessWidget {
                 Expanded(
                   child: Text(
                     hasImage
-                        ? AppStrings.faceRecognitionCompletedSuccessfully
-                        : AppStrings.pleaseCompleteFaceRecognitionToContinue,
+                        ? 'faceRecognitionCompletedSuccessfully'.tr
+                        : 'pleaseCompleteFaceRecognitionToContinue'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -223,8 +223,8 @@ class FaceRecognitionField extends StatelessWidget {
           // 操作提示
           Text(
             hasImage
-                ? AppStrings.tapToRetakePhoto
-                : AppStrings.tapToStartFaceRecognition,
+                ? 'tapToRetakePhoto'.tr
+                : 'tapToStartFaceRecognition'.tr,
             style: TextStyle(
               fontSize: 12,
               color: Colors.grey[600],

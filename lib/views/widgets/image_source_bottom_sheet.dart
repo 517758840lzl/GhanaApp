@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common/colors/app_colors.dart';
-import '../../l10n/app_strings.dart';
 import '../../basa/analytics/app_event_tracker.dart';
 
 class ImageSourceBottomSheet {
@@ -53,7 +52,7 @@ class ImageSourceBottomSheet {
               Padding(
                 padding: EdgeInsets.fromLTRB(24, 20, 24, 8),
                 child: Text(
-                  AppStrings.pleaseSelect,
+                  'pleaseSelect'.tr,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -66,7 +65,7 @@ class ImageSourceBottomSheet {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                  AppStrings.chooseHowToUploadImage,
+                  'chooseHowToUploadImage'.tr,
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[600],
@@ -85,8 +84,8 @@ class ImageSourceBottomSheet {
                     // Gallery selection
                     _buildOptionButton(
                       icon: Icons.photo_library_outlined,
-                      title: AppStrings.uploadFromGallery,
-                      subtitle: AppStrings.selectFromGallery,
+                      title: 'uploadFromGallery'.tr,
+                      subtitle: 'selectFromGallery'.tr,
                       onTap: () {
                         AppEventTracker.instance.selectInteraction(
                           step,
@@ -103,8 +102,8 @@ class ImageSourceBottomSheet {
                     // Camera capture
                     _buildOptionButton(
                       icon: Icons.camera_alt_outlined,
-                      title: AppStrings.takePhoto,
-                      subtitle: AppStrings.takePhotoWithCamera,
+                      title: 'takePhoto'.tr,
+                      subtitle: 'takePhotoWithCamera'.tr,
                       onTap: () {
                         AppEventTracker.instance.selectInteraction(
                           step,
@@ -142,7 +141,7 @@ class ImageSourceBottomSheet {
                       ),
                       child: Center(
                         child: Text(
-                          AppStrings.cancel,
+                          'cancel'.tr,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

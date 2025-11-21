@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
-import '../../../l10n/app_strings.dart';
 import 'base_product_card.dart';
 
 /// 不可用产品卡片组件
@@ -56,7 +56,7 @@ class UnavailableProductCard extends BaseProductCard {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.productName ?? AppStrings.productDefault,
+                        product.productName ?? 'productDefault'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class UnavailableProductCard extends BaseProductCard {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        AppStrings.currentlyUnavailable,
+                        'currentlyUnavailable'.tr,
                         style: TextStyle(fontSize: 12, color: Colors.grey[500]),
                       ),
                     ],
@@ -103,9 +103,9 @@ class UnavailableProductCard extends BaseProductCard {
           children: [
             const Icon(Icons.lock, size: 18),
             const SizedBox(width: 8),
-            const Text(
-              AppStrings.currentlyUnavailable,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            Text(
+              'currentlyUnavailable'.tr,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
           ],
         ),

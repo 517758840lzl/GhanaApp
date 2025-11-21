@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../routes/routes.dart';
 import 'base_product_card.dart';
 
@@ -68,7 +67,7 @@ class ProcessingProductCard extends BaseProductCard {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.productName ?? AppStrings.productDefault,
+                        product.productName ?? 'productDefault'.tr,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -77,7 +76,7 @@ class ProcessingProductCard extends BaseProductCard {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        AppStrings.processingYourApplication,
+                        'processingYourApplication'.tr,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,
@@ -123,9 +122,9 @@ class ProcessingProductCard extends BaseProductCard {
           children: [
             const Icon(Icons.hourglass_empty, size: 18),
             const SizedBox(width: 8),
-            const Text(
-              AppStrings.details,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            Text(
+              'details'.tr,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
           ],
         ),

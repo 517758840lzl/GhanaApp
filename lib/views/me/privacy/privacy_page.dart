@@ -1,16 +1,17 @@
 import 'dart:io';
 
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:permission_handler/permission_handler.dart' as AppSettings;
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../basa/main_constant.dart';
+import '../../../basa/country_config_helper.dart';
 import '../../../common/logger/app_logger.dart';
 import '../../../common/permission/permission_util.dart';
 import 'package:get/get.dart';
 import '../../../routes/routes.dart';
+import '../../../provider/userDataHelper.dart';
 
 class PrivacyPage extends StatefulWidget {
   const PrivacyPage({Key? key}) : super(key: key);
@@ -50,6 +51,11 @@ class _PrivacyPageState extends State<PrivacyPage> {
     super.dispose();
   }
 
+  Future<String> _getPrivacyPolicyUrl() async {
+    final countryCode = await UserDataHelper.getCountry();
+    return CountryConfigHelper.getPrivacyPolicyUrl(countryCode);
+  }
+
   void _initWebView() {
     _webViewController =
         WebViewController()
@@ -67,14 +73,15 @@ class _PrivacyPageState extends State<PrivacyPage> {
                 });
               },
             ),
-          )
-          ..loadRequest(
-            Uri.parse(
-              Platform.isIOS
-                  ? Constant.URL_PRIVACY_POLICY
-                  : Constant.URL_PRIVACY_POLICY_ANDROIF,
-            ),
           );
+    _loadPrivacyPolicyUrl();
+  }
+
+  Future<void> _loadPrivacyPolicyUrl() async {
+    final url = Platform.isIOS
+        ? await _getPrivacyPolicyUrl()
+        : Constant.URL_PRIVACY_POLICY_ANDROIF;
+    _webViewController.loadRequest(Uri.parse(url));
   }
 
   Future<void> _requestGpsPermission() async {
@@ -90,19 +97,19 @@ class _PrivacyPageState extends State<PrivacyPage> {
           context: context,
           builder:
               (context) => AlertDialog(
-                title: const Text(AppStrings.locationPermissionRequired),
-                content: const Text(AppStrings.locationPermissionMessage),
+                title: Text('locationPermissionRequired'.tr),
+                content: Text('locationPermissionMessage'.tr),
                 actions: [
                   TextButton(
                     onPressed: () => Get.back(),
-                    child: const Text(AppStrings.cancel),
+                    child: Text('cancel'.tr),
                   ),
                   TextButton(
                     onPressed: () async {
                       AppSettings.openAppSettings();
                       Get.back();
                     },
-                    child: const Text(AppStrings.retry),
+                    child: Text('retry'.tr),
                   ),
                 ],
               ),
@@ -134,16 +141,16 @@ class _PrivacyPageState extends State<PrivacyPage> {
           context: context,
           builder:
               (context) => AlertDialog(
-                title: const Text(AppStrings.exitApplication),
-                content: const Text(AppStrings.logoutConfirmation),
+                title: Text('exitApplication'.tr),
+                content: Text('logoutConfirmation'.tr),
                 actions: [
                   TextButton(
                     onPressed: () => Get.back(result: false),
-                    child: const Text(AppStrings.cancel),
+                    child: Text('cancel'.tr),
                   ),
                   TextButton(
                     onPressed: () => Get.back(result: true),
-                    child: const Text(AppStrings.goOut),
+                    child: Text('goOut'.tr),
                   ),
                 ],
               ),
@@ -153,8 +160,8 @@ class _PrivacyPageState extends State<PrivacyPage> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
-          title: const Text(
-            AppStrings.privacyPolicy,
+          title: Text(
+            'privacyPolicy'.tr,
           ),
           titleTextStyle:TextStyle(color: Colors.black,fontSize: 20),
           leading: IconButton(
@@ -164,16 +171,16 @@ class _PrivacyPageState extends State<PrivacyPage> {
                 context: context,
                 builder:
                     (context) => AlertDialog(
-                      title: const Text(AppStrings.exitApplication),
-                      content: const Text(AppStrings.logoutConfirmation),
+                      title: Text('exitApplication'.tr),
+                      content: Text('logoutConfirmation'.tr),
                       actions: [
                         TextButton(
                           onPressed: () => Get.back(result: false),
-                          child: const Text(AppStrings.cancel),
+                          child: Text('cancel'.tr),
                         ),
                         TextButton(
                           onPressed: () => Get.back(result: true),
-                          child: const Text(AppStrings.goOut),
+                          child: Text('goOut'.tr),
                         ),
                       ],
                     ),
@@ -251,7 +258,7 @@ class _PrivacyPageState extends State<PrivacyPage> {
                     minimumSize: const Size(double.infinity, dp46),
                   ),
                   child: Text(
-                    AppStrings.agreeButtonText,
+                    'agreeButtonText'.tr,
                     style: const TextStyle(fontSize: sp16),
                   ),
                 ),
@@ -265,16 +272,16 @@ class _PrivacyPageState extends State<PrivacyPage> {
                       context: context,
                       builder:
                           (context) => AlertDialog(
-                            title: const Text(AppStrings.exitApplication),
-                            content: const Text(AppStrings.logoutConfirmation),
+                            title: Text('exitApplication'.tr),
+                            content: Text('logoutConfirmation'.tr),
                             actions: [
                               TextButton(
                                 onPressed: () => Get.back(result: false),
-                                child: const Text(AppStrings.cancel),
+                                child: Text('cancel'.tr),
                               ),
                               TextButton(
                                 onPressed: () => Get.back(result: true),
-                                child: const Text(AppStrings.goOut),
+                                child: Text('goOut'.tr),
                               ),
                             ],
                           ),
@@ -288,7 +295,7 @@ class _PrivacyPageState extends State<PrivacyPage> {
                     minimumSize: const Size(double.infinity, dp46),
                   ),
                   child: Text(
-                    AppStrings.rejection,
+                    'rejection'.tr,
                     style: const TextStyle(
                       fontSize: sp16,
                       color: AppColors.primaryColor,

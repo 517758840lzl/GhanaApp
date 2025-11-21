@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 
 /// 删除账户确认弹窗
 class DeleteAccountDialog {
@@ -14,9 +13,9 @@ class DeleteAccountDialog {
   }) {
     Get.dialog(
       _buildDialog(
-        title: title ?? AppStrings.areYouSureDeleteAccount,
-        confirmText: confirmText ?? AppStrings.confirm,
-        cancelText: cancelText ?? AppStrings.cancel,
+        title: title ?? 'areYouSureDeleteAccount'.tr,
+        confirmText: confirmText ?? 'confirm'.tr,
+        cancelText: cancelText ?? 'cancel'.tr,
         onConfirm: onConfirm,
       ),
       barrierDismissible: true,
@@ -90,7 +89,7 @@ class DeleteAccountDialog {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      AppStrings.deleteAccountWarning,
+                      'deleteAccountWarning'.tr,
                       style: TextStyle(
                         fontSize: 14,
                         color: AppColors.textSecondary,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import 'camera_controller.dart';
 
 //拍照证件
@@ -16,7 +15,7 @@ class CameraScreen extends GetView<CameraScreenController> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              AppStrings.takePhotoTitle,
+              'takePhotoTitle'.tr,
               style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: AppColors.primaryColor,
@@ -69,7 +68,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
-                                      AppStrings.cameraLoadingMessage,
+                                      'cameraLoadingMessage'.tr,
                                       style: const TextStyle(
                                         color: Colors.white70,
                                       ),
@@ -103,7 +102,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                                     const SizedBox(height: 16),
                                     ElevatedButton(
                                       onPressed: controller.retry,
-                                      child: Text(AppStrings.cameraErrorRetry),
+                                      child: Text('cameraErrorRetry'.tr),
                                     ),
                                   ],
                                 ),
@@ -165,7 +164,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  AppStrings.cameraTipsTitle,
+                                  'cameraTipsTitle'.tr,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -176,7 +175,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              AppStrings.cameraTipsMessage,
+                              'cameraTipsMessage'.tr,
                               style: const TextStyle(color: Colors.white70),
                             ),
                           ],

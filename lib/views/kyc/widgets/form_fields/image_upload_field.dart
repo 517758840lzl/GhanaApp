@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../basa/analytics/app_event_tracker.dart';
 import '../../../../common/colors/app_colors.dart';
-import '../../../../l10n/app_strings.dart';
 import '../../kyc_step_controller.dart';
 
 class ImageUploadField extends StatelessWidget {
@@ -107,24 +107,24 @@ class ImageUploadField extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 4),
-                          Text(
-                            hasError
-                                ? (defaultText.isEmpty
-                                      ? AppStrings.uploadIdPhoto
-                                      : defaultText)
-                                : isValidValue
-                                ? AppStrings.uploadCompleted
-                                : defaultText,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: hasError
-                                  ? Colors.red[600]
-                                  : isValidValue
-                                  ? Colors.green[600]
-                                  : Colors.grey[600],
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          // Text(
+                          //   hasError
+                          //       ? (defaultText.isEmpty
+                          //             ? 'uploadIdPhoto'.tr
+                          //             : defaultText)
+                          //       : isValidValue
+                          //       ? 'uploadCompleted'.tr
+                          //       : defaultText,
+                          //   style: TextStyle(
+                          //     fontSize: 14,
+                          //     color: hasError
+                          //         ? Colors.red[600]
+                          //         : isValidValue
+                          //         ? Colors.green[600]
+                          //         : Colors.grey[600],
+                          //     fontWeight: FontWeight.w500,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -139,7 +139,7 @@ class ImageUploadField extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          AppStrings.done,
+                          'done'.tr,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
@@ -150,7 +150,7 @@ class ImageUploadField extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: 10),
 
                 // 图片预览区域
                 Container(
@@ -202,7 +202,7 @@ class ImageUploadField extends StatelessWidget {
                                                 ),
                                                 SizedBox(height: 12),
                                                 Text(
-                                                  AppStrings.loading,
+                                                  'loading'.tr,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.grey[600],
@@ -229,7 +229,7 @@ class ImageUploadField extends StatelessWidget {
                                             ),
                                             SizedBox(height: 8),
                                             Text(
-                                              AppStrings.failedToLoadImage,
+                                              'failedToLoadImage'.tr,
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.red[600],
@@ -258,8 +258,8 @@ class ImageUploadField extends StatelessWidget {
                                 Positioned.fill(
                                   child: Image.asset(
                                     code == '40008'
-                                        ? 'assets/images/card_id_back.webp'
-                                        : 'assets/images/card_id_front.webp',
+                                        ? 'assets/images/card_id_back.png'
+                                        : 'assets/images/card_id_front.png',
                                     fit: BoxFit.fill,
                                     opacity: AlwaysStoppedAnimation(0.7),
                                   ),
@@ -283,7 +283,7 @@ class ImageUploadField extends StatelessWidget {
                                     ),
                                     SizedBox(height: 12),
                                     Text(
-                                      AppStrings.uploadPhoto,
+                                      'uploadPhoto'.tr,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -292,7 +292,7 @@ class ImageUploadField extends StatelessWidget {
                                     ),
                                     SizedBox(height: 4),
                                     Text(
-                                      AppStrings.tapToSelectFromGalleryOrCamera,
+                                      'tapToSelectFromGalleryOrCamera'.tr,
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.grey[600],

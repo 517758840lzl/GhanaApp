@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:flutter3APP/views/borrowMoney/borrow_page.dart';
-import '../l10n/app_strings.dart';
 import 'borrowMoney/borrow_controller.dart';
 import 'me/my_controller.dart';
 import 'me/my_page.dart';
@@ -38,7 +37,7 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.payments,
                   size: 25,
                   color: controller.selectedIndex.value == 0 ? AppColors.primaryColor : Colors.grey),
-              label: AppStrings.home,
+              label: 'home'.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -46,7 +45,7 @@ class HomePage extends StatelessWidget {
                 size: 25,
                 color: controller.selectedIndex.value == 1 ? AppColors.primaryColor : Colors.grey,
               ),
-              label: AppStrings.repayment,
+              label: 'repayment'.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -54,7 +53,7 @@ class HomePage extends StatelessWidget {
                 size: 25,
                 color: controller.selectedIndex.value == 2 ? AppColors.primaryColor : Colors.grey,
               ),
-              label: AppStrings.me,
+              label: 'me'.tr,
             ),
           ],
         ),

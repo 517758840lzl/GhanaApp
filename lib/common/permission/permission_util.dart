@@ -3,7 +3,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../l10n/app_strings.dart';
 
 class PermissionUtil {
   static final Lock _lock = Lock();
@@ -35,42 +34,42 @@ class PermissionUtil {
   /// 显示权限弹框提示
   /// [permission] 权限类型
   static void showPermissionDialog(Permission permission) {
-    String title = AppStrings.permissionRequired;
+    String title = 'permissionRequired'.tr;
     String content = "";
-    String cancelText = AppStrings.cancel;
-    String settingsText = AppStrings.goToSettings;
+    String cancelText = 'cancel'.tr;
+    String settingsText = 'goToSettings'.tr;
 
     // 根据不同的权限类型设置不同的提示内容
     switch (permission) {
       case Permission.camera:
-        content = AppStrings.cameraPermissionRequired;
+        content = 'cameraPermissionRequired'.tr;
         break;
       case Permission.microphone:
-        content = AppStrings.microphonePermissionRequired;
+        content = 'microphonePermissionRequired'.tr;
         break;
       case Permission.storage:
-        content = AppStrings.storagePermissionRequired;
+        content = 'storagePermissionRequired'.tr;
         break;
       case Permission.location:
-        content = AppStrings.locationPermissionRequiredDialog;
+        content = 'locationPermissionRequiredDialog'.tr;
         break;
       case Permission.phone:
-        content = AppStrings.phonePermissionRequired;
+        content = 'phonePermissionRequired'.tr;
         break;
       case Permission.sms:
-        content = AppStrings.smsPermissionRequired;
+        content = 'smsPermissionRequired'.tr;
         break;
       case Permission.contacts:
-        content = AppStrings.contactsPermissionRequired;
+        content = 'contactsPermissionRequired'.tr;
         break;
       case Permission.photos:
-        content = AppStrings.photosPermissionRequired;
+        content = 'photosPermissionRequired'.tr;
         break;
       case Permission.notification:
-        content = AppStrings.notificationPermissionRequired;
+        content = 'notificationPermissionRequired'.tr;
         break;
       default:
-        content = AppStrings.generalPermissionRequired;
+        content = 'generalPermissionRequired'.tr;
         break;
     }
 

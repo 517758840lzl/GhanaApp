@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
-import '../../../l10n/app_strings.dart';
 import 'base_product_card.dart';
 
 /// 拒绝产品卡片组件
@@ -56,7 +56,7 @@ class RejectedProductCard extends BaseProductCard {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.productName ?? AppStrings.productDefault,
+                        product.productName ?? 'productDefault'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class RejectedProductCard extends BaseProductCard {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        AppStrings.rejected,
+                        'rejected'.tr,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.red.shade600,
@@ -116,7 +116,7 @@ class RejectedProductCard extends BaseProductCard {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppStrings.retryAvailableOn,
+                  'retryAvailableOn'.tr,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.red.shade700,
@@ -160,9 +160,9 @@ class RejectedProductCard extends BaseProductCard {
           children: [
             const Icon(Icons.cancel, size: 18),
             const SizedBox(width: 8),
-            const Text(
-              AppStrings.applicationRejected,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            Text(
+              'applicationRejected'.tr,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
           ],
         ),

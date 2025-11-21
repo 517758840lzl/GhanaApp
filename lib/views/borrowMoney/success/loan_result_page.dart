@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter3APP/l10n/app_strings.dart';
 import 'package:flutter3APP/routes/routes.dart';
 import 'package:flutter3APP/common/colors/app_colors.dart';
 import 'package:flutter3APP/views/borrowMoney/success/loan_result_controller.dart';
+import 'package:flutter3APP/basa/country_config_helper.dart';
 import 'package:get/get.dart';
 
 //贷款成功页
@@ -97,11 +97,11 @@ class _LoanResultPageState extends State<LoanResultPage>
                         onPressed: () => Get.offAllNamed(Routes.home),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Center(
                         child: Text(
-                          AppStrings.loanResultTitle,
-                          style: TextStyle(
+                          'loanResultTitle'.tr,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
@@ -121,10 +121,10 @@ class _LoanResultPageState extends State<LoanResultPage>
                       const SizedBox(height: 20),
 
                       Container(
-                        child: const Text(
-                          AppStrings.applicationSuccessfulTitle,
+                        child: Text(
+                          'applicationSuccessfulTitle'.tr,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -143,39 +143,51 @@ class _LoanResultPageState extends State<LoanResultPage>
                       // 成功描述
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: const Text(
-                          AppStrings.applicationSuccessfulDescription,
+                        child: Text(
+                          'applicationSuccessfulDescription'.tr,
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 40),
                       // 成功图片区域
-                      Container(
-                        width: 220,
-                        height: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              blurRadius: 25,
-                              offset: const Offset(0, 10),
+                      FutureBuilder<String>(
+                        future:
+                            CountryConfigHelper.getLoanSuccessBannerImageAsync(),
+                        builder: (context, snapshot) {
+                          final imagePath =
+                              snapshot.data ??
+                              'assets/images/banner_loan_success.webp';
+
+                          return Container(
+                            width: 220,
+                            height: 220,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.15),
+                                  blurRadius: 25,
+                                  offset: const Offset(0, 10),
+                                ),
+                                BoxShadow(
+                                  color: AppColors.primaryColor.withOpacity(
+                                    0.3,
+                                  ),
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
                             ),
-                            BoxShadow(
-                              color: AppColors.primaryColor.withOpacity(0.3),
-                              blurRadius: 30,
-                              offset: const Offset(0, 5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.asset(imagePath, fit: BoxFit.cover),
                             ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
-                          child: Image.asset(
-                            'assets/images/banner_loan_success.webp',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                          );
+                        },
                       ),
 
                       const SizedBox(height: 50),
@@ -184,7 +196,7 @@ class _LoanResultPageState extends State<LoanResultPage>
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         padding: const EdgeInsets.all(16),
                         child: Text(
-                          AppStrings.reviewInformationContent,
+                          'reviewInformationContent'.tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -233,9 +245,9 @@ class _LoanResultPageState extends State<LoanResultPage>
                                 onPressed: () {
                                   Get.offAllNamed(Routes.home);
                                 },
-                                child: const Text(
-                                  AppStrings.returnToHomeButton,
-                                  style: TextStyle(
+                                child: Text(
+                                  'returnToHomeButton'.tr,
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black,

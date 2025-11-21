@@ -5,7 +5,6 @@ import '../../http/api_urls.dart';
 import '../../common/toast.dart';
 import '../../provider/app_state.dart';
 import '../../routes/routes.dart';
-import '../../l10n/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +42,7 @@ class RepaymentController extends GetxController {
             rawList.map((e) => RepaymentItemMapper.fromMap(e)).toList() ?? [];
         return repaymentResponse;
       } else {
-        YDToast.text(result.msg != "" ? result.msg : AppStrings.error);
+        YDToast.text(result.msg != "" ? result.msg : 'error'.tr);
         return null;
       }
     } catch (e) {

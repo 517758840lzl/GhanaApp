@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import '../../../routes/routes.dart';
 import '../../common/colors/app_colors.dart';
-import '../../../l10n/app_strings.dart';
 import '../../../utils/widget/modern_form_widgets.dart';
 import '../widgets/KYC_exit_dialog.dart';
 import '../widgets/ios_picker_widget.dart';
@@ -68,7 +67,7 @@ class KycStepPage extends StatelessWidget {
   // 构建表单
   Widget _buildForm(KycStepController controller, BuildContext context) {
     if (controller.processSteps.isEmpty) {
-      return Center(child: Text(AppStrings.noData));
+      return Center(child: Text('noData'.tr));
     }
 
     List<Widget> formFields = [];
@@ -147,7 +146,7 @@ class KycStepPage extends StatelessWidget {
                     onChanged: (v) => controller.stepData[code] = v,
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
-                        return AppStrings.pleaseFillAllFields;
+                        return 'pleaseFillAllFields'.tr;
                       }
                       if (code == '40002' && v.trim().length != 11) {
                         return 'Please enter 11 digits';
@@ -219,9 +218,9 @@ class KycStepPage extends StatelessWidget {
               }
               break;
             case 4: // 性别选择
-              const Map<String, String> genderMap = {
-                '1': AppStrings.male,
-                '2': AppStrings.female,
+              final Map<String, String> genderMap = {
+                '1': 'male'.tr,
+                '2': 'female'.tr,
               };
               // 移除未使用的反向性别映射
               String? displayValue =
@@ -229,8 +228,8 @@ class KycStepPage extends StatelessWidget {
                   ? genderMap[controller.stepData[code].toString()]
                   : null;
               List<Map<String, dynamic>> genderOptions = [
-                {'key': '1', 'value': AppStrings.male},
-                {'key': '2', 'value': AppStrings.female},
+                {'key': '1', 'value': 'male'.tr},
+                {'key': '2', 'value': 'female'.tr},
               ];
 
               field = TextFormField(
@@ -272,7 +271,7 @@ class KycStepPage extends StatelessWidget {
                 validator: (String? v) {
                   if (controller.isSubmitted.value &&
                       (v == null || v.isEmpty)) {
-                    return AppStrings.pleaseFillAllFields;
+                    return 'pleaseFillAllFields'.tr;
                   }
                   return null;
                 },
@@ -312,6 +311,9 @@ class KycStepPage extends StatelessWidget {
                     initialDateTime: DateTime(1990, 1, 1),
                     maxDateTime: DateTime(2030),
                     minDateTime: DateTime(1960),
+                      buttonContent:Center(
+                        child: Text("select".tr),
+                      ),
                     onSubmit: (pick) {
                       if (pick != null) {
                         final formatted = DateFormat('yyyy-MM-dd').format(pick);
@@ -341,7 +343,7 @@ class KycStepPage extends StatelessWidget {
                 validator: (String? v) {
                   if (controller.isSubmitted.value &&
                       (v == null || v.isEmpty)) {
-                    return AppStrings.pleaseFillAllFields;
+                    return 'pleaseFillAllFields'.tr;
                   }
                   return null;
                 },
@@ -629,7 +631,7 @@ class KycStepPage extends StatelessWidget {
                                                   children: [
                                                     Container(
                                                       child: Text(
-                                                        AppStrings.nextStep,
+                                                        'nextStep'.tr,
                                                         textAlign:
                                                             TextAlign.center,
                                                         maxLines: 1,
