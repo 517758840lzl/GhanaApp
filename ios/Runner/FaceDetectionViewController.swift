@@ -182,7 +182,7 @@ class FaceDetectionViewController: UIViewController {
 //    }
 
     private func setupUI() {
-        statusLabel.text = "Please align your face within the circular frame (20-80cm from camera) for identity verification."
+        statusLabel.text = AppLocalizedString("face_detection.initial_instruction", comment: "")
         statusLabel.backgroundColor = .clear
         statusLabel.textColor = .blue
         statusLabel.numberOfLines = 0  // 允许无限行数
@@ -216,7 +216,7 @@ class FaceDetectionViewController: UIViewController {
         self.sceneView.layoutIfNeeded()
         print("sceneView frame: \(self.sceneView.frame)")
 
-        startButton.setTitle("Start Verification", for: .normal)
+        startButton.setTitle(AppLocalizedString("face_detection.start_verification", comment: ""), for: .normal)
         startButton.backgroundColor = .systemBlue
         startButton.setTitleColor(.white, for: .normal)
         startButton.layer.cornerRadius = 8
@@ -244,7 +244,7 @@ class FaceDetectionViewController: UIViewController {
         } else {
             // iOS 12 及以下版本使用自定义图片或文字
             backButton = UIBarButtonItem(
-                title: "Close",
+                title: AppLocalizedString("face_detection.close", comment: ""),
                 style: .plain,
                 target: self,
                 action: #selector(backButtonTapped)
@@ -253,7 +253,7 @@ class FaceDetectionViewController: UIViewController {
 
         // 标题Label（正确写法）
         let titleLabel = UILabel()
-        titleLabel.text = "Identity Verification"
+        titleLabel.text = AppLocalizedString("face_detection.identity_verification", comment: "")
         titleLabel.textColor = .white
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         titleLabel.textAlignment = .center
@@ -348,15 +348,15 @@ class FaceDetectionViewController: UIViewController {
             detector.onReadyForManualCapture = { [weak self] in
                 DispatchQueue.main.async {
                     self?.startButton.isHidden = false
-                    self?.startButton.setTitle("Capture Photo", for: .normal)
+                    self?.startButton.setTitle(AppLocalizedString("face_detection.capture_photo", comment: ""), for: .normal)
                 }
             }
             detector.onAllCompleted = { [weak self] images in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Photo captured successfully!"
+                    self.statusLabel.text = AppLocalizedString("face_detection.photo_captured_successfully", comment: "")
                     self.isDetecting = false
-                    self.startButton.setTitle("Start Verification", for: .normal)
+                    self.startButton.setTitle(AppLocalizedString("face_detection.start_verification", comment: ""), for: .normal)
                     self.startButton.isHidden = true
                     self.cancelTimeoutTimer()
                     self.capturedImages = images
@@ -366,7 +366,7 @@ class FaceDetectionViewController: UIViewController {
             visionDetector = detector
             detector.start()
             DispatchQueue.main.async {
-                self.statusLabel.text = "Please align your face within the circular frame for front face detection."
+                self.statusLabel.text = AppLocalizedString("face_detection.align_face_for_front_detection", comment: "")
             }
         }
     }
@@ -598,25 +598,25 @@ class FaceDetectionViewController: UIViewController {
         // 提示判断顺序
         if !isDistanceOK {
             if distanceToCamera < minDistance {
-                return "Please move your face farther from the camera (25–65 cm)."
+                return AppLocalizedString("face_detection.move_face_closer", comment: "")
             } else {
-                return "Please move your face closer to the camera (25–65 cm)."
+                return AppLocalizedString("face_detection.move_face_farther", comment: "")
             }
         }
 
         if !isSizeOK {
             if faceSize < minFaceSize {
-                return "Your face appears too small, please move closer."
+                return AppLocalizedString("face_detection.face_too_small", comment: "")
             } else {
-                return "Your face appears too large, please move farther."
+                return AppLocalizedString("face_detection.face_too_large", comment: "")
             }
         }
 
         if !isInCircle {
-            return "Please align your face within the circular frame."
+            return AppLocalizedString("face_detection.align_face_in_frame", comment: "")
         }
 
-        return "Hold still, detecting..."
+        return AppLocalizedString("face_detection.hold_still_detecting", comment: "")
     }
 
     // MARK: - 更新圆框颜色（绿色/红色）
@@ -702,7 +702,7 @@ class FaceDetectionViewController: UIViewController {
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
               let input = try? AVCaptureDeviceInput(device: device),
               session.canAddInput(input) else {
-            DispatchQueue.main.async { self.statusLabel.text = "Camera unavailable." }
+            DispatchQueue.main.async { self.statusLabel.text = AppLocalizedString("face_detection.camera_unavailable", comment: "") }
             return
         }
         session.addInput(input)
@@ -712,7 +712,7 @@ class FaceDetectionViewController: UIViewController {
         output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
         output.setSampleBufferDelegate(self, queue: visionQueue)
         guard session.canAddOutput(output) else {
-            DispatchQueue.main.async { self.statusLabel.text = "Camera output unavailable." }
+            DispatchQueue.main.async { self.statusLabel.text = AppLocalizedString("face_detection.camera_output_unavailable", comment: "") }
             return
         }
         session.addOutput(output)
@@ -780,7 +780,7 @@ class FaceDetectionViewController: UIViewController {
 
     private func getFacePositionHintVision(observation: VNFaceObservation?) -> String {
         guard let obs = observation else {
-            return "Please align your face within the circular frame."
+            return AppLocalizedString("face_detection.align_face_in_frame", comment: "")
         }
         let bounds = sceneView.bounds
         let rect = obs.boundingBox
@@ -800,15 +800,15 @@ class FaceDetectionViewController: UIViewController {
         let maxFacePx: CGFloat = bounds.height * 0.9
 
         if faceHeightPx < minFacePx {
-            return "Your face appears too small, please move closer."
+            return AppLocalizedString("face_detection.face_too_small", comment: "")
         }
         if faceHeightPx > maxFacePx {
-            return "Your face appears too large, please move farther."
+            return AppLocalizedString("face_detection.face_too_large", comment: "")
         }
         if !inCircle {
-            return "Please align your face within the circular frame."
+            return AppLocalizedString("face_detection.align_face_in_frame", comment: "")
         }
-        return "Hold still, detecting..."
+        return AppLocalizedString("face_detection.hold_still_detecting", comment: "")
     }
 
     private func checkLivenessVision(observation: VNFaceObservation, landmarks: VNFaceLandmarks2D?) {
@@ -829,7 +829,7 @@ class FaceDetectionViewController: UIViewController {
                     wasEyesClosed = true
                     eyeBlinkCount += 1
                     DispatchQueue.main.async {
-                        self.statusLabel.text = "Blink detected (\(self.eyeBlinkCount) times)"
+                        self.statusLabel.text = String(format: AppLocalizedString("face_detection.blink_detected", comment: ""), self.eyeBlinkCount)
                         self.updateStatusLabelBasedOnRequiredActions()
                     }
                 } else if !closed {
@@ -843,7 +843,7 @@ class FaceDetectionViewController: UIViewController {
                 if smile {
                     smileDetected = true
                     DispatchQueue.main.async {
-                        self.statusLabel.text = "Smile detected successfully"
+                        self.statusLabel.text = AppLocalizedString("face_detection.smile_detected", comment: "")
                         self.updateStatusLabelBasedOnRequiredActions()
                     }
                 }
@@ -854,7 +854,7 @@ class FaceDetectionViewController: UIViewController {
                 if openRatio > 0.35 {
                     mouthOpenDetected = true
                     DispatchQueue.main.async {
-                        self.statusLabel.text = "Mouth open detected successfully"
+                        self.statusLabel.text = AppLocalizedString("face_detection.mouth_open_detected", comment: "")
                         self.updateStatusLabelBasedOnRequiredActions()
                     }
                 }
@@ -869,7 +869,7 @@ class FaceDetectionViewController: UIViewController {
                 if diff > 0.08 { // 眼睛宽度差异较大，视为转头
                     headShakeDetected = true
                     DispatchQueue.main.async {
-                        self.statusLabel.text = "Head movement detected successfully"
+                        self.statusLabel.text = AppLocalizedString("face_detection.head_movement_detected", comment: "")
                         self.updateStatusLabelBasedOnRequiredActions()
                     }
                 }
@@ -884,7 +884,7 @@ class FaceDetectionViewController: UIViewController {
                 if symmetry > 0.7 {
                     frontFaceDetected = true
                     DispatchQueue.main.async {
-                        self.statusLabel.text = "Front face detected successfully"
+                        self.statusLabel.text = AppLocalizedString("face_detection.front_face_detected", comment: "")
                         self.updateStatusLabelBasedOnRequiredActions()
                     }
                 } else {
@@ -1013,17 +1013,17 @@ class FaceDetectionViewController: UIViewController {
                 lastHeadYaw = 0
                 capturedImages.removeAll()
 
-                startButton.setTitle("Stop Verification", for: .normal)
+                startButton.setTitle(AppLocalizedString("face_detection.stop_verification", comment: ""), for: .normal)
                 updateStatusLabelBasedOnRequiredActions()
                 startFaceStatusTimer()
             } else {
-                startButton.setTitle("Start Verification", for: .normal)
-                statusLabel.text = "Verification has been stopped."
+                startButton.setTitle(AppLocalizedString("face_detection.start_verification", comment: ""), for: .normal)
+                statusLabel.text = AppLocalizedString("face_detection.verification_stopped", comment: "")
                 cancelFaceStatusTimer()
             }
         } else {
             // Non-ARKit: Manual capture
-            if startButton.title(for: .normal) == "Capture Photo" {
+            if startButton.title(for: .normal) == AppLocalizedString("face_detection.capture_photo", comment: "") {
                 visionDetector?.captureManually()
             }
         }
@@ -1044,7 +1044,7 @@ class FaceDetectionViewController: UIViewController {
                     let hint = getFacePositionHint(faceAnchor: faceAnchor)
                     DispatchQueue.main.async { self.statusLabel.text = hint }
                 } else {
-                    DispatchQueue.main.async { self.statusLabel.text = "Please align your face within the circular frame." }
+                    DispatchQueue.main.async { self.statusLabel.text = AppLocalizedString("face_detection.align_face_in_frame", comment: "") }
                 }
             } else {
                 let hint = getFacePositionHintVision(observation: lastVisionObservation)
@@ -1055,7 +1055,7 @@ class FaceDetectionViewController: UIViewController {
         // 如果所有动作都已完成
         if currentActionIndex >= requiredActions.count {
             DispatchQueue.main.async {
-                self.statusLabel.text = "Identity verification completed successfully!"
+                self.statusLabel.text = AppLocalizedString("face_detection.verification_completed", comment: "")
             }
             // 回调Flutter
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -1071,17 +1071,17 @@ class FaceDetectionViewController: UIViewController {
         var instruction = ""
         switch currentAction {
             case "blinkStep":
-                instruction = "Please blink your eyes."
+                instruction = AppLocalizedString("face_detection.blink_instruction", comment: "")
             case "smileStep":
-                instruction = "Please smile naturally."
+                instruction = AppLocalizedString("face_detection.smile_instruction", comment: "")
             case "sideFaceStep":
-                instruction = "Please turn your head left and right while keeping ."
+                instruction = AppLocalizedString("face_detection.turn_head_instruction", comment: "")
             case "mouthOpenStep":
-                instruction = "Please open your mouth while keeping your."
+                instruction = AppLocalizedString("face_detection.open_mouth_instruction", comment: "")
             case "frontFaceStep":
-                instruction = "Please look directly at the camera while keeping."
+                instruction = AppLocalizedString("face_detection.look_directly_instruction", comment: "")
             default:
-                instruction = "Please follow the verification instructions while keeping."
+                instruction = AppLocalizedString("face_detection.follow_instructions", comment: "")
         }
         DispatchQueue.main.async {
             self.statusLabel.text = instruction
@@ -1207,7 +1207,7 @@ class FaceDetectionViewController: UIViewController {
             eyeBlinkCount += 1
             if lastFaceInFrame {
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Blink detected (\(self.eyeBlinkCount) times)"
+                    self.statusLabel.text = String(format: AppLocalizedString("face_detection.blink_detected", comment: ""), self.eyeBlinkCount)
                     self.updateStatusLabelBasedOnRequiredActions()
                 }
             }
@@ -1222,7 +1222,7 @@ class FaceDetectionViewController: UIViewController {
             smileDetected = true
             if lastFaceInFrame {
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Smile detected successfully"
+                    self.statusLabel.text = AppLocalizedString("face_detection.smile_detected", comment: "")
                     self.updateStatusLabelBasedOnRequiredActions()
                 }
             }
@@ -1253,13 +1253,13 @@ class FaceDetectionViewController: UIViewController {
         // 调试输出
         print("摇头幅度: \(yawRange), 当前yaw: \(currentYaw)")
 
-        if yawRange > shakeThreshold {
+                if yawRange > shakeThreshold {
             if !isShaking {
                 isShaking = true
                 headShakeDetected = true
                 if lastFaceInFrame {
                     DispatchQueue.main.async {
-                        self.statusLabel.text = "Head movement detected successfully"
+                        self.statusLabel.text = AppLocalizedString("face_detection.head_movement_detected", comment: "")
                         self.updateStatusLabelBasedOnRequiredActions()
                     }
                 }
@@ -1300,7 +1300,7 @@ class FaceDetectionViewController: UIViewController {
                 isNodding = true
                 headNodDetected = true
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Head nod movement detected successfully"
+                    self.statusLabel.text = AppLocalizedString("face_detection.head_nod_detected", comment: "")
                     self.updateStatusLabelBasedOnRequiredActions()
                 }
             }
@@ -1319,7 +1319,7 @@ class FaceDetectionViewController: UIViewController {
             mouthOpenDetected = true
             if lastFaceInFrame {
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Mouth open detected successfully"
+                    self.statusLabel.text = AppLocalizedString("face_detection.mouth_open_detected", comment: "")
                     self.updateStatusLabelBasedOnRequiredActions()
                 }
             }
@@ -1339,8 +1339,8 @@ class FaceDetectionViewController: UIViewController {
 
         // 正脸判定阈值（角度）
         let yawThreshold: Float = 25
-        let pitchThreshold: Float = 25
-        let rollThreshold: Float = 20
+        let pitchThreshold: Float = 28
+        let rollThreshold: Float = 25
 
         let isYawInRange = abs(yawDegrees) < yawThreshold
         let isPitchInRange = abs(pitchDegrees) < pitchThreshold
@@ -1355,7 +1355,7 @@ class FaceDetectionViewController: UIViewController {
             if !frontFaceDetected {
                 frontFaceDetected = true
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Front face detected successfully"
+                    self.statusLabel.text = AppLocalizedString("face_detection.front_face_detected", comment: "")
                     self.updateStatusLabelBasedOnRequiredActions()
                 }
             }
@@ -1393,9 +1393,9 @@ class FaceDetectionViewController: UIViewController {
                 captureFaceImage()
             }
             DispatchQueue.main.async {
-                self.statusLabel.text = "Liveness verification completed successfully!"
+                self.statusLabel.text = AppLocalizedString("face_detection.liveness_verification_completed", comment: "")
                 self.isDetecting = false
-                self.startButton.setTitle("Start Verification", for: .normal)
+                self.startButton.setTitle(AppLocalizedString("face_detection.start_verification", comment: ""), for: .normal)
                 self.cancelTimeoutTimer()
             }
         }
@@ -1419,7 +1419,7 @@ class FaceDetectionViewController: UIViewController {
             lastHeadPitch = 0
             lastHeadYaw = 0
             capturedImages.removeAll()
-            startButton.setTitle("Stop Verification", for: .normal)
+            startButton.setTitle(AppLocalizedString("face_detection.stop_verification", comment: ""), for: .normal)
             updateStatusLabelBasedOnRequiredActions()
             startTimeoutTimer()
             startFaceStatusTimer()
@@ -1482,7 +1482,7 @@ class FaceDetectionViewController: UIViewController {
     private func handleTimeout() {
         DispatchQueue.main.async {
             self.isDetecting = false
-            self.statusLabel.text = "Verification failed: Timeout."
+            self.statusLabel.text = AppLocalizedString("face_detection.verification_timeout", comment: "")
             self.completionHandler?([:]) // 返回空数组表示失败
             self.dismiss(animated: true)
         }
@@ -1543,7 +1543,11 @@ extension FaceDetectionViewController: AVCaptureVideoDataOutputSampleBufferDeleg
 
         let request = VNDetectFaceLandmarksRequest { [weak self] req, err in
             guard let self = self else { return }
-            if let err = err { print("Vision error: \(err)"); return }
+            if let err = err {
+                let errorMsg = String(format: AppLocalizedString("face_detection.vision_error", comment: ""), err.localizedDescription)
+                print(errorMsg)
+                return
+            }
             guard let results = req.results as? [VNFaceObservation], let face = results.first else {
                 if self.lastFaceInFrame {
                     self.lastFaceInFrame = false

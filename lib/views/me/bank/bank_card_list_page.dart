@@ -294,29 +294,44 @@ class BankCardListPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // 编辑模式下的选择指示器
-                            if (controller.edit == true)
-                              Container(
-                                width: 24,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: isSelected
-                                      ? AppColors.primaryColor
-                                      : Colors.white.withValues(alpha: 0.25),
-                                  border: Border.all(
-                                    color: Colors.white.withValues(alpha: 0.5),
-                                    width: 1.5,
+                            // 右侧按钮区域：编辑模式下显示选中按钮和编辑按钮，非编辑模式下只显示编辑按钮
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // 编辑模式下的选择指示器
+                                if (controller.edit.value == true)
+                                  Container(
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: isSelected
+                                          ? AppColors.primaryColor
+                                          : Colors.white.withValues(
+                                              alpha: 0.25,
+                                            ),
+                                      border: Border.all(
+                                        color: Colors.white.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    child: isSelected
+                                        ? const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                            size: 16,
+                                          )
+                                        : null,
                                   ),
-                                ),
-                                child: isSelected
-                                    ? const Icon(
-                                        Icons.check,
-                                        color: Colors.white,
-                                        size: 16,
-                                      )
-                                    : null,
-                              ),
+                                // 编辑按钮（编辑模式下需要间距）
+                                if (controller.edit.value == true)
+                                  const SizedBox(width: 8),
+                                // 编辑按钮（始终显示）
+                                _buildCardActionButtons(card, controller),
+                              ],
+                            ),
                           ],
                         ),
 
@@ -351,7 +366,6 @@ class BankCardListPage extends StatelessWidget {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),

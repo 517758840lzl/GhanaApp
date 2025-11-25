@@ -142,6 +142,7 @@ class AppStrings {
   static const String loanApplication = 'Loan Application';
   static const String loanResult = 'Loan result';
   static const String loanAmount = 'Loan Amount';
+  static const String amount = 'Amount';
   static const String loanTerm = 'Loan Term';
   static const String serviceFee = 'Service Fee';
   static const String repaymentDate = 'Repayment Date';
@@ -222,7 +223,7 @@ class AppStrings {
   static const String selectBank = 'Select the Bank';
   static const String pleaseSelectBank = 'Please select a bank';
 
-  static const String bvnNumber = 'BVN number';
+  static const String bvnNumber = 'Card number';
   static const String cardNumber = 'Bank Account number';
   static const String enterCardNumber = 'Enter the Bank Account number';
   static const String bankAccountTip =
@@ -397,7 +398,7 @@ class AppStrings {
   static const String accountTypeSelection = 'Account Type Selection';
   static const String bankSelection = 'Bank Selection';
 
-  static const String bvnNumberInput = 'BVN Number';
+  static const String bvnNumberInput = 'Card number';
 
   static const String cardNumberInput = 'Bank Account Number Input';
   static const String cardNumberInputField = 'Bank Account Number Input Field';

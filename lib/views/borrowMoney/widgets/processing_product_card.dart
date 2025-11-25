@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter3APP/utils/widget/widget.dart';
 import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
 import '../../../routes/routes.dart';
@@ -93,7 +94,12 @@ class ProcessingProductCard extends BaseProductCard {
             buildBottomActionButton(product),
           ],
         ),
-      ),
+      ).onTap((){
+        Get.toNamed(
+          Routes.loanApplicationDetail,
+          arguments: {'product': product},
+        );
+      }),
     );
   }
 

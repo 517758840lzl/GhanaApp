@@ -23,16 +23,16 @@ class KycHeaderView extends StatelessWidget {
           : "";
       final endBool = currentCode.contains("7000");
 
-      // 如果是最后一步，显示图片
-      if (currentStep == totalStep && endBool) {
-        return Container(
-          width: Get.width,
-          child: Image.asset(
-            'assets/images/banner_kyc_completion.png',
-            fit: BoxFit.cover,
-          ),
-        );
-      }
+      // // 如果是最后一步，显示图片
+      // if (currentStep == totalStep && endBool) {
+      //   return Container(
+      //     width: Get.width,
+      //     child: Image.asset(
+      //       'assets/images/banner_kyc_completion.png',
+      //       fit: BoxFit.cover,
+      //     ),
+      //   );
+      // }
 
       // 计算进度百分比
       double progress = totalStep > 0

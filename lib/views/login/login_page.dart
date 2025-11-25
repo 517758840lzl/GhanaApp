@@ -10,13 +10,11 @@ import 'package:get/get.dart';
 import '../../routes/routes.dart';
 import '../../utils/non_repeatable_click.dart';
 import '../../provider/userDataHelper.dart';
-import '../../controllers/language_controller.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   final LoginController controller = Get.put(LoginController());
-  final LanguageController languageController = Get.find<LanguageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -499,182 +497,8 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                // 底部语言切换
-                _buildLanguageSwitcher(),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLanguageSwitcher() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Obx(() {
-        final currentLang = languageController.currentLocale.value.languageCode;
-        final currentLabel = currentLang == 'en' ? 'English' : 'Español';
-        return Center(
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () => _showLanguagePicker(),
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: AppColors.primaryColor.withOpacity(0.3),
-                    width: 1.5,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.language,
-                      color: AppColors.primaryColor,
-                      size: 18,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      currentLabel,
-                      style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 4),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: AppColors.primaryColor,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  void _showLanguagePicker() {
-    showModalBottomSheet(
-      context: Get.context!,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // 标题栏
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.textSecondary.withOpacity(0.1),
-                      width: 1,
-                    ),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'language'.tr,
-                      style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.close, color: AppColors.textSecondary),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ),
-              ),
-              // 语言选项列表
-              Obx(() {
-                final currentLang =
-                    languageController.currentLocale.value.languageCode;
-                return Column(
-                  children: [
-                    _buildLanguageOption(
-                      title: 'English',
-                      isSelected: currentLang == 'en',
-                      onTap: () async {
-                        await languageController.switchToEnglish();
-                        Navigator.pop(context);
-                      },
-                    ),
-                    Container(
-                      height: 0.5,
-                      color: AppColors.textSecondary.withOpacity(0.1),
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                    ),
-                    _buildLanguageOption(
-                      title: 'Español',
-                      isSelected: currentLang == 'es',
-                      onTap: () async {
-                        await languageController.switchToSpanish();
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                );
-              }),
-              SizedBox(height: MediaQuery.of(context).padding.bottom + 8),
-            ],
-          ),
-        );
-      },
-      isDismissible: true,
-    );
-  }
-
-  Widget _buildLanguageOption({
-    required String title,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.textPrimary,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-              ),
-              if (isSelected)
-                Icon(Icons.check, color: AppColors.primaryColor, size: 20),
-            ],
           ),
         ),
       ),

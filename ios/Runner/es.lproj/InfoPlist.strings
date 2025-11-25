@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  
+  Created by hao on 2025/11/21.
+  
+*/
+"NSCalendarsUsageDescription"= "Esta aplicación necesita acceso a tu calendario para ayudarte a establecer recordatorios de pago de préstamos.";
+"NSCameraUsageDescription"= "Se necesita acceso a la cámara para tomar fotos de tus documentos de identificación y realizar el reconocimiento facial. Este proceso mejora la seguridad y la verificación de tu identidad.";
+"NSContactsUsageDescription"= "Nos gustaría acceder a tus contactos para permitirte seleccionar contactos de emergencia, mejorando la seguridad y la asistencia en caso de situaciones urgentes.";
+"NSLocationAlwaysAndWhenInUseUsageDescription"= "Tu ubicación GPS se utilizará para mejorar las medidas de detección de fraude, específicamente durante el proceso de solicitud, y para mostrarte productos cercanos.";
+"NSLocationWhenInUseUsageDescription"= "Tu ubicación GPS se utilizará para mejorar las medidas de detección de fraude, específicamente durante el proceso de solicitud, y para mostrarte productos cercanos.";
+"NSMotionUsageDescription"= "Esta aplicación necesita acceso al sensor de movimiento para detectar sacudidas del dispositivo como parte de ciertas funciones de verificación de seguridad.";
+"NSPhotoLibraryUsageDescription"= "Nos gustaría acceder a tu galería de fotos para que puedas seleccionar fácilmente imágenes de tu identificación. Esto nos ayuda a verificar tu identidad y mantener segura tu cuenta.";
+"NSUserTrackingUsageDescription"= "Necesitamos usar el identificador de tu dispositivo para análisis de datos y control de riesgos con el fin de mejorar la seguridad de nuestra aplicación.";
+

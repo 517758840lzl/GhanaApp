@@ -20,6 +20,9 @@
 		C547A8372E72AA12001050E8 /* FaceDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8322E72AA12001050E8 /* FaceDetectionViewController.swift */; };
 		C547A8382E72AA12001050E8 /* FaceLivenessPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8342E72AA12001050E8 /* FaceLivenessPlugin.swift */; };
 		C547A8392E72AA12001050E8 /* VisionLivenessDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8352E72AA12001050E8 /* VisionLivenessDetector.swift */; };
+		C5F85F2B2ED0130400B7AE3A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5F85F2A2ED0130400B7AE3A /* Localizable.strings */; };
+		C5F85F2E2ED0637F00B7AE3A /* LanguagePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F85F2D2ED0637F00B7AE3A /* LanguagePlugin.swift */; };
+		C6F96F3C2ED1231500C8BE4B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6F96F3B2ED1231500C8BE4B /* InfoPlist.strings */; };
 		F5E105CC5467B22F4A04149B /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879526A073E7EBDCA9D375E /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,11 @@
 		C547A8332E72AA12001050E8 /* FaceLiveness.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FaceLiveness.storyboard; sourceTree = "<group>"; };
 		C547A8342E72AA12001050E8 /* FaceLivenessPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceLivenessPlugin.swift; sourceTree = "<group>"; };
 		C547A8352E72AA12001050E8 /* VisionLivenessDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionLivenessDetector.swift; sourceTree = "<group>"; };
+		C5F85F292ED0130400B7AE3A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C5F85F2C2ED0134400B7AE3A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C5F85F2D2ED0637F00B7AE3A /* LanguagePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePlugin.swift; sourceTree = "<group>"; };
+		C6F96F392ED1231500C8BE4B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C6F96F3D2ED1232500C8BE4B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F879526A073E7EBDCA9D375E /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -169,9 +177,12 @@
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
 				97C147021CF9000F007C117D /* Info.plist */,
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
+				C5F85F2D2ED0637F00B7AE3A /* LanguagePlugin.swift */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				C547A8322E72AA12001050E8 /* FaceDetectionViewController.swift */,
 				C547A8332E72AA12001050E8 /* FaceLiveness.storyboard */,
+				C5F85F2A2ED0130400B7AE3A /* Localizable.strings */,
+				C6F96F3B2ED1231500C8BE4B /* InfoPlist.strings */,
 				C547A8342E72AA12001050E8 /* FaceLivenessPlugin.swift */,
 				C547A8352E72AA12001050E8 /* VisionLivenessDetector.swift */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
@@ -252,6 +263,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
@@ -277,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C547A8362E72AA12001050E8 /* FaceLiveness.storyboard in Resources */,
+				C5F85F2B2ED0130400B7AE3A /* Localizable.strings in Resources */,
+				C6F96F3C2ED1231500C8BE4B /* InfoPlist.strings in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
@@ -413,6 +427,7 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				C5F85F2E2ED0637F00B7AE3A /* LanguagePlugin.swift in Sources */,
 				C547A8372E72AA12001050E8 /* FaceDetectionViewController.swift in Sources */,
 				C547A8382E72AA12001050E8 /* FaceLivenessPlugin.swift in Sources */,
 				C547A8392E72AA12001050E8 /* VisionLivenessDetector.swift in Sources */,
@@ -446,6 +461,24 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		C5F85F2A2ED0130400B7AE3A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5F85F292ED0130400B7AE3A /* en */,
+				C5F85F2C2ED0134400B7AE3A /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		C6F96F3B2ED1231500C8BE4B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6F96F392ED1231500C8BE4B /* en */,
+				C6F96F3D2ED1232500C8BE4B /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -454,6 +487,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -590,6 +624,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -647,6 +682,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

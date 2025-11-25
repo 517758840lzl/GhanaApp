@@ -78,7 +78,7 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
         frontFaceDetected = false
         isReadyForManualCapture = false
         setupVisionCaptureSession()
-        onStatus?("Please align your face within the circular frame.")
+        onStatus?(AppLocalizedString("vision_detector.align_face", comment: ""))
     }
 
     func stop() {
@@ -104,7 +104,7 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
               let input = try? AVCaptureDeviceInput(device: device),
               session.canAddInput(input) else {
-            onStatus?("Camera unavailable.")
+            onStatus?(AppLocalizedString("vision_detector.camera_unavailable", comment: ""))
             return
         }
         session.addInput(input)
@@ -114,7 +114,7 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
         output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
         output.setSampleBufferDelegate(self, queue: visionQueue)
         guard session.canAddOutput(output) else {
-            onStatus?("Camera output unavailable.")
+            onStatus?(AppLocalizedString("vision_detector.camera_output_unavailable", comment: ""))
             return
         }
         session.addOutput(output)
@@ -172,8 +172,8 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
     }
 
     private func getFacePositionHintVision(observation: VNFaceObservation?) -> String {
-        guard let sceneBounds = sceneView?.bounds else { return "Please align your face within the circular frame." }
-        guard let obs = observation else { return "Please align your face within the circular frame." }
+        guard let sceneBounds = sceneView?.bounds else { return AppLocalizedString("vision_detector.align_face", comment: "") }
+        guard let obs = observation else { return AppLocalizedString("vision_detector.align_face", comment: "") }
         let rect = obs.boundingBox
         let centerNorm = CGPoint(x: rect.midX, y: rect.midY)
         let centerPx = CGPoint(x: centerNorm.x * sceneBounds.width,
@@ -190,10 +190,10 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
         let minFacePx: CGFloat = 80
         let maxFacePx: CGFloat = sceneBounds.height * 0.9
 
-        if faceHeightPx < minFacePx { return "Your face appears too small, please move closer." }
-        if faceHeightPx > maxFacePx { return "Your face appears too large, please move farther." }
-        if !inCircle { return "Please align your face within the circular frame." }
-        return "Hold still, detecting..."
+        if faceHeightPx < minFacePx { return AppLocalizedString("vision_detector.face_too_small", comment: "") }
+        if faceHeightPx > maxFacePx { return AppLocalizedString("vision_detector.face_too_large", comment: "") }
+        if !inCircle { return AppLocalizedString("vision_detector.align_face", comment: "") }
+        return AppLocalizedString("vision_detector.hold_still", comment: "")
     }
 
     private func eyeAspectRatio(normalizedPoints: [CGPoint]) -> CGFloat {
@@ -253,7 +253,7 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
             if requiredActions.contains("frontFaceStep") && frontFaceDetected {
                 isReadyForManualCapture = true
                 onReadyForManualCapture?()
-                onStatus?("Front face detected! Please tap to capture photo.")
+                onStatus?(AppLocalizedString("vision_detector.front_face_ready_capture", comment: ""))
             } else {
                 onAllCompleted?(capturedImages)
             }
@@ -266,12 +266,12 @@ final class VisionLivenessDetector: NSObject, LivenessDetecting {
 
     private func instruction(for action: String) -> String {
         switch action {
-        case "blinkStep": return "Please blink your eyes naturally."
-        case "smileStep": return "Please smile naturally."
-        case "sideFaceStep": return "Please turn your head left and right."
-        case "mouthOpenStep": return "Please open your mouth."
-        case "frontFaceStep": return "Please look directly at the camera and hold still."
-        default: return "Please follow the verification instructions."
+        case "blinkStep": return AppLocalizedString("vision_detector.blink_instruction", comment: "")
+        case "smileStep": return AppLocalizedString("vision_detector.smile_instruction", comment: "")
+        case "sideFaceStep": return AppLocalizedString("vision_detector.turn_head_instruction", comment: "")
+        case "mouthOpenStep": return AppLocalizedString("vision_detector.open_mouth_instruction", comment: "")
+        case "frontFaceStep": return AppLocalizedString("vision_detector.look_directly_instruction", comment: "")
+        default: return AppLocalizedString("vision_detector.follow_instructions", comment: "")
         }
     }
 
@@ -406,12 +406,16 @@ extension VisionLivenessDetector: AVCaptureVideoDataOutputSampleBufferDelegate {
 
         let request = VNDetectFaceLandmarksRequest { [weak self] req, err in
             guard let self = self else { return }
-            if let err = err { self.onStatus?("Vision error: \(err.localizedDescription)"); return }
+            if let err = err {
+                let errorMsg = String(format: AppLocalizedString("vision_detector.vision_error", comment: ""), err.localizedDescription)
+                self.onStatus?(errorMsg)
+                return
+            }
             guard let results = req.results as? [VNFaceObservation], let face = results.first else {
                 if self.lastFaceInFrame {
                     self.lastFaceInFrame = false
                     self.onCircle?(false)
-                    self.onStatus?("Please align your face within the circular frame.")
+                    self.onStatus?(AppLocalizedString("vision_detector.align_face", comment: ""))
                 }
                 return
             }
@@ -431,7 +435,8 @@ extension VisionLivenessDetector: AVCaptureVideoDataOutputSampleBufferDelegate {
         do {
             try visionRequestHandler.perform([request], on: pixelBuffer, orientation: orientation)
         } catch {
-            onStatus?("Vision perform error: \(error.localizedDescription)")
+            let errorMsg = String(format: AppLocalizedString("vision_detector.vision_perform_error", comment: ""), error.localizedDescription)
+            onStatus?(errorMsg)
         }
     }
 
@@ -452,7 +457,7 @@ extension VisionLivenessDetector: AVCaptureVideoDataOutputSampleBufferDelegate {
                 let closed = l < eyeClosedRatioThreshold && r < eyeClosedRatioThreshold
                 if closed && !wasEyesClosed {
                     wasEyesClosed = true
-                    onStatus?("Blink detected")
+                    onStatus?(AppLocalizedString("vision_detector.blink_detected", comment: ""))
                     markStable(action)
                 } else if !closed {
                     wasEyesClosed = false
@@ -461,19 +466,28 @@ extension VisionLivenessDetector: AVCaptureVideoDataOutputSampleBufferDelegate {
         case "smileStep":
             if let lm = landmarks, let lips = lm.outerLips {
                 let score = smileScore(normalizedPoints: lips.normalizedPoints)
-                if score > smileScoreThreshold { onStatus?("Smile detected successfully"); markStable(action) }
+                if score > smileScoreThreshold {
+                    onStatus?(AppLocalizedString("vision_detector.smile_detected", comment: ""))
+                    markStable(action)
+                }
             }
         case "mouthOpenStep":
             if let lm = landmarks {
                 let ratio = mouthOpenRatio(landmarks: lm)
-                if ratio > mouthOpenRatioThreshold { onStatus?("Mouth open detected successfully"); markStable(action) }
+                if ratio > mouthOpenRatioThreshold {
+                    onStatus?(AppLocalizedString("vision_detector.mouth_open_detected", comment: ""))
+                    markStable(action)
+                }
             }
         case "sideFaceStep":
             if let lm = landmarks, let leftEye = lm.leftEye, let rightEye = lm.rightEye {
                 let lw = eyeWidth(normalizedPoints: leftEye.normalizedPoints)
                 let rw = eyeWidth(normalizedPoints: rightEye.normalizedPoints)
                 let diff = abs(lw - rw)
-                if diff > 0.08 { onStatus?("Head movement detected successfully"); markStable(action) }
+                if diff > 0.08 {
+                    onStatus?(AppLocalizedString("vision_detector.head_movement_detected", comment: ""))
+                    markStable(action)
+                }
             }
         case "frontFaceStep":
             // Use symmetry as proxy for front face on Vision
@@ -483,7 +497,7 @@ extension VisionLivenessDetector: AVCaptureVideoDataOutputSampleBufferDelegate {
                 let symmetry = 1 - abs(lw - rw) / max(lw, rw)
                 if symmetry > frontFaceSymmetryThreshold {
                     frontFaceDetected = true
-                    onStatus?("Front face detected successfully")
+                    onStatus?(AppLocalizedString("vision_detector.front_face_detected", comment: ""))
                     markStable(action)
                 }
             }

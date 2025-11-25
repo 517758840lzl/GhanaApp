@@ -515,6 +515,7 @@ class AppTranslations extends Translations {
           'inAppTitle': AppStrings.inAppTitle,
           'inAppDesc': AppStrings.inAppDesc,
           'licenseSummary': AppStrings.licenseSummary,
+          'amount':AppStrings.amount
         },
         'es': {
           // Currency related
@@ -1025,6 +1026,7 @@ class AppTranslations extends Translations {
           'inAppTitle': AppStringsChile.inAppTitle,
           'inAppDesc': AppStringsChile.inAppDesc,
           'licenseSummary': AppStringsChile.licenseSummary,
+          'amount':AppStrings.amount
         },
       };
 }

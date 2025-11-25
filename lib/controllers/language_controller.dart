@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/ios_language_helper.dart';
 
 /// 语言控制器
 /// 管理应用的语言设置和切换
@@ -33,10 +34,14 @@ class LanguageController extends GetxController {
       
       // 设置 GetX 的语言
       Get.updateLocale(currentLocale.value);
+      
+      // 同步iOS原生语言设置
+      await IOSLanguageHelper.updateIOSLanguage(currentLocale.value.languageCode);
     } catch (e) {
       // 如果出错，默认使用英文
       currentLocale.value = const Locale('en');
       Get.updateLocale(const Locale('en'));
+      await IOSLanguageHelper.updateIOSLanguage('en');
     }
   }
 
@@ -59,6 +64,9 @@ class LanguageController extends GetxController {
       // 保存语言设置
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_languageKey, locale.languageCode);
+      
+      // 同步iOS原生语言设置
+      await IOSLanguageHelper.updateIOSLanguage(locale.languageCode);
     } catch (e) {
       // 处理错误
       print('Error changing language: $e');

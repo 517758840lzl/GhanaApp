@@ -39,18 +39,7 @@ class CustomerServiceController extends GetxController {
   }
 
   /// 联系客服电话
-  Future<void> launchWhatsApp(String? phone) async {
-    // final Uri appUri = Uri.parse(whatsAppUrl);
-    // final String? phone = _extractPhoneFromUrl(whatsAppUrl);
-    //
-    // if (await canLaunchUrl(appUri)) {
-    //   final success = await launchUrl(
-    //     appUri,
-    //     mode: LaunchMode.externalApplication,
-    //   );
-    //   if (success) return;
-    // }
-
+  Future<void> openIphone(String? phone) async {
     if (phone != null) {
       final Uri telUri = Uri(scheme: 'tel', path: phone);
       if (await canLaunchUrl(telUri)) {
@@ -61,6 +50,24 @@ class CustomerServiceController extends GetxController {
     } else {
       _showErrorToast();
     }
+  }
+
+  Future<void> launchWhatsApp(String whatsAppUrl) async {
+    String? account = appCustomerServiceInfoResps
+        ?.where((item) => item["type"] == 2)
+        .map((item) => item["account"])
+        .firstOrNull;
+    final Uri appUri = Uri.parse(account??"");
+
+    if (await canLaunchUrl(appUri)) {
+      final success = await launchUrl(
+        appUri,
+        mode: LaunchMode.externalApplication,
+      );
+      if (success) return;
+    }
+
+
   }
 
   /// 从URL中提取电话号码

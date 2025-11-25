@@ -611,8 +611,8 @@ class LoanDetailPage extends StatelessWidget {
                         }
                       },
                     text: Platform.isAndroid
-                        ? 'privacyPolicy'.tr
-                        : 'loanContract'.tr,
+                        ? "《${'privacyPolicy'.tr}》"
+                        : "《${'loanContract'.tr}》",
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.primaryColor,

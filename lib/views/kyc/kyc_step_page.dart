@@ -132,7 +132,7 @@ class KycStepPage extends StatelessWidget {
                         : (code == '50002')
                         ? [
                             FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(10),
+                            LengthLimitingTextInputFormatter(16),
                           ]
                         : null,
                     style: TextStyle(

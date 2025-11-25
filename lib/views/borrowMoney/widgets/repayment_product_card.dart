@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter3APP/utils/widget/widget.dart';
 import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
 import '../../../routes/routes.dart';
@@ -93,7 +94,12 @@ class RepaymentProductCard extends BaseProductCard {
             buildBottomActionButton(product),
           ],
         ),
-      ),
+      ).onTap((){
+        if (product.appOrderId != null) {
+          List<String> ids = [product.appOrderId ?? ""];
+          Get.toNamed(Routes.repaymentSubmit, arguments: {'orderIds': ids});
+        }
+      }),
     );
   }
 

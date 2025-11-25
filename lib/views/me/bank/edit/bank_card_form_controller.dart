@@ -11,7 +11,7 @@ class BankCardFormController extends GetxController {
   final Rx<TextEditingController> bankCardNoController =
       TextEditingController().obs;
   final RxString selectedBankId = ''.obs;
-  // final RxString selectedBankType = ''.obs;
+  final RxString selectedBankType = ''.obs;
   final RxList<Map<String, String>> bankTypes = <Map<String, String>>[].obs;
   final RxList<dynamic> bankList = <dynamic>[].obs;
 
@@ -23,10 +23,10 @@ class BankCardFormController extends GetxController {
   final Rx<BankCardInfo?> bankCardInfo = Rx<BankCardInfo?>(null);
 
   //
-  // // 用于UI更新的方法
-  // void updateBankType(String value) {
-  //   selectedBankType.value = value;
-  // }
+  // 用于UI更新的方法
+  void updateBankType(String value) {
+    selectedBankType.value = value;
+  }
 
   void updateBankId(String value) {
     selectedBankId.value = value;
@@ -58,7 +58,7 @@ class BankCardFormController extends GetxController {
     if (mode == BankCardMode.update && bankCardInfo.value != null) {
       bankCardNoController.value.text = bankCardInfo.value?.bankCardNo ?? '';
       selectedBankId.value = bankCardInfo.value?.bankId.toString() ?? '';
-      // selectedBankType.value = bankCardInfo.value?.bankType?.toString() ?? '';
+       selectedBankType.value = bankCardInfo.value?.bankType?.toString() ?? '';
     }
     fetchDropdownData();
   }
@@ -82,20 +82,20 @@ class BankCardFormController extends GetxController {
           List<dynamic> stepInfoList = data['stepInfoList'];
           if (stepInfoList.isNotEmpty) {
             List<dynamic> entries = stepInfoList[0]['entries'] ?? [];
-            // final bankTypeEntry = entries.firstWhere(
-            //   (entry) => entry['code'] == '50001',
-            //   orElse: () => null,
-            // );
-            // if (bankTypeEntry != null && bankTypeEntry['selectList'] != null) {
-            //   bankTypes.value = List<Map<String, String>>.from(
-            //     bankTypeEntry['selectList'].map(
-            //       (item) => {
-            //         'key': item['key'].toString(),
-            //         'value': item['value'].toString(),
-            //       },
-            //     ),
-            //   );
-            // }
+            final bankTypeEntry = entries.firstWhere(
+              (entry) => entry['code'] == '50001',
+              orElse: () => null,
+            );
+            if (bankTypeEntry != null && bankTypeEntry['selectList'] != null) {
+              bankTypes.value = List<Map<String, String>>.from(
+                bankTypeEntry['selectList'].map(
+                  (item) => {
+                    'key': item['key'].toString(),
+                    'value': item['value'].toString(),
+                  },
+                ),
+              );
+            }
             final bankNameEntry = entries.firstWhere(
               (entry) => entry['code'] == '50005',
               orElse: () => null,
@@ -192,7 +192,7 @@ class BankCardFormController extends GetxController {
     try {
       final cardNo = bankCardNoController.value.text.trim();
       final bankId = selectedBankId.value;
-      // final bankType = selectedBankType.value;
+      final bankType = selectedBankType.value;
 
       // 数据验证
       // if (cardNo.isEmpty || bankId.isEmpty || bankType.isEmpty) {
@@ -212,7 +212,7 @@ class BankCardFormController extends GetxController {
           context,
           bankCardNo: cardNo,
           bankId: bankId,
-          bankType: "0",
+          bankType: bankType,
           id: cardId,
         );
       } else {
@@ -220,7 +220,7 @@ class BankCardFormController extends GetxController {
           context,
           bankCardNo: cardNo,
           bankId: bankId,
-          bankType: "0",
+          bankType: bankType,
         );
       }
 

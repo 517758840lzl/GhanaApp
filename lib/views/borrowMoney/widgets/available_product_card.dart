@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter3APP/utils/widget/widget.dart';
 import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
 import '../../../common/colors/app_colors.dart';
@@ -128,7 +129,9 @@ class AvailableProductCard extends BaseProductCard {
             // 底部操作按钮
             buildBottomActionButton(product, isSelected),
           ],
-        ),
+        ).onTap((){
+          handleProductSelection(product, isSelected);
+        }),
       );
     });
   }

@@ -110,11 +110,33 @@ class CountryConfigHelper {
   /// 根据国家代码获取对应的服务条款 URL
   /// [countryCode] 国家代码，如果为 null 或不在 COUNTRY_CODES 中，返回第一个值
   static String getTermServiceUrl(String? countryCode) {
-    final index = getCountryIndex(countryCode);
+    String? currentLang;
+
+    try {
+      // 优先从 LanguageController 获取当前语言
+      final languageController = Get.find<LanguageController>();
+      currentLang = languageController.currentLocale.value.languageCode;
+    } catch (e) {
+      // 如果获取语言控制器失败，尝试使用系统语言
+      try {
+        final systemLocale = Get.deviceLocale;
+        if (systemLocale != null) {
+          currentLang = systemLocale.languageCode;
+        }
+      } catch (e2) {
+        print('Error getting language: $e2');
+      }
+    }
+
+    // 根据语言代码确定索引：西班牙语返回第二个URL（index 1），其他语言返回第一个URL（index 0）
+    final index = currentLang == 'es' ? 1 : 0;
     if (index < Constant.URL_TERM_SERVICE.length) {
       return Constant.URL_TERM_SERVICE[index];
     }
+
+    // 默认返回第一个URL
     return Constant.URL_TERM_SERVICE.first;
+
   }
 
   /// 异步获取服务条款 URL（自动从 UserDataHelper 获取国家代码）

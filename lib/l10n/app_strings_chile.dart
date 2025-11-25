@@ -121,6 +121,7 @@ class AppStringsChile {
   // Home related
   static const String home = 'Préstamo';
   static const String loanAmountUpTo = 'Monto del préstamo hasta';
+  static const String amount = 'Monto';
   static const String loanTermUpTo = 'Plazo de préstamo hasta 12 meses';
   static const String noProductsAvailable =
       'No hay productos disponibles.';
@@ -145,7 +146,7 @@ class AppStringsChile {
   static const String loanConfirmation = 'Confirmación de préstamo';
   static const String loanApplication = 'Solicitud de préstamo';
   static const String loanResult = 'Resultado del préstamo';
-  static const String loanAmount = 'Monto del préstamo';
+  static const String loanAmount = 'Límite Preaprobado';
   static const String loanTerm = 'Plazo del préstamo';
   static const String serviceFee = 'Tarifa de servicio';
   static const String repaymentDate = 'Fecha de pago';
@@ -228,7 +229,7 @@ class AppStringsChile {
   static const String selectBank = 'Seleccionar banco';
   static const String pleaseSelectBank = 'Por favor seleccione un banco';
 
-  static const String bvnNumber = 'Número BVN';
+  static const String bvnNumber = 'Número tarjeta';
   static const String cardNumber = 'Número de cuenta bancaria';
   static const String enterCardNumber = 'Ingrese el número de cuenta bancaria';
   static const String bankAccountTip =
@@ -403,7 +404,7 @@ class AppStringsChile {
   static const String accountTypeSelection = 'Seleccionar tipo de cuenta';
   static const String bankSelection = 'Seleccionar banco';
 
-  static const String bvnNumberInput = 'Entrada de BVN';
+  static const String bvnNumberInput = 'Entrada de tarjeta';
 
   static const String cardNumberInput = 'Entrada de número de cuenta bancaria';
   static const String cardNumberInputField = 'Campo de número de cuenta bancaria';

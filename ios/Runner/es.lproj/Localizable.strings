@@ -1,0 +1,64 @@
+/* 
+  Localizable.strings
+  
+
+  Created by hao on 2025/11/21.
+  
+*/
+
+/* Face Detection View Controller */
+"face_detection.close"= "Cerrar";
+"face_detection.identity_verification"= "Verificación de Identidad";
+"face_detection.initial_instruction"= "Por favor, alinea tu rostro dentro del marco circular (20-80cm de la cámara) para la verificación de identidad.";
+"face_detection.start_verification"= "Iniciar Verificación";
+"face_detection.stop_verification"= "Detener Verificación";
+"face_detection.capture_photo"= "Capturar Foto";
+"face_detection.photo_captured_successfully"= "¡Foto capturada exitosamente!";
+"face_detection.align_face_for_front_detection"= "Por favor, alinea tu rostro dentro del marco circular para la detección frontal.";
+"face_detection.camera_unavailable"= "Cámara no disponible.";
+"face_detection.camera_output_unavailable"= "Salida de cámara no disponible.";
+"face_detection.move_face_farther"= "Por favor, aleja tu rostro de la cámara (25–65 cm).";
+"face_detection.move_face_closer"= "Por favor, acerca tu rostro a la cámara (25–65 cm).";
+"face_detection.face_too_small"= "Tu rostro parece demasiado pequeño, por favor acércate más.";
+"face_detection.face_too_large"= "Tu rostro parece demasiado grande, por favor aléjate más.";
+"face_detection.align_face_in_frame"= "Por favor, alinea tu rostro dentro del marco circular.";
+"face_detection.hold_still_detecting"= "Mantente quieto, detectando...";
+"face_detection.blink_detected"= "Parpadeo detectado (%d veces)";
+"face_detection.smile_detected"= "Sonrisa detectada exitosamente";
+"face_detection.mouth_open_detected"= "Boca abierta detectada exitosamente";
+"face_detection.head_movement_detected"= "Movimiento de cabeza detectado exitosamente";
+"face_detection.head_nod_detected"= "Movimiento de cabeza hacia abajo detectado exitosamente";
+"face_detection.front_face_detected"= "Rostro frontal detectado exitosamente";
+"face_detection.verification_stopped"= "La verificación ha sido detenida.";
+"face_detection.blink_instruction"= "Por favor, parpadea tus ojos.";
+"face_detection.smile_instruction"= "Por favor, sonríe naturalmente.";
+"face_detection.turn_head_instruction"= "Por favor, gira tu cabeza izquierda y derecha manteniendo tu rostro en el marco.";
+"face_detection.open_mouth_instruction"= "Por favor, abre tu boca manteniendo tu rostro en el marco.";
+"face_detection.look_directly_instruction"= "Por favor, mira directamente a la cámara manteniendo tu rostro en el marco.";
+"face_detection.follow_instructions"= "Por favor, sigue las instrucciones de verificación manteniendo tu rostro en el marco.";
+"face_detection.verification_completed"= "¡Verificación de identidad completada exitosamente!";
+"face_detection.liveness_verification_completed"= "¡Verificación de vida completada exitosamente!";
+"face_detection.verification_timeout"= "Verificación fallida: Tiempo agotado.";
+"face_detection.vision_error"= "Error de visión: %@";
+
+/* Vision Liveness Detector */
+"vision_detector.align_face"= "Por favor, alinea tu rostro dentro del marco circular.";
+"vision_detector.camera_unavailable"= "Cámara no disponible.";
+"vision_detector.camera_output_unavailable"= "Salida de cámara no disponible.";
+"vision_detector.face_too_small"= "Tu rostro parece demasiado pequeño, por favor acércate más.";
+"vision_detector.face_too_large"= "Tu rostro parece demasiado grande, por favor aléjate más.";
+"vision_detector.hold_still"= "Mantente quieto, detectando...";
+"vision_detector.blink_detected"= "Parpadeo detectado";
+"vision_detector.smile_detected"= "Sonrisa detectada exitosamente";
+"vision_detector.mouth_open_detected"= "Boca abierta detectada exitosamente";
+"vision_detector.head_movement_detected"= "Movimiento de cabeza detectado exitosamente";
+"vision_detector.front_face_detected"= "Rostro frontal detectado exitosamente";
+"vision_detector.front_face_ready_capture"= "¡Rostro frontal detectado! Por favor, toca para capturar la foto.";
+"vision_detector.blink_instruction"= "Por favor, parpadea tus ojos naturalmente.";
+"vision_detector.smile_instruction"= "Por favor, sonríe naturalmente.";
+"vision_detector.turn_head_instruction"= "Por favor, gira tu cabeza izquierda y derecha.";
+"vision_detector.open_mouth_instruction"= "Por favor, abre tu boca.";
+"vision_detector.look_directly_instruction"= "Por favor, mira directamente a la cámara y mantente quieto.";
+"vision_detector.follow_instructions"= "Por favor, sigue las instrucciones de verificación.";
+"vision_detector.vision_error"= "Error de visión: %@";
+"vision_detector.vision_perform_error"= "Error al ejecutar visión: %@";

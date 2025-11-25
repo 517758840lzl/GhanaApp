@@ -41,25 +41,30 @@ class LoginController extends GetxController {
     String? savedCountry = await UserDataHelper.getCountry();
     if (savedCountry != null && Constant.COUNTRY_CODES.contains(savedCountry)) {
       countryCode.value = savedCountry;
+      // 根据保存的区号同步语言
+      _syncLanguageWithCountryCode(savedCountry);
     } else {
-      // 如果没有保存的区号，根据系统语言设置默认区号
-      // 西班牙语默认第二个区号，其他语言默认第一个区号
+      // 如果没有保存的区号，根据当前语言设置默认区号
       String? currentLang;
       try {
-        final systemLocale = Get.deviceLocale;
-        if (systemLocale != null) {
-          currentLang = systemLocale.languageCode;
-        }
+        final languageController = Get.find<LanguageController>();
+        currentLang = languageController.currentLocale.value.languageCode;
       } catch (e) {
         // 如果获取语言控制器失败，尝试使用系统语言
-
-          LogUtil.d('Error getting language: $e');
+        try {
+          final systemLocale = Get.deviceLocale;
+          if (systemLocale != null) {
+            currentLang = systemLocale.languageCode;
+          }
+        } catch (e2) {
+          LogUtil.d('Error getting language: $e2');
+        }
       }
 
-      // 根据语言设置默认区号：西班牙语使用第二个（index 1），其他语言使用第一个（index 0）
-      final defaultIndex = currentLang == 'es' ? 1 : 0;
-      if (defaultIndex < Constant.COUNTRY_CODES.length) {
-        countryCode.value = Constant.COUNTRY_CODES[defaultIndex];
+      // 根据语言设置默认区号：西班牙语使用56，其他语言使用233
+      final defaultCode = currentLang == 'es' ? '56' : '233';
+      if (Constant.COUNTRY_CODES.contains(defaultCode)) {
+        countryCode.value = defaultCode;
       } else {
         countryCode.value = Constant.COUNTRY_CODES.first;
       }
@@ -70,6 +75,23 @@ class LoginController extends GetxController {
     if (Constant.COUNTRY_CODES.contains(code)) {
       countryCode.value = code;
       await UserDataHelper.saveCountry(code);
+      // 根据区号切换语言：233->英语，56->西班牙语
+      _syncLanguageWithCountryCode(code);
+    }
+  }
+
+  /// 根据区号同步语言
+  /// 233 -> 英语，56 -> 西班牙语
+  void _syncLanguageWithCountryCode(String code) {
+    try {
+      final languageController = Get.find<LanguageController>();
+      if (code == '233') {
+        languageController.switchToEnglish();
+      } else if (code == '56') {
+        languageController.switchToSpanish();
+      }
+    } catch (e) {
+      LogUtil.d('Error syncing language with country code: $e');
     }
   }
 

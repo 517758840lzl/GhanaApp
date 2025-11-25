@@ -111,19 +111,6 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
     }
   }
 
-  /// 将秒数转换为时分秒格式
-  String _formatTimeFromSeconds(int totalSeconds) {
-    int hours = totalSeconds ~/ 3600;
-    int minutes = (totalSeconds % 3600) ~/ 60;
-    int seconds = totalSeconds % 60;
-
-    if (hours > 0) {
-      return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-    } else {
-      return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-    }
-  }
-
   /// 获取可借产品数量
   int _getAvailableProductsCount() {
     final confirmData = controller.homePageData.value.confirmData;
@@ -158,7 +145,9 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  controller.cacheFlag.value==0?'maintainGoodCreditTip'.tr:'maintainingGoodCreditHistory'.tr,
+                  controller.cacheFlag.value == 0
+                      ? 'maintainGoodCreditTip'.tr
+                      : 'maintainingGoodCreditHistory'.tr,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.black54,
@@ -223,7 +212,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [AppColors.primaryColor,AppColors.primaryDarkColor ],
+            colors: [AppColors.primaryColor, AppColors.primaryDarkColor],
           ),
         ),
         child: SafeArea(
@@ -235,7 +224,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
               // 倒计时提示
               _buildCountdownBanner(),
 
-              SizedBox(height: 10,)
+              SizedBox(height: 10),
             ],
           ),
         ),
@@ -249,7 +238,7 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-         color: Colors.white.withOpacity(0.5),
+        color: Colors.white.withOpacity(0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withOpacity(0.2)),
       ),
@@ -417,9 +406,14 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
       final shouldShowCountdown = controller.showBottomCountdown.value;
       if (!shouldShowCountdown) return const SizedBox.shrink();
 
+      final autoConfirmTips =
+          controller.homePageData.value.confirmData?.autoConfirmTips ?? '';
+      final countdownSeconds = controller.countdownSeconds.value;
+      final countdownText = _formatTimeFromSeconds(countdownSeconds);
+
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.orange.shade50, Colors.orange.shade100],
@@ -457,54 +451,76 @@ class _BorrowPageState extends State<BorrowPage> with TickerProviderStateMixin {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'autoDisburseIn'.tr.replaceFirst(
-                      '{seconds}',
-                      _formatTimeFromSeconds(controller.countdownSeconds.value),
+                  if (autoConfirmTips.isNotEmpty)
+                    Text(
+                      autoConfirmTips,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.orange.shade800,
+                        fontWeight: FontWeight.w600,
+                        height: 1.3,
+                      ),
                     ),
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.orange.shade800,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'autoDisburseDescription'.tr,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.orange.shade600,
-                    ),
-                  ),
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: controller.showCancelAutoDisburseDialog,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.orange.shade600,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Text(
-                  'cancel'.tr,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
+            const SizedBox(width: 8),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  countdownText,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.orange.shade900,
+                    fontWeight: FontWeight.bold,
+                    fontFeatures: [const FontFeature.tabularFigures()],
                   ),
                 ),
-              ),
+                const SizedBox(height: 6),
+                GestureDetector(
+                  onTap: controller.showCancelAutoDisburseDialog,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.orange.shade600,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      'cancel'.tr,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       );
     });
+  }
+
+  /// 将秒数转换为时分秒格式
+  String _formatTimeFromSeconds(int totalSeconds) {
+    int hours = totalSeconds ~/ 3600;
+    int minutes = (totalSeconds % 3600) ~/ 60;
+    int seconds = totalSeconds % 60;
+
+    if (hours > 0) {
+      return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    } else {
+      return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    }
   }
 
   /// 构建主要内容区域

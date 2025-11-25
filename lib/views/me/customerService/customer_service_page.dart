@@ -218,7 +218,7 @@ class CustomerServicePage extends StatelessWidget {
         lightColor = AppColors.primaryColor.withOpacity(0.1);
         typeText = 'phoneSupport'.tr;
         actionText = 'callNow'.tr;
-        onAction = () => controller.launchWhatsApp(account);
+        onAction = () => controller.openIphone(account);
         break;
       case 2: // WhatsApp
         icon = Icons.chat_bubble_outline;

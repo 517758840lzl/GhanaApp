@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../models/home_page_data.dart';
@@ -41,7 +42,7 @@ abstract class BaseProductCard extends StatelessWidget {
             buildDetailRow('dueDate'.tr, formatDueDate(product)),
           ] else ...[
             buildDetailRow('termsLabel'.tr, formatTerms(product)),
-            buildDetailRow('loanAmount'.tr, formatLoanAmount(product)),
+            buildDetailRow('amount'.tr, formatLoanAmount(product)),
             buildDetailRow(
               'dailyInterestsLabel'.tr,
               formatInterestRate(product),
@@ -59,20 +60,27 @@ abstract class BaseProductCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w500,
+          Container(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF2D3748),
+          const SizedBox(width: 2),
+          Flexible(
+            child: AutoSizeText(
+              value,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.right,
             ),
           ),
         ],

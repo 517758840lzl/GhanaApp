@@ -85,88 +85,73 @@ class BankCardFormPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.06,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                       child: Form(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Account type selection
-                            // Semantics(
-                            //   label: 'accountTypeSelection'.tr,
-                            //   child: Text(
-                            //     'accountType'.tr,
-                            //     style: TextStyle(
-                            //       fontSize: 16,
-                            //       fontWeight: FontWeight.w600,
-                            //       color: Colors.black87,
-                            //     ),
-                            //   ),
-                            // ),
-                            // const SizedBox(height: 12),
-                            // controller.bankTypes.isEmpty
-                            //     ? Container(
-                            //       key: Key('loading_account_types'),
-                            //       padding: const EdgeInsets.all(16),
-                            //       decoration: BoxDecoration(
-                            //         color: Colors.grey[100],
-                            //         borderRadius: BorderRadius.circular(
-                            //           12,
-                            //         ),
-                            //         border: Border.all(
-                            //           color: Colors.grey[300]!,
-                            //         ),
-                            //       ),
-                            //       child: Row(
-                            //         children: [
-                            //           Icon(
-                            //             Icons.info_outline,
-                            //             color: Colors.grey[600],
-                            //           ),
-                            //           const SizedBox(width: 12),
-                            //           Semantics(
-                            //             label:
-                            //                 AppStrings
-                            //                     .loadingAccountTypes,
-                            //             child: Text(
-                            //               'loadingAccountTypes'.tr,
-                            //               style: TextStyle(
-                            //                 color: Colors.grey[600],
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     )
-                            //     : _buildSelectionField(
-                            //       controller,
-                            //       'accountType'.tr,
-                            //       controller.selectedBankType.value,
-                            //       controller.bankTypes,
-                            //       (value) =>
-                            //           controller.selectedBankType.value =
-                            //               value,
-                            //       validator:
-                            //           (value) =>
-                            //               value == null || value.isEmpty
-                            //                   ? AppStrings
-                            //                       .pleaseSelectAccountType
-                            //                   : null,
-                            //     ),
+                            Semantics(
+                              label: 'accountTypeSelection'.tr,
+                              child: Text(
+                                'accountType'.tr,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            controller.bankTypes.isEmpty
+                                ? Container(
+                                  key: Key('loading_account_types'),
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                    borderRadius: BorderRadius.circular(
+                                      12,
+                                    ),
+                                    border: Border.all(
+                                      color: Colors.grey[300]!,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.info_outline,
+                                        color: Colors.grey[600],
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Semantics(
+                                        label:
+                                            'loadingAccountTypes'.tr,
+                                        child: Text(
+                                          'loadingAccountTypes'.tr,
+                                          style: TextStyle(
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                : _buildSelectionField(
+                                  controller,
+                                  'accountType'.tr,
+                                  controller.selectedBankType.value,
+                                  controller.bankTypes,
+                                  (value) =>
+                                      controller.selectedBankType.value =
+                                          value,
+                                  validator:
+                                      (value) =>
+                                          value == null || value.isEmpty
+                                              ? 'pleaseSelectAccountType'.tr
+                                              : null,
+                                ),
 
-                            // Semantics(
-                            //   label: 'bvnNumberInput'.tr,
-                            //   child: Text(
-                            //     "${'bvnNumber'.tr}:",
-                            //     style: TextStyle(
-                            //       fontSize: 16,
-                            //       fontWeight: FontWeight.w600,
-                            //       color: Colors.black87,
-                            //     ),
-                            //   ),
-                            // ),
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 8),
 
                             // Bank selection
                             Semantics(
@@ -180,7 +165,7 @@ class BankCardFormPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 3),
                             controller.bankList.isEmpty
                                 ? Container(
                                   key: Key('loading_bank_list'),
@@ -212,7 +197,7 @@ class BankCardFormPage extends StatelessWidget {
                                   ),
                                 )
                                 : _buildBankSelectionField(controller),
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 8),
 
                             // Card number input
                             Semantics(
@@ -226,7 +211,7 @@ class BankCardFormPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 10),
                             ModernFormWidgets.buildShadowedInputField(
                               Semantics(
                                 label: 'cardNumberInputField'.tr,
@@ -247,6 +232,7 @@ class BankCardFormPage extends StatelessWidget {
                                     if (val == null || val.isEmpty) {
                                       return 'enterCardNumber'.tr;
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -256,14 +242,14 @@ class BankCardFormPage extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
 
                     // 提示信息
                     Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
                         color: Colors.orange[50],
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: Colors.orange[200]!),
                       ),
                       child: Row(
@@ -344,6 +330,65 @@ class BankCardFormPage extends StatelessWidget {
   /// [options] 选项列表
   /// [onChanged] 选择改变回调
   /// [validator] 验证函数
+  Widget _buildSelectionField(
+    BankCardFormController controller,
+    String label,
+    String currentValue,
+    List<Map<String, String>> options,
+    Function(String) onChanged,
+    {String? Function(String?)? validator}
+  ) {
+    String displayValue = '';
+    try {
+      if (currentValue.isNotEmpty && options.isNotEmpty) {
+        final selectedOption = options.firstWhere(
+          (option) => option['key'] == currentValue,
+          orElse: () => {'key': '', 'value': ''},
+        );
+        displayValue = selectedOption['value'] ?? '';
+      }
+    } catch (e) {
+      // 处理异常情况
+      displayValue = '';
+    }
+
+    // 将选项转换为选择器需要的格式
+    final List<Map<String, dynamic>> pickerOptions = options
+        .map((option) => {
+              'key': option['key'] ?? '',
+              'value': option['value'] ?? '',
+            })
+        .toList();
+
+    return ModernFormWidgets.buildShadowedInputField(
+      TextFormField(
+        readOnly: true,
+        controller: TextEditingController(text: displayValue),
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: ModernFormWidgets.getModernInputDecoration(
+          label: label,
+          errorText: currentValue.isEmpty ? validator?.call(null) : null,
+          suffixIcon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
+        ),
+        onTap: () async {
+          if (options.isNotEmpty) {
+            await IOSPickerWidget.showIOSPicker(
+              Get.context!,
+              label,
+              pickerOptions,
+              (value) => onChanged(value),
+              currentValue,
+            );
+          }
+        },
+        validator: validator,
+      ),
+    );
+  }
 
   /// 构建银行选择字段
   /// [controller] 控制器实例
