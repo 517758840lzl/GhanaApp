@@ -12,4 +12,6 @@
 "NSMotionUsageDescription"= "This app needs access to the motion sensor to detect device shakes for certain security verification features.";
 "NSPhotoLibraryUsageDescription"= "We'd like to access your photo library so you can easily pick photos of your ID. This helps us verify your identity and keep your account safe.";
 "NSUserTrackingUsageDescription"= "We need to use your device identifier for data analysis and risk control to improve the security of our app.";
+CFBundleDisplayName = "Agyapa Loan";
+
 

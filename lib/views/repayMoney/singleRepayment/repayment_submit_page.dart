@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/formatter/number_formatter.dart';
+import '../../../utils/string/string_util.dart';
 import '../../widgets/exit_confirmation_dialog.dart';
 import '../../../routes/routes.dart';
 import '../../../models/coupon.dart';
@@ -69,30 +70,28 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xFFF8FAFC),
         appBar: _buildAppBar(),
-        body: Obx(
-          () => SafeArea(
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: SlideTransition(
-                position: _slideAnimation,
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          _buildAmountSection(),
-                          const SizedBox(height: 5),
-                          _buildCouponSection(),
-                          const SizedBox(height: 5),
-                          _buildDetailsSection(),
-                          const SizedBox(height: 120),
-                        ],
-                      ),
+        body: SafeArea(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: SlideTransition(
+              position: _slideAnimation,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        _buildAmountSection(),
+                        const SizedBox(height: 5),
+                        _buildCouponSection(),
+                        const SizedBox(height: 5),
+                        _buildDetailsSection(),
+                        const SizedBox(height: 120),
+                      ],
                     ),
-                    _buildBottomButtons(),
-                  ],
-                ),
+                  ),
+                  _buildBottomButtons(),
+                ],
               ),
             ),
           ),
@@ -150,39 +149,45 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
   }
 
   Widget _buildAmountSection() {
-    return Container(
-      // margin: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            AppColors.primaryColor,
-            AppColors.primaryColor.withOpacity(0.8),
+    return Obx(() {
+      final shouldShowRange =
+          controller.isAmountReadOnly.value;
+
+      return Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              AppColors.primaryColor,
+              AppColors.primaryColor.withOpacity(0.8),
+            ],
+          ),
+          // borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primaryColor.withOpacity(0.3),
+              blurRadius: 15,
+              offset: const Offset(0, 6),
+            ),
           ],
         ),
-        // borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryColor.withOpacity(0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          const SizedBox(height: 16),
-          _buildAmountHeader(),
-          const SizedBox(height: 12),
-          _buildAmountInput(),
-          const SizedBox(height: 12),
-            _buildAmountRange(),
-          const SizedBox(height: 16),
-
-        ],
-      ),
-    );
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            _buildAmountHeader(),
+            const SizedBox(height: 12),
+            _buildAmountInput(),
+            if (!shouldShowRange) ...[
+              const SizedBox(height: 12),
+              _buildAmountRange(),
+            ],
+            const SizedBox(height: 16),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildAmountHeader() {
@@ -202,7 +207,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
           ),
         ),
         const SizedBox(width: 8),
-         Text(
+        Text(
           'repaymentAmount'.tr,
           style: TextStyle(
             color: Colors.black,
@@ -217,11 +222,61 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
   Widget _buildAmountInput() {
     return Obx(() {
       final couponResponse = controller.postLoanCouponResponse.value;
+      final isReadOnly = controller.isAmountReadOnly.value;
 
       if (couponResponse != null) {
         return _buildCouponAmountDisplay(couponResponse);
       }
 
+      // 如果只读，返回纯展示视图
+      if (isReadOnly) {
+        final displayAmount = controller.amountController.text.isEmpty
+            ? StringUtil.formatDecimalAmount(controller.maxAmount.value)
+            : controller.amountController.text;
+
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${'currencyUSD'.tr} ',
+                style: const TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Container(
+                child: Text(
+                  displayAmount,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF2C3E50),
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+
+      // 如果不只读，返回 TextField
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
@@ -238,7 +293,6 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
         child: TextField(
           controller: controller.amountController,
           focusNode: controller.amountFocusNode,
-          readOnly: controller.isAmountReadOnly.value,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           style: const TextStyle(
             fontSize: 22,
@@ -350,7 +404,6 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
-
             ],
           ),
           const SizedBox(height: 6),
@@ -779,7 +832,7 @@ class _RepaymentSubmitPageState extends State<RepaymentSubmitPage>
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child:  Text(
+        child: Text(
           'repayNow'.tr,
           style: TextStyle(
             color: Colors.black,

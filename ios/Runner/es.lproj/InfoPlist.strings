@@ -13,3 +13,4 @@
 "NSPhotoLibraryUsageDescription"= "Nos gustaría acceder a tu galería de fotos para que puedas seleccionar fácilmente imágenes de tu identificación. Esto nos ayuda a verificar tu identidad y mantener segura tu cuenta.";
 "NSUserTrackingUsageDescription"= "Necesitamos usar el identificador de tu dispositivo para análisis de datos y control de riesgos con el fin de mejorar la seguridad de nuestra aplicación.";
 
+CFBundleDisplayName = "Ágil Crédito";

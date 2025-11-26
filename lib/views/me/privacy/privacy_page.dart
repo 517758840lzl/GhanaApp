@@ -259,7 +259,7 @@ class _PrivacyPageState extends State<PrivacyPage> {
                   ),
                   child: Text(
                     'agreeButtonText'.tr,
-                    style: const TextStyle(fontSize: sp16),
+                    style: const TextStyle(fontSize: sp16,color: Colors.black),
                   ),
                 ),
               ),

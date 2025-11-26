@@ -121,15 +121,10 @@ class KycStepPage extends StatelessWidget {
                   },
                   child: TextFormField(
                     controller: controller.controllers[code],
-                    keyboardType: (code == '50002' || code == '40002')
+                    keyboardType: (code == '50002')
                         ? TextInputType.number
                         : TextInputType.text,
-                    inputFormatters: (code == '40002')
-                        ? [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(11),
-                          ]
-                        : (code == '50002')
+                    inputFormatters: (code == '50002')
                         ? [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(16),
@@ -148,12 +143,7 @@ class KycStepPage extends StatelessWidget {
                       if (v == null || v.trim().isEmpty) {
                         return 'pleaseFillAllFields'.tr;
                       }
-                      if (code == '40002' && v.trim().length != 11) {
-                        return 'Please enter 11 digits';
-                      }
-                      if (code == '50002' && v.trim().length != 10) {
-                        return 'Please enter 10 digits';
-                      }
+
                       return null;
                     },
                   ),

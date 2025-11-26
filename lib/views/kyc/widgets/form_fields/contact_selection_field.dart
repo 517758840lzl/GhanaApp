@@ -139,34 +139,14 @@ class _ContactSelectionFieldState extends State<ContactSelectionField> {
   Widget build(BuildContext context) {
     // 判断是否可编辑
     bool isEditable = widget.type == 10; // 10可选可输入，9只能选
+    // 判断是否隐藏右侧 icon（code 为 30052 或 30062）
+    bool shouldText = widget.code == '30052' || widget.code == '30062';
 
-    return GestureDetector(
-      onTap: !isEditable
-          ? () {
-              // 对于只读字段，点击时直接触发联系人选择
-              _handleContactTap();
-            }
-          : null,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              spreadRadius: 0,
-              blurRadius: 10,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: TextFormField(
+    Widget textField = TextFormField(
           readOnly: !isEditable,
           controller: widget.controller.controllers[widget.code],
           focusNode: _focusNode,
-          keyboardType: TextInputType.phone,
+          keyboardType: shouldText ? TextInputType.text : TextInputType.phone,
           enableInteractiveSelection: isEditable,
           contextMenuBuilder: (context, editableTextState) {
             // 返回空菜单，防止系统上下文菜单错误
@@ -191,28 +171,28 @@ class _ContactSelectionFieldState extends State<ContactSelectionField> {
             hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            suffixIcon: Container(
-              margin: EdgeInsets.only(right: 8),
-              child: Material(
-                color: Colors.transparent,
-                child: GestureDetector(
-                  onTap: _handleContactTap,
-                  behavior: HitTestBehavior.opaque,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      Icons.contacts,
-                      color: AppColors.primaryColor,
-                      size: 20,
+            suffixIcon:  Container(
+                    margin: EdgeInsets.only(right: 8),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: GestureDetector(
+                        onTap: _handleContactTap,
+                        behavior: HitTestBehavior.opaque,
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            Icons.contacts,
+                            color: AppColors.primaryColor,
+                            size: 20,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
             errorText:
                 widget.controller.isSubmitted.value &&
                     (widget.controller.controllers[widget.code]?.text
@@ -237,7 +217,36 @@ class _ContactSelectionFieldState extends State<ContactSelectionField> {
             }
             return null;
           },
+        );
+
+    return GestureDetector(
+      onTap: !isEditable
+          ? () {
+              // 对于只读字段（type == 9），整个框都可以点击
+              _handleContactTap();
+            }
+          : null,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
+        child: !isEditable
+            ? IgnorePointer(
+                // 不可编辑时，让 TextFormField 不拦截点击事件，整个框都可以点击
+                child: textField,
+              )
+            : textField,
       ),
     );
   }

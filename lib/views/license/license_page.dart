@@ -36,7 +36,7 @@ class LicensePage extends GetView<LicenseController> {
           title: Text(
             'permissionsStatement'.tr,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: sp18,
               fontWeight: FontWeight.w600,
             ),
@@ -44,7 +44,7 @@ class LicensePage extends GetView<LicenseController> {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: Colors.black,
               size: 20,
             ),
             onPressed: () => controller.handleBackButtonPress(context),
@@ -158,13 +158,14 @@ class LicensePage extends GetView<LicenseController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.check_circle_outline, size: dp20),
+                            const Icon(Icons.check_circle_outline, size: dp20,color: Colors.black),
                             const SizedBox(width: dp8),
                             Text(
                               'agreeButtonText'.tr,
                               style: const TextStyle(
                                 fontSize: sp16,
                                 fontWeight: FontWeight.w600,
+                                  color: Colors.black
                               ),
                             ),
                           ],
